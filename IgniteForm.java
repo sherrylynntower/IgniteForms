@@ -494,28 +494,29 @@ public class IgniteForm extends JFrame {
 		btnADDupdate_Profile.setEnabled(true);
 		btnADDupdate_Profile.setForeground(new Color(0, 0, 255));
 		btnADDupdate_Profile.setBackground(new Color(128, 255, 255));
-		btnADDupdate_Profile.setBounds(764, 597, 271, 50);
+		btnADDupdate_Profile.setBounds(758, 568, 271, 50);
 		contentPane.add(btnADDupdate_Profile);
 		
-		JButton btnDelete = new JButton("DELETE Profile RECORDS - Under Construction");
+		JButton btnDelete = new JButton("DELETE Profile RECORDS");
 		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (jtxtuserid.getText().trim().contentEquals("E101")) {
+				
+				if (jtxtuserid.getText().trim().contentEquals("E101") || jtxtuserid.getText().trim().contentEquals("admin") ) {
 					btnDelete.setEnabled(true);
 					try {    
-			            JTextField xuser = new JTextField(10);
+			            JTextField xuser = new JTextField(40);
 			            JPanel myPanel = new JPanel();
-			            myPanel.add(new JLabel("Enter Profile Userid to Delete:"));
+			            myPanel.add(new JLabel("Enter Profile Userid to Delete -- Make sure you enter the correct userid:"));
 			            myPanel.add(xuser);
 			            myPanel.add(Box.createHorizontalStrut(15)); // a spacer
 			           
-			            int result = JOptionPane.showConfirmDialog(null, myPanel, "Please DELETE User", JOptionPane.OK_CANCEL_OPTION);
+			            int result = JOptionPane.showConfirmDialog(null, myPanel, "Enter User to be  DELETED ", JOptionPane.OK_CANCEL_OPTION);
 			            if (result == JOptionPane.OK_OPTION) {
 			            	
 			            	String usr = xuser.getText();
-			               
-			                deleteProfileUser(usr);   	  					               
+			            	JOptionPane.showMessageDialog(null,"User information Deleted");
+			               deleteProfileUser(usr);   	  					               
 			            }
 			           
 			         }
@@ -524,8 +525,9 @@ public class IgniteForm extends JFrame {
 					JOptionPane.showMessageDialog(null, ed);
 				};	
 				}else {
+					JOptionPane.showMessageDialog(null, "You need to be a Admin to add a user");
 					btnDelete.setEnabled(false);
-					}
+				}
 			
 			}	
 		});
@@ -540,7 +542,7 @@ public class IgniteForm extends JFrame {
 		btnAddDeleteUser.setBackground(new Color(128, 255, 255));
 		btnAddDeleteUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (jtxtuserid.getText().trim().contentEquals("E101")) {
+				if (jtxtuserid.getText().trim().contentEquals("E101") || jtxtuserid.getText().trim().contentEquals("admin") ) {
 					btnAddDeleteUser.setEnabled(true);
 					
 						try {    
@@ -650,7 +652,7 @@ public class IgniteForm extends JFrame {
 		});
 		btnADDUpdateSkills.setBackground(new Color(128, 255, 255));
 		btnADDUpdateSkills.setForeground(new Color(0, 0, 255));
-		btnADDUpdateSkills.setBounds(764, 660, 274, 50);
+		btnADDUpdateSkills.setBounds(758, 629, 274, 50);
 		contentPane.add(btnADDUpdateSkills);
 		
 		JLabel lblViewRecord_Infosave = new JLabel("Dont forget to SAVE after your changes are made.");
@@ -666,13 +668,41 @@ public class IgniteForm extends JFrame {
 		btnResetPassword.setBackground(new Color(128, 255, 255));
 		btnResetPassword.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (jtxtuserid.getText().trim().contentEquals("E101")) {
-					btnResetPassword.setEnabled(true);
+				if (jtxtuserid.getText().trim().contentEquals("E101") || jtxtuserid.getText().trim().contentEquals("admin") ) {
+					btnAddDeleteUser.setEnabled(true);
 					
+						try {    
+							 
+					            JTextField xuser = new JTextField(25);
+					            JTextField ypassword = new JTextField(15);
+
+					            JPanel myPanel = new JPanel();
+					            myPanel.add(new JLabel("username"));
+					            myPanel.add(xuser);
+					            myPanel.add(Box.createHorizontalStrut(15)); // a spacer
+					            myPanel.add(new JLabel("password:"));
+					            myPanel.add(ypassword);
+
+					            int result = JOptionPane.showConfirmDialog(null, myPanel, 
+					                     "Please Enter Username and Password Values", JOptionPane.OK_CANCEL_OPTION);
+					            if (result == JOptionPane.OK_OPTION) {
+					            	
+					            	String usr = xuser.getText();
+					            	String pass = ypassword.getText();
+					            	update_password(usr,pass);
+					               
+					            }
+					         }
+						
+						catch(Exception ez) {
+						
+							JOptionPane.showMessageDialog(null, ez);
+						};
+	
 				}else {
-					btnResetPassword.setEnabled(false);
+					JOptionPane.showMessageDialog(null, "You need to be a Admin to add a user");
+					btnAddDeleteUser.setEnabled(false);
 				}
-				
 			}
 		});
 		btnResetPassword.setBounds(730, 782, 240, 23);
@@ -1120,6 +1150,26 @@ public class IgniteForm extends JFrame {
 		lblViewRecord_Infosave_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblViewRecord_Infosave_1.setBounds(758, 432, 628, 21);
 		contentPane.add(lblViewRecord_Infosave_1);
+		
+		JButton btnViewCareerPath = new JButton("View Career Path>>>");
+		btnViewCareerPath.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				strps = (String) jtxtuserid.getText();
+				
+				DesignCareerPath upf=new DesignCareerPath();
+	 				upf.setLocationRelativeTo(null);
+	 				upf.setVisible(true);
+	 				upf.my_update(strps);
+				
+				
+			}
+		});
+		btnViewCareerPath.setForeground(Color.BLUE);
+		btnViewCareerPath.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		btnViewCareerPath.setBackground(new Color(128, 255, 255));
+		btnViewCareerPath.setBounds(758, 690, 274, 50);
+		contentPane.add(btnViewCareerPath);
 
 	}
 	
@@ -1177,6 +1227,23 @@ public class IgniteForm extends JFrame {
 	
 	public void deleteProfileUser(String delusr) throws SQLException{
 		
+		/*Delete employeeSkills*/
+		String qery="DELETE from employeeSkills where username=?";
+		PreparedStatement pstat=conn.prepareStatement(qery);
+		try {
+			
+			pstat.setString(1,delusr);
+	        pstat.execute();
+			JOptionPane.showMessageDialog(null, "Skills Deleted");
+			pstat.close();
+
+			} catch (Exception ey) {
+			
+			JOptionPane.showMessageDialog(null, " exception error Profile Record not Deleted");
+			ey.printStackTrace();
+		}
+		
+		
 		String query="DELETE from profileData where username=?";
 		PreparedStatement pst=conn.prepareStatement(query);
 		try {
@@ -1191,7 +1258,7 @@ public class IgniteForm extends JFrame {
 			JOptionPane.showMessageDialog(null, " exception error Profile Record not Deleted");
 			ex.printStackTrace();
 		}
-		/*Delete employeeSkills*/
+		
 		
 		String qry="DELETE from userInfo where username=?";
 		PreparedStatement ps=conn.prepareStatement(qry);
@@ -1219,25 +1286,43 @@ public class IgniteForm extends JFrame {
 	while (rs.next()){
         
         	String checkUser = (rs.getString(1));
-        	System.out.println("user id"  + uid);
-        	System.out.println(" check user"  +  checkUser);
         	
         		if (uid.equals(checkUser)){
-        			System.out.println("uid does equal");
         			oktoupdate=("N");
-				}else {
-				System.out.println("uid does not equal");
-				
+				}else {//System.out.println("uid does not equal");
 				}
         	}
-        	System.out.println("is it ok to update?   "+oktoupdate);	
+        	
 	}catch(SQLException e){
 		e.printStackTrace();}
 	return oktoupdate;
 	}
+	
+	public void update_password(String uid,String pass) throws SQLException {
+		try{
+	        			String query = "UPDATE UserInfo SET password=? WHERE UserInfo.username =?";
+						
+						PreparedStatement pst=conn.prepareStatement(query);
+						pst.setString(1, pass);
+						pst.setString(2, uid);
+						pst.execute();
+	    				
+						check_Userid(uid,pass);
+	    				
+	    				if (oktoupdate != null && oktoupdate=="N"){
+	    					JOptionPane.showMessageDialog(null, "Password Changed");
+	    				}else {JOptionPane.showMessageDialog(null, "User must exsist");			
+	    				}
+						
+	    				pst.close();
+	    				
+		} catch (SQLException e) {
+			e.printStackTrace();
+			}
+}
+	        	
 
 	public String UpdateUser(String oktoupdate,String uid,String pass) throws SQLException{
-		System.out.println("is it ok to update?   "+oktoupdate);
 		
 		if (oktoupdate != null && oktoupdate=="Y"){
 			
@@ -1367,7 +1452,7 @@ public void fillDatajcbsecuritylevel(JComboBox jcbsecuritylevel){
 		ResultSet rs;
 		rs = pst.executeQuery();
    
-		while (rs.next()) {
+		while (rs.next()) { 
             	
 			jcbsecuritylevel.addItem(rs.getString("selectionName"));
             
@@ -1444,7 +1529,7 @@ public void fillDatajcbcurrentbandlevel(JComboBox jcbcurrentbandlevel){
 		jtxtuserid.setBackground(new Color(128, 255, 255));
 		getContentPane().add(jtxtuserid);
 		jtxtuserid.setColumns(10);
-		if (str.equals("E101")){
+		if (str.equals("E101") || str.equals("admin")){
 			AdminUser = "Y";
 		}else {
 			AdminUser = "N";

@@ -25,15 +25,9 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-
 import javax.swing.RowFilter;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.JComboBox;
-import javax.swing.JList;
-import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
+
 
 @SuppressWarnings("serial")
 public class DesignCareerPath extends JFrame{
@@ -228,9 +222,7 @@ public class DesignCareerPath extends JFrame{
 				
 				try {
 				String query = "Insert into CareerPath (employeeID,Title,Requirements,StartDate,EndDate,Mentors,Status,Description ,Notes)values (?,?,?,?,?,?,?,?,?)";
-					PreparedStatement pst = conn.prepareStatement(query);
-					ResultSet rst;
-					
+					PreparedStatement pst = conn.prepareStatement(query);	
 				
 				pst.setString(1,jtxtuserid.getText());
 				pst.setString(2,textFieldTitle.getText());
@@ -292,6 +284,7 @@ public class DesignCareerPath extends JFrame{
 		scrollPane.setViewportView(table);	
 		model= new DefaultTableModel();
 		Object[] column = {"employeeID","CareerID","Title","Requirements","StartDate","EndDate","Mentors","Status","Description" ,"Notes"};
+		@SuppressWarnings("unused")
 		Object[] row = new Object[0];
 		
 		model.setColumnIdentifiers(column);

@@ -2,21 +2,17 @@ package Profile;
 
 import java.sql.*;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
+
+@SuppressWarnings("unused")
 public class dbConnection {
 	
 	Connection conn = null;
 	
 	public static Connection ConnectDB() {
-		//String jdbcUrl = "jdbc:sqlite://9.42.208.242\\instanceOfMsSQL;databaseName=igniteCensus";
-		//String server = "9.42.208.242";
-		//String port =":3306/";
-	   // String usern ="/exttest2";
-	   // String pass ="strext14";
-	    //IP Address: 9.42.208.242
-	    //User id: /exttest2
-	    //Pass: strext14
 
-		
 		try {
 			
 			Class.forName("org.sqlite.JDBC");
@@ -36,8 +32,11 @@ public class dbConnection {
 		catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Connection Failed"+e);
+			JOptionPane.showMessageDialog(null, "Communications link failure Application closing");
+			System.exit(0);
 			return null;
 		}
 
 	}
+
 }

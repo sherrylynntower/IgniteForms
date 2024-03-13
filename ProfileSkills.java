@@ -74,6 +74,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JLayeredPane;
+import javax.swing.border.LineBorder;
 
 @SuppressWarnings({ "serial", "unused" })
 
@@ -561,7 +562,7 @@ public class ProfileSkills extends JFrame {
 	    scrollPaneskill.setViewportView(listMYIgniteSkillProflvl1_1);
 	    
 	    JScrollPane scrollPaneSDLCModel = new JScrollPane();
-	    scrollPaneSDLCModel.setBounds(21, 205, 195, 106);
+	    scrollPaneSDLCModel.setBounds(21, 205, 210, 106);
 	    panelProf.add(scrollPaneSDLCModel);
 	    
 	    JList listSDLCModelExperience = new JList();
@@ -633,7 +634,7 @@ public class ProfileSkills extends JFrame {
 	    btnAddSkillProfLvl.setForeground(new Color(0, 0, 255));
 	    btnAddSkillProfLvl.setBackground(new Color(204, 204, 255));
 	    btnAddSkillProfLvl.setFont(new Font("Tahoma", Font.BOLD, 11));
-	    btnAddSkillProfLvl.setBounds(234, 55, 54, 22);
+	    btnAddSkillProfLvl.setBounds(247, 55, 27, 22);
 	    panelProf.add(btnAddSkillProfLvl);
 	    
 	    JLabel lblNewLabel = new JLabel("MY Ignite Skill Proficiency");
@@ -665,7 +666,7 @@ public class ProfileSkills extends JFrame {
 	    btnRemoveSkillProfLvl.setForeground(new Color(0, 0, 255));
 	    btnRemoveSkillProfLvl.setFont(new Font("Tahoma", Font.BOLD, 11));
 	    btnRemoveSkillProfLvl.setBackground(new Color(204, 204, 255));
-	    btnRemoveSkillProfLvl.setBounds(234, 88, 54, 22);
+	    btnRemoveSkillProfLvl.setBounds(247, 88, 27, 22);
 	    panelProf.add(btnRemoveSkillProfLvl);
 	    
 	    JButton btnAddCloudCertBadg = new JButton(">>");
@@ -753,7 +754,7 @@ public class ProfileSkills extends JFrame {
 	    btnAddSDLCExp.setForeground(new Color(0, 0, 255));
 	    btnAddSDLCExp.setFont(new Font("Tahoma", Font.BOLD, 11));
 	    btnAddSDLCExp.setBackground(new Color(204, 204, 255));
-	    btnAddSDLCExp.setBounds(234, 207, 54, 22);
+	    btnAddSDLCExp.setBounds(247, 207, 27, 22);
 	    panelProf.add(btnAddSDLCExp);
 	    
 	    JButton btnRemoveSDLCExp = new JButton("<<");
@@ -779,7 +780,7 @@ public class ProfileSkills extends JFrame {
 	    btnRemoveSDLCExp.setForeground(new Color(0, 0, 255));
 	    btnRemoveSDLCExp.setFont(new Font("Tahoma", Font.BOLD, 11));
 	    btnRemoveSDLCExp.setBackground(new Color(204, 204, 255));
-	    btnRemoveSDLCExp.setBounds(234, 240, 54, 22);
+	    btnRemoveSDLCExp.setBounds(247, 240, 27, 22);
 	    panelProf.add(btnRemoveSDLCExp);
 	    
 	    JButton btnAddMandBadge = new JButton(">>");
@@ -1146,10 +1147,11 @@ public class ProfileSkills extends JFrame {
 	    JButton btnrmvskillstoProfLvl = new JButton("-");
 	    btnrmvskillstoProfLvl.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		
+	    	  int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);
+	    	  
 	    		if (AdminUser.equals("Y")){
 	    			String selval = (String) listIgniteSkillProflvl_1.getSelectedValue();
-					
+	    		  if (result == JOptionPane.OK_OPTION) {
 	    			if (selval != null){
 	    				LookupSkill mySkillProfList = new LookupSkill();
 	    				int skillid = (int) mySkillProfList.lookupSkillIdSkilllvl(selval);
@@ -1164,15 +1166,13 @@ public class ProfileSkills extends JFrame {
 	    				
 	    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
 	    				
-	    			}else{
-	    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-	    				}
-	    				
+	    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}	
 	    			DefaultListModel listModel = (DefaultListModel) listIgniteSkillProflvl_1.getModel();
 			        listModel.removeAllElements();
 	    			fillDataProflvlJlist(listIgniteSkillProflvl_1); 
-	    			
-	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}			
+	    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}	
+	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}	
+	    	  
 	    	}
 	    });
 	    btnrmvskillstoProfLvl.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -1219,9 +1219,11 @@ public class ProfileSkills extends JFrame {
 		JButton btnrmvskillstoSDLC_1 = new JButton("-");
 		btnrmvskillstoSDLC_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			  int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);
+			  
 				if (AdminUser.equals("Y")){
 	    			String selval = (String) listSDLCModelExperience.getSelectedValue();
-					
+	    		  if (result == JOptionPane.OK_OPTION) {
 	    			if (selval != null){
 	    				LookupSkill mySkillIdSDLC = new LookupSkill();
 	    				int skillid = (int) mySkillIdSDLC.lookupSkillIdSDLC(selval);
@@ -1236,17 +1238,12 @@ public class ProfileSkills extends JFrame {
 	    				
 	    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
 	    				
-	    			}else{
-	    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-	    				}
-	    				
-	    			//JList listSDLCModelExperience = new JList();
-	    		    //scrollPaneSDLCModel.setViewportView(listSDLCModelExperience);
+	    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
 	    			DefaultListModel listModel = (DefaultListModel) listSDLCModelExperience.getModel();
 			        listModel.removeAllElements();
 	    		    fillDataSDLC(listSDLCModelExperience);
-	    			
-	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}				
+	    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
+	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
 			}
 		});
 		btnrmvskillstoSDLC_1.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -1259,11 +1256,12 @@ public class ProfileSkills extends JFrame {
 		JButton btnrmvskillstoCertBad_1 = new JButton("-");
 		btnrmvskillstoCertBad_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+			int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);
+	
 				if (AdminUser.equals("Y")){
 					
 					String selval = (String) listCloudCertBadges.getSelectedValue();
-					
+				  if (result == JOptionPane.OK_OPTION) {
 	    			if (selval != null){
 	    				LookupSkill mySkillIdCertBadge = new LookupSkill();
 	    				int CertBadgskid =  (int) mySkillIdCertBadge.lookupSkillIdCertBadge(selval);
@@ -1278,18 +1276,12 @@ public class ProfileSkills extends JFrame {
 	    				
 	    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
 	    				
-	    			}else{   				
-	    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-	    				}
-	    				
-	    			//JList listCloudCertBadges = new JList();
-	    		   // scrollPaneCloudCertBadg.setViewportView(listCloudCertBadges);
+	    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
 	    			DefaultListModel listModel = (DefaultListModel) listCloudCertBadges.getModel();
 			        listModel.removeAllElements();
 	    		    fillDataCloudCert(listCloudCertBadges);
-	    			
+				  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}	
 	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}	
-				
 			}
 		});
 		btnrmvskillstoCertBad_1.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -1302,10 +1294,10 @@ public class ProfileSkills extends JFrame {
 		JButton btnrmvskillstoManBadge_1 = new JButton("-");
 		btnrmvskillstoManBadge_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);
 				if (AdminUser.equals("Y")){
-					
 					String selval = (String) listMandatoryBadges.getSelectedValue();
-					
+				  if (result == JOptionPane.OK_OPTION) {
 	    			if (selval != null){
 	    				LookupSkill myMandatoryBadge = new LookupSkill();
 	    				int MandCertskid = (int) myMandatoryBadge.lookupSkillIdMandatoryCert(selval);
@@ -1320,15 +1312,11 @@ public class ProfileSkills extends JFrame {
 	    				
 	    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
 	    				
-	    			}else{   				
-	    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
-	    				
-	    			//JList listMandatoryBadges = new JList();
-	    		    //scrollPaneManBadges.setViewportView(listMandatoryBadges);
+	    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
 	    			DefaultListModel listModel = (DefaultListModel) listMandatoryBadges.getModel();
 			        listModel.removeAllElements();
 	    		    fillDataManBadge(listMandatoryBadges);
-	    			
+				  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
 	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}		
 			}
 		});
@@ -1342,9 +1330,11 @@ public class ProfileSkills extends JFrame {
 		JButton btnrmvskillstoBadge_1 = new JButton("-");
 		btnrmvskillstoBadge_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			  int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);
+
 				if (AdminUser.equals("Y")){
 					String listval = (String) cbindustry.getSelectedItem();
-					
+				  if (result == JOptionPane.OK_OPTION) {
 					if (listval != null){
 						
 						RemoveList RMVfromEmplySkillIndBadge = new RemoveList();
@@ -1362,12 +1352,10 @@ public class ProfileSkills extends JFrame {
 								
 							DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) cbindustry.getModel();
 			        		model.removeAllElements();
-			        		IndustryColumn1.setCellEditor(new DefaultCellEditor(cbindustry));
-					}	
-					}else{
-					JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-					}	
-				}else{JOptionPane.showMessageDialog(null, "admin use only");}
+			        		IndustryColumn1.setCellEditor(new DefaultCellEditor(cbindustry));}	
+					}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}	
+				  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
+				}else{JOptionPane.showMessageDialog(null, "admin use only");} 
 			}
 		});
 		btnrmvskillstoBadge_1.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -1380,9 +1368,11 @@ public class ProfileSkills extends JFrame {
 		JButton btnrmvskillstoIndBadExpLvl_1 = new JButton("-");
 		btnrmvskillstoIndBadExpLvl_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);
+			
 				if (AdminUser.equals("Y")){
 					String listval = (String) cbindustrylvl.getSelectedItem();
-					
+				  if (result == JOptionPane.OK_OPTION) {
 					if (listval != null){
 						
 						RemoveList RMVfromEmplySkillIndlvl = new RemoveList();
@@ -1402,13 +1392,9 @@ public class ProfileSkills extends JFrame {
 		        		model.removeAllElements();
 					    fillDatacbSkilllvl(cbindustrylvl);
 					    
-				}else{JOptionPane.showMessageDialog(null, "Please Select a value in the list");}	
-				
-			}else{JOptionPane.showMessageDialog(null, "admin use only");}
-				
-				//JComboBox<String> cbindustrylvl = new JComboBox<>();
-				//fillDatacbSkilllvl(cbindustrylvl);
-				//IndLevelColumn2.setCellEditor(new DefaultCellEditor(cbindustrylvl));
+					}else{JOptionPane.showMessageDialog(null, "Please Select a value in the list");}
+				  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
+				}else{JOptionPane.showMessageDialog(null, "admin use only");}
 			}
 		});
 		btnrmvskillstoIndBadExpLvl_1.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -1422,10 +1408,12 @@ public class ProfileSkills extends JFrame {
 		JButton btnrmvskillstoPracticeGB_1 = new JButton("-");
 		btnrmvskillstoPracticeGB_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (AdminUser.equals("Y")){
-				String listval = (String) cbpraticezone.getSelectedItem();
-				
-				if (listval != null){
+			  int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);
+			  
+			if (AdminUser.equals("Y")){
+			String listval = (String) cbpraticezone.getSelectedItem();
+				if (result == JOptionPane.OK_OPTION) {
+					if (listval != null){
 					
 					RemoveList RMVfromEmplySkillPracticeZone = new RemoveList();
 					try {
@@ -1444,11 +1432,10 @@ public class ProfileSkills extends JFrame {
 	        		model.removeAllElements();
 	        		fillDatacbpraticezone(cbpraticezone);
 	        		
-			}else{
-				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-				}	
-			
-		}else{JOptionPane.showMessageDialog(null, "admin use only");}
+					}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
+				}else{JOptionPane.showMessageDialog(null, "CANCELLED");}
+			}else{JOptionPane.showMessageDialog(null, "admin use only");}
+			  
 			}
 		});
 		btnrmvskillstoPracticeGB_1.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -1461,9 +1448,10 @@ public class ProfileSkills extends JFrame {
 		JButton btnrmvskillstoGBFocusGrp_1 = new JButton("-");
 		btnrmvskillstoGBFocusGrp_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);	
 				if (AdminUser.equals("Y")){
 					String listval = (String) cbfocusgroup.getSelectedItem();
-					
+				  if (result == JOptionPane.OK_OPTION) {
 					if (listval != null){
 						
 						RemoveList RMVfromEmplySkillFocusGrp = new RemoveList();
@@ -1484,7 +1472,7 @@ public class ProfileSkills extends JFrame {
 		        		fillDatacbfocusgroup(cbfocusgroup);
 		        		
 					}else{JOptionPane.showMessageDialog(null, "Please Select a value in the list");}	
-				
+				  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
 				}else{JOptionPane.showMessageDialog(null, "admin use only");}
 			}
 		});
@@ -1504,850 +1492,6 @@ public class ProfileSkills extends JFrame {
 		
 		
 		String[] BUSMnthitems = new String[]{"1", "2", "3", "4","5", "6", "7", "8","9", "10", "11", "12"};
-
-		JPanel panelBus = new JPanel();
-		panelBus.setBackground(new Color(189, 205, 139));
-		tabbedpane.add("BusinessSkill",panelBus);
-		panelBus.setLayout(null);
-		
-		JComboBox cbBAYearsExp = new JComboBox(BUSYrsitems);
-		cbBAYearsExp.addActionListener(new ActionListener() {
-			String selval;
-			public void actionPerformed(ActionEvent e) {
-				
-				String selval = String.valueOf(cbBAYearsExp.getSelectedItem());
-				String yrs = (String) cbBAYearsExp.getSelectedItem();
-				String usrtxtfield=textField_1.getText();
-				
-				textFieldBAMyYears.setText(selval);
-				
-				try {
-					
-					String query = "UPDATE profileData SET BAYearExp=? WHERE profileData.username =?";
-					
-					PreparedStatement pst=conn.prepareStatement(query);
-					pst.setString(1, selval);
-					pst.setString(2, usrtxtfield);
-					pst.execute();
-				
-				} catch (Exception ex) {
-					
-					JOptionPane.showMessageDialog(null, " exception error Data not Saved");
-					ex.printStackTrace();
-					}
-			
-			}
-		});
-		cbBAYearsExp.setBounds(937, 11, 38, 22);
-		cbBAYearsExp.setEditable(true);
-		panelBus.add(cbBAYearsExp);
-		
-		JComboBox cbBAMonthExp = new JComboBox(BUSMnthitems);
-		cbBAMonthExp.addItemListener(new ItemListener() {
-			String selval;
-				public void itemStateChanged(ItemEvent e) {
-					
-					selval = String.valueOf(cbBAMonthExp.getSelectedItem());
-					String yrs = (String) cbBAMonthExp.getSelectedItem();
-					String usrtxtfield=textField_1.getText();
-					textFieldBAMyMonths.setText(selval);
-					
-					try {
-					
-						String query = "UPDATE profileData SET BAMnthExp=? WHERE profileData.username =?";
-						
-						PreparedStatement pst=conn.prepareStatement(query);
-						pst.setString(1, selval);
-						pst.setString(2, usrtxtfield);
-						pst.execute();
-					
-					} catch (Exception ex) {
-						
-						JOptionPane.showMessageDialog(null, " exception error Data not Saved");
-						ex.printStackTrace();
-						}
-			}
-		});
-		cbBAMonthExp.setBounds(985, 11, 38, 22);
-		panelBus.add(cbBAMonthExp);
-		
-		JLabel lblBASkillsBadge = new JLabel("BA Skills Badge");
-		lblBASkillsBadge.setToolTipText("CertBadge");
-		lblBASkillsBadge.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblBASkillsBadge.setBounds(10, 477, 87, 14);
-		panelBus.add(lblBASkillsBadge);
-		
-		JLabel lblBAYearsExperience = new JLabel("I have");
-		lblBAYearsExperience.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblBAYearsExperience.setBounds(10, 11, 46, 14);
-		panelBus.add(lblBAYearsExperience);
-		
-		JLabel lblBACertAcheived = new JLabel("Certifications Acheived");
-		lblBACertAcheived.setToolTipText("CertBadge");
-		lblBACertAcheived.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblBACertAcheived.setBounds(487, 277, 130, 14);
-		panelBus.add(lblBACertAcheived);
-		
-		JLabel lblBAToolSoftware = new JLabel("Tools and Software Worked On");
-		lblBAToolSoftware.setToolTipText("SkillTool");
-		lblBAToolSoftware.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblBAToolSoftware.setBounds(10, 278, 182, 14);
-		panelBus.add(lblBAToolSoftware);
-		
-		JLabel lblBAIndustryDomain = new JLabel("BA Industry and Domain");
-		lblBAIndustryDomain.setToolTipText("SkillIndustry");
-		lblBAIndustryDomain.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblBAIndustryDomain.setBounds(490, 74, 138, 14);
-		panelBus.add(lblBAIndustryDomain);
-		
-		JLabel lblBARoles = new JLabel("BA Roles");
-		lblBARoles.setToolTipText("SkillFocus");
-		lblBARoles.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblBARoles.setBounds(10, 73, 64, 14);
-		panelBus.add(lblBARoles);
-		
-		JLabel lblMyBaRoles = new JLabel("MY BA Roles");
-		lblMyBaRoles.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblMyBaRoles.setBounds(278, 73, 138, 14);
-		panelBus.add(lblMyBaRoles);
-		
-		JLabel lblMyBaIndustry = new JLabel("MY BA Industry and Domain");
-		lblMyBaIndustry.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblMyBaIndustry.setBounds(766, 74, 257, 14);
-		panelBus.add(lblMyBaIndustry);
-		
-		JLabel lblMYBAToolSoftware = new JLabel("Tools and Software Worked On");
-		lblMYBAToolSoftware.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblMYBAToolSoftware.setBounds(273, 277, 182, 14);
-		panelBus.add(lblMYBAToolSoftware);
-		
-		JLabel lblMyBACertificationsAcheived = new JLabel("MY Certifications Acheived");
-		lblMyBACertificationsAcheived.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblMyBACertificationsAcheived.setBounds(767, 277, 154, 14);
-		panelBus.add(lblMyBACertificationsAcheived);
-		
-		JLabel lblMYBASkillsBadge_1 = new JLabel("MY BA Skills Badge");
-		lblMYBASkillsBadge_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblMYBASkillsBadge_1.setBounds(300, 477, 116, 14);
-		panelBus.add(lblMYBASkillsBadge_1);
-		
-		JLabel lblBAMnthExperience_1 = new JLabel("Years and");
-		lblBAMnthExperience_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblBAMnthExperience_1.setBounds(102, 11, 64, 14);
-		panelBus.add(lblBAMnthExperience_1);
-		
-		JScrollPane scrollPaneBARoles = new JScrollPane();
-		scrollPaneBARoles.setBounds(10, 98, 182, 145);
-		panelBus.add(scrollPaneBARoles);
-		
-		JList listBARoles = new JList();
-		scrollPaneBARoles.setViewportView(listBARoles);
-		filllistBARoles(listBARoles);
-		
-		JScrollPane scrollPaneMYBARoles = new JScrollPane();
-		scrollPaneMYBARoles.setBounds(273, 98, 173, 145);
-		panelBus.add(scrollPaneMYBARoles);
-		
-		JList listMYBARoles_1 = new JList(MYBARolls);
-		scrollPaneMYBARoles.setViewportView(listMYBARoles_1);
-		
-		JScrollPane scrollPaneBAToolsSoftware = new JScrollPane();
-		scrollPaneBAToolsSoftware.setBounds(10, 304, 182, 145);
-		panelBus.add(scrollPaneBAToolsSoftware);
-		
-		JList listBAToolsSoftware = new JList();
-		scrollPaneBAToolsSoftware.setViewportView(listBAToolsSoftware);
-		filllistBAToolsSoftware(listBAToolsSoftware);
-		
-		JScrollPane scrollPaneMYBAToolsSoftware = new JScrollPane();
-		scrollPaneMYBAToolsSoftware.setBounds(273, 304, 173, 145);
-		panelBus.add(scrollPaneMYBAToolsSoftware);
-				
-		JList listMYBAToolsSoftware_1_1 = new JList(MYBAToolSoft);
-		scrollPaneMYBAToolsSoftware.setViewportView(listMYBAToolsSoftware_1_1);
-						
-		JScrollPane scrollPaneBAIndustryDomain = new JScrollPane();
-		scrollPaneBAIndustryDomain.setBounds(490, 99, 195, 145);
-		panelBus.add(scrollPaneBAIndustryDomain);
-								
-		JList listBAIndustryDomain = new JList();
-		scrollPaneBAIndustryDomain.setViewportView(listBAIndustryDomain);
-		filllistBAIndustryDomain(listBAIndustryDomain);
-								
-		JScrollPane scrollPaneMYBAIndustryDomain = new JScrollPane();
-		scrollPaneMYBAIndustryDomain.setBounds(762, 99, 261, 145);
-		panelBus.add(scrollPaneMYBAIndustryDomain);
-								
-		JList listMYBAIndustryDomain_1 = new JList(MyBaIndDom);
-		scrollPaneMYBAIndustryDomain.setViewportView(listMYBAIndustryDomain_1);
-								
-		JScrollPane scrollPaneBACertAcheived = new JScrollPane();
-		scrollPaneBACertAcheived.setBounds(487, 302, 195, 145);
-		panelBus.add(scrollPaneBACertAcheived);
-								
-		JList listBACertAcheived = new JList();
-		scrollPaneBACertAcheived.setViewportView(listBACertAcheived);
-		filllistBACertAcheived(listBACertAcheived);
-								
-		JScrollPane scrollPaneMYBACertAcheived = new JScrollPane();
-		scrollPaneMYBACertAcheived.setBounds(767, 303, 253, 145);
-		panelBus.add(scrollPaneMYBACertAcheived);
-								
-		JList listMYBACertAcheived_1 = new JList(MYBACert);
-		scrollPaneMYBACertAcheived.setViewportView(listMYBACertAcheived_1);
-								
-		JScrollPane scrollPaneBASkillBadge = new JScrollPane();
-		scrollPaneBASkillBadge.setBounds(10, 502, 182, 92);
-		panelBus.add(scrollPaneBASkillBadge);
-								
-		JList listBASkillBadge = new JList();
-		scrollPaneBASkillBadge.setViewportView(listBASkillBadge);
-		filllistBASkillBadge(listBASkillBadge);
-								
-		JScrollPane scrollPaneMYBASkillBadge = new JScrollPane();
-		scrollPaneMYBASkillBadge.setBounds(278, 502, 199, 92);
-		panelBus.add(scrollPaneMYBASkillBadge);
-								
-		JList listMYBASkillBadge_1 = new JList(MYBASkillBad);
-		scrollPaneMYBASkillBadge.setViewportView(listMYBASkillBadge_1);
-								
-		JButton btnAddBARoll = new JButton(">>");
-		btnAddBARoll.setBorder(null);
-		btnAddBARoll.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				String BARolesstr1 = (String) listBARoles.getSelectedValue();
-				if (BARolesstr1 != null) {
-					if (MYBARolls.contains(BARolesstr1)) {
-						JOptionPane.showMessageDialog(null, "Already in List");
-					}else {
-						MYBARolls.addElement(BARolesstr1);
-						String tempusrname = textField_1.getText();
-											
-						SaveList mysavelist = new SaveList();
-						mysavelist.SAVElistMYBARoles(BARolesstr1, tempusrname);
-					}
-				}else JOptionPane.showMessageDialog(null, "Please Select a value from the list");
-			}
-		});
-		btnAddBARoll.setForeground(new Color(0, 128, 0));
-		btnAddBARoll.setBackground(new Color(189, 205, 139));
-		btnAddBARoll.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnAddBARoll.setBounds(199, 108, 64, 23);
-		panelBus.add(btnAddBARoll);
-								
-		JButton btnRemoveBARoll_1 = new JButton("<<");
-		btnRemoveBARoll_1.setBorder(null);
-		btnRemoveBARoll_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-										
-				String BARolesstr1 = (String) listMYBARoles_1.getSelectedValue();
-				if (BARolesstr1 != null) {
-					int myselectedindex = listMYBARoles_1.getSelectedIndex();
-										
-					if(listMYBARoles_1.getSelectedIndex()>=0)
-											
-						MYBARolls.remove(listMYBARoles_1.getSelectedIndex());
-										
-					String tempusrname = textField_1.getText();
-										
-					RemoveList myremovelist = new RemoveList();
-					myremovelist.REMOVElistMYBARoles(BARolesstr1, tempusrname);
-				}else JOptionPane.showMessageDialog(null, "Please Select a value from the list>>>>");
-			}
-
-		});
-		btnRemoveBARoll_1.setForeground(new Color(0, 128, 0));
-		btnRemoveBARoll_1.setBackground(new Color(189, 205, 139));
-		btnRemoveBARoll_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnRemoveBARoll_1.setBounds(199, 142, 64, 23);
-		panelBus.add(btnRemoveBARoll_1);					
-								
-		JButton btnAddBAToolsSoft = new JButton(">>");
-		btnAddBAToolsSoft.setBorder(null);
-		btnAddBAToolsSoft.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String BAToolSoftstr1 = (String) listBAToolsSoftware.getSelectedValue();
-				if (BAToolSoftstr1 != null) {
-					if (MYBAToolSoft.contains(BAToolSoftstr1)) {
-						JOptionPane.showMessageDialog(null, "Already in List");
-							}else {
-						MYBAToolSoft.addElement(BAToolSoftstr1);
-											
-						String tempusrname = textField_1.getText();
-						SaveList mysavelist = new SaveList();
-						mysavelist.SAVElistMYBAToolSoft(BAToolSoftstr1, tempusrname);
-						}
-				}else JOptionPane.showMessageDialog(null, "Please Select a value from the list");
-			}
-		});
-		btnAddBAToolsSoft.setForeground(new Color(0, 128, 0));
-		btnAddBAToolsSoft.setBackground(new Color(189, 205, 139));
-		btnAddBAToolsSoft.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnAddBAToolsSoft.setBounds(199, 314, 64, 23);
-		panelBus.add(btnAddBAToolsSoft);
-								
-		JButton btnRemoveBAToolsSoft = new JButton("<<");
-		btnRemoveBAToolsSoft.setBorder(null);
-		btnRemoveBAToolsSoft.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-										
-			String BAToolSoftstr1 = (String) listMYBAToolsSoftware_1_1.getSelectedValue();
-			int myselectedindex = listMYBAToolsSoftware_1_1.getSelectedIndex();
-									
-				if (BAToolSoftstr1 != null) {
-					if(listMYBAToolsSoftware_1_1.getSelectedIndex()>=0)
-											
-						MYBAToolSoft.remove(listMYBAToolsSoftware_1_1.getSelectedIndex());
-										
-					String tempusrname = textField_1.getText();
-										
-					RemoveList myremovelist = new RemoveList();
-					myremovelist.REMOVElistRemoveBAToolsSoft(BAToolSoftstr1, tempusrname);
-				}else JOptionPane.showMessageDialog(null, "Please Select a value from the list>>>>");
-			}
-		});
-		btnRemoveBAToolsSoft.setForeground(new Color(0, 128, 0));
-		btnRemoveBAToolsSoft.setBackground(new Color(189, 205, 139));
-		btnRemoveBAToolsSoft.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnRemoveBAToolsSoft.setBounds(199, 348, 64, 23);
-		panelBus.add(btnRemoveBAToolsSoft);
-								
-								
-		JButton btnAddBAIndustryDomain = new JButton(">>");
-		btnAddBAIndustryDomain.setBorder(null);
-		btnAddBAIndustryDomain.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {				
-				String BAIndDomstr1 = (String) listBAIndustryDomain.getSelectedValue();
-				if (BAIndDomstr1 != null) {
-					if (MyBaIndDom.contains(BAIndDomstr1)) {
-						JOptionPane.showMessageDialog(null, "Already in List");
-					}else {
-						MyBaIndDom.addElement(BAIndDomstr1);
-											
-						String tempusrname = textField_1.getText();
-						SaveList mysavelist = new SaveList();
-						mysavelist.SAVElistMYBAIndustry(BAIndDomstr1, tempusrname);
-						}
-				}else JOptionPane.showMessageDialog(null, "Please Select a value from the list");
-			}
-		});
-		btnAddBAIndustryDomain.setBackground(new Color(189, 205, 139));
-		btnAddBAIndustryDomain.setForeground(new Color(0, 128, 0));
-		btnAddBAIndustryDomain.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnAddBAIndustryDomain.setBounds(695, 109, 57, 23);
-		panelBus.add(btnAddBAIndustryDomain);
-								
-		JButton btnRemoveBAIndustryDomain = new JButton("<<");
-		btnRemoveBAIndustryDomain.setBorder(null);
-		btnRemoveBAIndustryDomain.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-										
-			String BAIndDomstr1 = (String) listMYBAIndustryDomain_1.getSelectedValue();
-			int myselectedindex = listMYBAIndustryDomain_1.getSelectedIndex();
-									
-				if (BAIndDomstr1 != null) {
-					if(listMYBAIndustryDomain_1.getSelectedIndex()>=0)
-											
-						MyBaIndDom.remove(listMYBAIndustryDomain_1.getSelectedIndex());
-										
-					String tempusrname = textField_1.getText();
-										
-					RemoveList myremovelist = new RemoveList();
-					myremovelist.REMOVElistMYBAIndustry(BAIndDomstr1, tempusrname);
-				}else JOptionPane.showMessageDialog(null, "Please Select a value from the list>>>>");
-			}
-		});
-		btnRemoveBAIndustryDomain.setBackground(new Color(189, 205, 139));
-		btnRemoveBAIndustryDomain.setForeground(new Color(0, 128, 0));
-		btnRemoveBAIndustryDomain.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnRemoveBAIndustryDomain.setBounds(695, 143, 57, 23);
-		panelBus.add(btnRemoveBAIndustryDomain);
-								
-								
-		JButton btnAddBACert = new JButton(">>");
-		btnAddBACert.setBorder(null);
-		btnAddBACert.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			String MYBACertliststr1 = (String) listBACertAcheived.getSelectedValue();
-				if (MYBACertliststr1 != null) {
-					if (MYBACert.contains(MYBACertliststr1)) {
-						JOptionPane.showMessageDialog(null, "Already in List");
-					}else {
-						MYBACert.addElement(MYBACertliststr1);
-											
-						String tempusrname = textField_1.getText();
-						SaveList mysavelist = new SaveList();
-						mysavelist.SAVElistMYBACert(MYBACertliststr1, tempusrname);
-						}
-				}else JOptionPane.showMessageDialog(null, "Please Select a value from the list");	
-			}
-		});
-		btnAddBACert.setForeground(new Color(0, 128, 0));
-		btnAddBACert.setBackground(new Color(189, 205, 139));
-		btnAddBACert.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnAddBACert.setBounds(685, 313, 64, 23);
-		panelBus.add(btnAddBACert);
-								
-		JButton btnRemoveBACert = new JButton("<<");
-		btnRemoveBACert.setBorder(null);
-		btnRemoveBACert.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-										
-			String MYBACertliststr1 = (String) listMYBACertAcheived_1.getSelectedValue();
-			int myselectedindex = listMYBACertAcheived_1.getSelectedIndex();
-									
-					if (MYBACertliststr1 != null) {
-						if(listMYBACertAcheived_1.getSelectedIndex()>=0)
-											
-							MYBACert.remove(listMYBACertAcheived_1.getSelectedIndex());
-										
-						String tempusrname = textField_1.getText();
-										
-						RemoveList myremovelist = new RemoveList();
-						myremovelist.REMOVElistMYBACert(MYBACertliststr1, tempusrname);
-					}else JOptionPane.showMessageDialog(null, "Please Select a value from the list>>>>");								
-			}
-		});
-		btnRemoveBACert.setForeground(new Color(0, 128, 0));
-		btnRemoveBACert.setBackground(new Color(189, 205, 139));
-		btnRemoveBACert.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnRemoveBACert.setBounds(685, 347, 64, 23);
-		panelBus.add(btnRemoveBACert);
-								
-		JButton btnAddBASkillsBadge = new JButton(">>");
-		btnAddBASkillsBadge.setBorder(null);
-		btnAddBASkillsBadge.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-			String MYBASkillBadgestr1 = (String) listBASkillBadge.getSelectedValue();
-				if (MYBASkillBadgestr1 != null) {				
-					if (MYBASkillBad.contains(MYBASkillBadgestr1)) {
-					JOptionPane.showMessageDialog(null, "Already in List");
-					}else {
-					MYBASkillBad.addElement(MYBASkillBadgestr1);
-											
-					String tempusrname = textField_1.getText();
-					SaveList mysavelist = new SaveList();
-					mysavelist.SAVElistMYBASkillBadge(MYBASkillBadgestr1, tempusrname);
-					}
-				}else JOptionPane.showMessageDialog(null, "Please Select a value from the list");
-			}
-		});
-		btnAddBASkillsBadge.setForeground(new Color(0, 128, 0));
-		btnAddBASkillsBadge.setBackground(new Color(189, 205, 139));
-		btnAddBASkillsBadge.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnAddBASkillsBadge.setBounds(204, 512, 64, 23);
-		panelBus.add(btnAddBASkillsBadge);
-								
-		JButton btnRemoveBASkillsBadge = new JButton("<<");
-		btnRemoveBASkillsBadge.setBorder(null);
-		btnRemoveBASkillsBadge.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-										
-			String MYBASkillBadgestr1 = (String) listMYBASkillBadge_1.getSelectedValue();
-			int myselectedindex = listMYBASkillBadge_1.getSelectedIndex();
-				if (MYBASkillBadgestr1 != null) {
-					if(listMYBASkillBadge_1.getSelectedIndex()>=0)
-											
-						MYBASkillBad.remove(listMYBASkillBadge_1.getSelectedIndex());
-										
-					String tempusrname = textField_1.getText();
-										
-					RemoveList myremovelist = new RemoveList();
-					myremovelist.REMOVElistMYBASkillBadge(MYBASkillBadgestr1, tempusrname);
-				}else JOptionPane.showMessageDialog(null, "Please Select a value from the list>>>>");
-			}
-		});
-		btnRemoveBASkillsBadge.setForeground(new Color(0, 128, 0));
-		btnRemoveBASkillsBadge.setBackground(new Color(189, 205, 139));
-		btnRemoveBASkillsBadge.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnRemoveBASkillsBadge.setBounds(204, 546, 64, 23);
-		panelBus.add(btnRemoveBASkillsBadge);
-		
-		textFieldBAMyYears = new JTextField();		
-		textFieldBAMyYears.setHorizontalAlignment(SwingConstants.CENTER);
-		textFieldBAMyYears.setBackground(new Color(189, 205, 139));
-		textFieldBAMyYears.setFont(new Font("Tahoma", Font.BOLD, 11));
-		textFieldBAMyYears.setDisabledTextColor(new Color(64, 0, 64));
-		textFieldBAMyYears.setBorder(null);
-		textFieldBAMyYears.setBounds(54, 9, 38, 20);
-		textFieldBAMyYears.setText("0");
-		panelBus.add(textFieldBAMyYears);
-		textFieldBAMyYears.setColumns(10);
-								
-		textFieldBAMyMonths = new JTextField();
-		textFieldBAMyMonths.setDisabledTextColor(new Color(64, 0, 64));
-		textFieldBAMyMonths.setBackground(new Color(189, 205, 139));
-		textFieldBAMyMonths.setHorizontalAlignment(SwingConstants.CENTER);
-		textFieldBAMyMonths.setFont(new Font("Tahoma", Font.BOLD, 11));
-		textFieldBAMyMonths.setBorder(null);
-		textFieldBAMyMonths.setBounds(167, 9, 38, 20);
-		textFieldBAMyMonths.setText("0");
-		panelBus.add(textFieldBAMyMonths);
-		textFieldBAMyMonths.setColumns(10);
-								
-		JButton btnADDSkillBARoles = new JButton("+");
-		btnADDSkillBARoles.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (AdminUser.equals("Y")){
-					
-					AddValueToList skillbarolls = new AddValueToList();
-					try {
-						listval = skillbarolls.add_SkillBARolls();
-					} catch (SQLException e1) {
-						
-						e1.printStackTrace();
-					}
-					
-					DefaultListModel listModel = (DefaultListModel) listBARoles.getModel();
-			        listModel.removeAllElements();
-			        filllistBARoles(listBARoles);
-					
-				}	
-				else{
-					JOptionPane.showMessageDialog(null, "admin use only");
-				}	
-				
-			}
-		});
-		btnADDSkillBARoles.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnADDSkillBARoles.setVerticalAlignment(SwingConstants.BOTTOM);
-		btnADDSkillBARoles.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnADDSkillBARoles.setBorder(null);
-		btnADDSkillBARoles.setBackground(new Color(189, 205, 139));
-		btnADDSkillBARoles.setBounds(94, 243, 46, 14);
-		panelBus.add(btnADDSkillBARoles);
-								
-		JButton btnRMVSkillBARoles_1 = new JButton("-");
-		btnRMVSkillBARoles_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (AdminUser.equals("Y")){
-	    			String selval = (String) listBARoles.getSelectedValue();
-					
-	    			if (selval != null){
-	    				LookupSkill mybaroll = new LookupSkill();
-	    				int BARollsid = (int) mybaroll.lookuplistMYBARoles(selval);
-	    			
-	    				RemoveList RMVSkills = new RemoveList();
-	    				
-	    				try {
-	    					RMVSkills.RMVSkillIDemployeeSkills(BARollsid);
-							
-						} catch (SQLException e1) {
-							e1.printStackTrace();}
-	    				
-	    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
-	    				
-	    				DefaultListModel listModel = (DefaultListModel) listBARoles.getModel();
-				        listModel.removeAllElements();
-				        filllistBARoles(listBARoles);
-	    				
-	    			}else{
-	    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-	    				}		    			
-	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
-			}
-		});
-		btnRMVSkillBARoles_1.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnRMVSkillBARoles_1.setVerticalAlignment(SwingConstants.BOTTOM);
-		btnRMVSkillBARoles_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnRMVSkillBARoles_1.setBorder(null);
-		btnRMVSkillBARoles_1.setBackground(new Color(189, 205, 139));
-		btnRMVSkillBARoles_1.setBounds(136, 243, 46, 14);
-		panelBus.add(btnRMVSkillBARoles_1);
-								
-		JButton btnADDSkillBASoftware = new JButton("+");
-		btnADDSkillBASoftware.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (AdminUser.equals("Y")){
-					
-					AddValueToList skillbamantoolsoft = new AddValueToList();
-					try {
-						listval = skillbamantoolsoft.add_SkillBAManToolSoft();
-					} catch (SQLException e1) {
-						
-						e1.printStackTrace();
-					}
-					
-					DefaultListModel listModel = (DefaultListModel) listBAToolsSoftware.getModel();
-			        listModel.removeAllElements();
-			        filllistBAToolsSoftware(listBAToolsSoftware);
-					
-				}	
-				else{
-					JOptionPane.showMessageDialog(null, "admin use only");
-				}	
-				
-			}
-		});
-		btnADDSkillBASoftware.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnADDSkillBASoftware.setVerticalAlignment(SwingConstants.BOTTOM);
-		btnADDSkillBASoftware.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnADDSkillBASoftware.setBorder(null);
-		btnADDSkillBASoftware.setBackground(new Color(189, 205, 139));
-		btnADDSkillBASoftware.setBounds(76, 452, 46, 14);
-		panelBus.add(btnADDSkillBASoftware);
-								
-		JButton btnRMVSkillBASoftware_1 = new JButton("-");
-		btnRMVSkillBASoftware_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (AdminUser.equals("Y")){
-	    			String selval = (String) listBAToolsSoftware.getSelectedValue();
-					
-	    			if (selval != null){
-	    				LookupSkill mybaTool = new LookupSkill();
-	    				int BAToolid = (int) mybaTool.lookuplistMYBAToolSoft(selval);
-	    			
-	    				RemoveList RMVSkills = new RemoveList();
-	    				
-	    				try {
-							RMVSkills.RMVSkillIDemployeeSkills(BAToolid);
-							
-						} catch (SQLException e1) {
-							e1.printStackTrace();}
-	    				
-	    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
-	    				
-	    				DefaultListModel listModel = (DefaultListModel) listBAToolsSoftware.getModel();
-				        listModel.removeAllElements();
-				        filllistBAToolsSoftware(listBAToolsSoftware);
-	    				
-	    			}else{
-	    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-	    				}
-	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
-				
-			}
-		});
-		btnRMVSkillBASoftware_1.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnRMVSkillBASoftware_1.setVerticalAlignment(SwingConstants.BOTTOM);
-		btnRMVSkillBASoftware_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnRMVSkillBASoftware_1.setBorder(null);
-		btnRMVSkillBASoftware_1.setBackground(new Color(189, 205, 139));
-		btnRMVSkillBASoftware_1.setBounds(118, 452, 46, 14);
-		panelBus.add(btnRMVSkillBASoftware_1);
-								
-		JButton btnADDSkillBABadge = new JButton("+");
-		btnADDSkillBABadge.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (AdminUser.equals("Y")){
-					
-					AddValueToList skillbaskillbadge = new AddValueToList();
-					try {
-						listval = skillbaskillbadge.add_SkillBASkillBadge();
-					} catch (SQLException e1) {
-						
-						e1.printStackTrace();
-					}
-					
-					DefaultListModel listModel = (DefaultListModel) listBASkillBadge.getModel();
-			        listModel.removeAllElements();
-			        filllistBASkillBadge(listBASkillBadge);
-					
-				}	
-				else{
-					JOptionPane.showMessageDialog(null, "admin use only");
-				}	
-			}
-		});
-		btnADDSkillBABadge.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnADDSkillBABadge.setVerticalAlignment(SwingConstants.BOTTOM);
-		btnADDSkillBABadge.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnADDSkillBABadge.setBorder(null);
-		btnADDSkillBABadge.setBackground(new Color(189, 205, 139));
-		btnADDSkillBABadge.setBounds(76, 596, 46, 14);
-		panelBus.add(btnADDSkillBABadge);
-								
-		JButton btnRMVSkillBABadge_1 = new JButton("-");
-		btnRMVSkillBABadge_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (AdminUser.equals("Y")){
-	    			String selval = (String) listBASkillBadge.getSelectedValue();
-					
-	    			if (selval != null){
-	    				LookupSkill mybaSkillBadge = new LookupSkill();
-	    				int BASkillBadgeid = (int) mybaSkillBadge.lookuplistMYBASkillBadge(selval);
-	    			
-	    				RemoveList RMVSkills = new RemoveList();
-	    				
-	    				try {
-							RMVSkills.RMVSkillIDemployeeSkills(BASkillBadgeid);
-							
-						} catch (SQLException e1) {
-							e1.printStackTrace();}
-	    				
-	    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
-	    				
-	    				DefaultListModel listModel = (DefaultListModel) listBASkillBadge.getModel();
-				        listModel.removeAllElements();
-				        filllistBASkillBadge(listBASkillBadge);
-	    				
-	    			}else{
-	    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-	    				}
-	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
-			}
-		});
-		btnRMVSkillBABadge_1.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnRMVSkillBABadge_1.setVerticalAlignment(SwingConstants.BOTTOM);
-		btnRMVSkillBABadge_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnRMVSkillBABadge_1.setBorder(null);
-		btnRMVSkillBABadge_1.setBackground(new Color(189, 205, 139));
-		btnRMVSkillBABadge_1.setBounds(118, 596, 46, 14);
-		panelBus.add(btnRMVSkillBABadge_1);
-								
-		JButton btnADDSkillBAIndDom = new JButton("+");
-		btnADDSkillBAIndDom.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (AdminUser.equals("Y")){
-					
-					AddValueToList skillbainddom = new AddValueToList();
-					try {
-						listval = skillbainddom.add_SkillBAIndDom();
-					} catch (SQLException e1) {
-						
-						e1.printStackTrace();
-					}
-					
-					DefaultListModel listModel = (DefaultListModel) listBAIndustryDomain.getModel();
-			        listModel.removeAllElements();
-			        filllistBAIndustryDomain(listBAIndustryDomain);
-					
-				}	
-				else{
-					JOptionPane.showMessageDialog(null, "admin use only");
-				}		
-			}
-		});
-		btnADDSkillBAIndDom.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnADDSkillBAIndDom.setVerticalAlignment(SwingConstants.BOTTOM);
-		btnADDSkillBAIndDom.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnADDSkillBAIndDom.setBorder(null);
-		btnADDSkillBAIndDom.setBackground(new Color(189, 205, 139));
-		btnADDSkillBAIndDom.setBounds(597, 243, 46, 14);
-		panelBus.add(btnADDSkillBAIndDom);
-								
-		JButton btnRMVSkillBAIndDom_1 = new JButton("-");
-		btnRMVSkillBAIndDom_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (AdminUser.equals("Y")){
-	    			String selval = (String) listBAIndustryDomain.getSelectedValue();
-					
-	    			if (selval != null){
-	    				LookupSkill mybaind = new LookupSkill();
-	    				int BAIndustryid = (int) mybaind.lookuplistMYBAIndustry(selval);
-	    			
-	    				RemoveList RMVSkills = new RemoveList();
-	    				
-	    				try {
-	    					RMVSkills.RMVSkillIDemployeeSkills(BAIndustryid);
-							
-						} catch (SQLException e1) {
-							e1.printStackTrace();}
-	    				
-	    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
-	    				
-	    				DefaultListModel listModel = (DefaultListModel) listBAIndustryDomain.getModel();
-				        listModel.removeAllElements();
-				        filllistBAIndustryDomain(listBAIndustryDomain);
-	    				
-	    			}else{
-	    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-	    				}
-	    			
-	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}	
-			}
-		});
-		btnRMVSkillBAIndDom_1.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnRMVSkillBAIndDom_1.setVerticalAlignment(SwingConstants.BOTTOM);
-		btnRMVSkillBAIndDom_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnRMVSkillBAIndDom_1.setBorder(null);
-		btnRMVSkillBAIndDom_1.setBackground(new Color(189, 205, 139));
-		btnRMVSkillBAIndDom_1.setBounds(639, 243, 46, 14);
-		panelBus.add(btnRMVSkillBAIndDom_1);
-								
-		JButton btnADDSkillBACert = new JButton("+");
-		btnADDSkillBACert.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (AdminUser.equals("Y")){
-					
-					AddValueToList skillbaCert = new AddValueToList();
-					try {
-						listval = skillbaCert.add_SkillBACert();
-					} catch (SQLException e1) {
-						
-						e1.printStackTrace();
-					}
-					//JList listBACertAcheived = new JList();
-					//scrollPaneBACertAcheived.setViewportView(listBACertAcheived);
-					DefaultListModel listModel = (DefaultListModel) listBACertAcheived.getModel();
-			        listModel.removeAllElements();
-			        filllistBACertAcheived(listBACertAcheived);
-					
-				}	
-				else{
-					JOptionPane.showMessageDialog(null, "admin use only");
-				}	
-				
-			}
-		});
-		btnADDSkillBACert.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnADDSkillBACert.setVerticalAlignment(SwingConstants.BOTTOM);
-		btnADDSkillBACert.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnADDSkillBACert.setBorder(null);
-		btnADDSkillBACert.setBackground(new Color(189, 205, 139));
-		btnADDSkillBACert.setBounds(597, 452, 46, 14);
-		panelBus.add(btnADDSkillBACert);
-								
-		JButton btnRMVSkillBACert_1 = new JButton("-");
-		btnRMVSkillBACert_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (AdminUser.equals("Y")){
-	    			String selval = (String) listBACertAcheived.getSelectedValue();
-					
-	    			if (selval != null){
-	    				LookupSkill mybaCert = new LookupSkill();
-	    				int BACertid = (int) mybaCert.lookuplistMYBACert(selval);
-	    			
-	    				RemoveList RMVSkills = new RemoveList();
-	    				
-	    				try {
-							RMVSkills.RMVSkillIDemployeeSkills(BACertid);
-							
-						} catch (SQLException e1) {
-							e1.printStackTrace();}
-	    				
-	    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
-	    				
-	    				DefaultListModel listModel = (DefaultListModel) listBACertAcheived.getModel();
-				        listModel.removeAllElements();
-				        filllistBACertAcheived(listBACertAcheived);
-	    				
-	    			}else{
-	    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-	    				}
-	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
-				
-			}
-		});
-		btnRMVSkillBACert_1.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnRMVSkillBACert_1.setVerticalAlignment(SwingConstants.BOTTOM);
-		btnRMVSkillBACert_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnRMVSkillBACert_1.setBorder(null);
-		btnRMVSkillBACert_1.setBackground(new Color(189, 205, 139));
-		btnRMVSkillBACert_1.setBounds(639, 452, 46, 14);
-		panelBus.add(btnRMVSkillBACert_1);
-		
-		JLabel lblBAMnthExperience_1_1 = new JLabel("Months of Experience with  Business Skills");
-		lblBAMnthExperience_1_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblBAMnthExperience_1_1.setBounds(215, 12, 262, 14);
-		panelBus.add(lblBAMnthExperience_1_1);
-		
-		JLabel lblBAMnthExperience_1_1_1 = new JLabel("Select a new Value to update Year and Month");
-		lblBAMnthExperience_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblBAMnthExperience_1_1_1.setBounds(639, 14, 267, 14);
-		panelBus.add(lblBAMnthExperience_1_1_1);
 		
 		/*********************************/
 		/**      Technical Pane         **/
@@ -2366,18 +1510,21 @@ public class ProfileSkills extends JFrame {
 		
 		String[] TechYrsitems = new String[]{"1", "2", "3", "4","5", "6", "7", "8","9", "10", "11", "12","13", "14", "15","16", "17", "18","19", "20", "+20", "+30", "+40"};
 		JComboBox cbTechYearsExp = new JComboBox(TechYrsitems);
+		cbTechYearsExp.setSelectedIndex(-1);
+		cbTechYearsExp.setBackground(new Color(255, 255, 255));
 		cbTechYearsExp.addItemListener(new ItemListener() {
 			String selval;
 			
 			public void itemStateChanged(ItemEvent e) {
-			  	textFieldTechMyYears.setText(selval);
+			  	
 				selval = String.valueOf(cbTechYearsExp.getSelectedItem());
 				
 				String usrtxtfield=textField_1.getText();
+				textFieldTechMyYears.setText(selval);
 				
 				try {
 				
-					String query = "UPDATE profileData SET TECHYearExp =? WHERE profileData.username =?";
+					String query = "UPDATE profiledata SET TECHYearExp =? WHERE profiledata.username =?";
 					
 					PreparedStatement pst=conn.prepareStatement(query);
 					pst.setString(1, selval);
@@ -2391,27 +1538,30 @@ public class ProfileSkills extends JFrame {
 					}
 			}
 		});
-		cbTechYearsExp.setBounds(859, 8, 64, 22);
+		cbTechYearsExp.setBounds(115, 8, 40, 22);
 		panelTech.add(cbTechYearsExp);
 		
 		JLabel lblTechMnthExp = new JLabel("Years and");
 		lblTechMnthExp.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblTechMnthExp.setBounds(91, 11, 64, 14);
+		lblTechMnthExp.setBounds(157, 11, 64, 14);
 		panelTech.add(lblTechMnthExp);
 		
 		String[] TechMnthitems = new String[]{"1", "2", "3", "4","5", "6", "7", "8","9", "10", "11", "12"};
 		JComboBox cbTechMonthExp = new JComboBox(TechMnthitems);
+		cbTechMonthExp.setSelectedIndex(-1);
+		cbTechMonthExp.setBackground(new Color(255, 255, 255));
 		cbTechMonthExp.addItemListener(new ItemListener() {
 			String selval;
 			public void itemStateChanged(ItemEvent e) {
-				textFieldTechMyMonth.setText(selval);
-				selval = String.valueOf(cbTechMonthExp.getSelectedItem());
 				
+				selval = String.valueOf(cbTechMonthExp.getSelectedItem());
 				String usrtxtfield=textField_1.getText();
+				textFieldTechMyMonth.setText(selval);
+				
 				
 				try {
 				
-					String query = "UPDATE profileData SET TECHMnthExp =? WHERE profileData.username =?";
+					String query = "UPDATE profiledata SET TECHMnthExp =? WHERE profiledata.username =?";
 					
 					PreparedStatement pst=conn.prepareStatement(query);
 					pst.setString(1, selval);
@@ -2426,7 +1576,7 @@ public class ProfileSkills extends JFrame {
 				
 			}
 		});
-		cbTechMonthExp.setBounds(933, 8, 64, 22);
+		cbTechMonthExp.setBounds(263, 8, 40, 22);
 		panelTech.add(cbTechMonthExp);
 		
 		JLabel lblTechCodeVersion = new JLabel("Technical Code Version Control Tools");
@@ -2522,7 +1672,7 @@ public class ProfileSkills extends JFrame {
 		panelTech.add(lblMyTechnicalCodeVersion);
 		
 		JScrollPane scrollPane_TechIndDom = new JScrollPane();
-		scrollPane_TechIndDom.setBounds(10, 99, 152, 126);
+		scrollPane_TechIndDom.setBounds(10, 99, 177, 126);
 		panelTech.add(scrollPane_TechIndDom);
 		
 		JList listTechIndustryDomain = new JList();
@@ -2537,7 +1687,7 @@ public class ProfileSkills extends JFrame {
 		scrollPane_MYTechIndDom.setViewportView(listMYTechIndustryDomain);
 		
 		JScrollPane scrollPane_TechBadge = new JScrollPane();
-		scrollPane_TechBadge.setBounds(536, 99, 152, 126);
+		scrollPane_TechBadge.setBounds(536, 99, 177, 126);
 		panelTech.add(scrollPane_TechBadge);
 		
 		JList listTechBadgeCert = new JList();
@@ -2552,7 +1702,7 @@ public class ProfileSkills extends JFrame {
 		scrollPane_MYTechBadge.setViewportView(listMYTechBadgeCert);
 		
 		JScrollPane scrollPane_TechOthAreaExp = new JScrollPane();
-		scrollPane_TechOthAreaExp.setBounds(10, 278, 152, 126);
+		scrollPane_TechOthAreaExp.setBounds(10, 278, 177, 126);
 		panelTech.add(scrollPane_TechOthAreaExp);
 		
 		JList listTechOtherAreas = new JList();
@@ -2560,7 +1710,7 @@ public class ProfileSkills extends JFrame {
 		filllistTechOtherAreas(listTechOtherAreas);
 		
 		JScrollPane scrollPane_TechCodeConTools = new JScrollPane();
-		scrollPane_TechCodeConTools.setBounds(10, 460, 152, 130);
+		scrollPane_TechCodeConTools.setBounds(10, 460, 177, 130);
 		panelTech.add(scrollPane_TechCodeConTools);
 		
 		JList listTechCodeControlTools = new JList();
@@ -2568,7 +1718,7 @@ public class ProfileSkills extends JFrame {
 		filllistTechCodeControlTools(listTechCodeControlTools);
 		
 		JScrollPane scrollPane_TechTestMangTools = new JScrollPane();
-		scrollPane_TechTestMangTools.setBounds(536, 278, 152, 126);
+		scrollPane_TechTestMangTools.setBounds(536, 278, 177, 126);
 		panelTech.add(scrollPane_TechTestMangTools);
 		
 		JList listTechTestManTools = new JList();
@@ -2576,7 +1726,7 @@ public class ProfileSkills extends JFrame {
 		filllistTechTestManTools(listTechTestManTools);
 		
 		JScrollPane scrollPane_TechDevOpsCDTool = new JScrollPane();
-		scrollPane_TechDevOpsCDTool.setBounds(536, 460, 152, 130);
+		scrollPane_TechDevOpsCDTool.setBounds(536, 460, 177, 130);
 		panelTech.add(scrollPane_TechDevOpsCDTool);
 		
 		JList listTechDevOpsTools = new JList();
@@ -2667,15 +1817,17 @@ public class ProfileSkills extends JFrame {
 		scrollPane_MYTechToolExp2.setViewportView(tableMyTechToolExp);
 		
 		textFieldTechMyYears = new JTextField();
-		textFieldTechMyYears.setText("0");
-		textFieldTechMyYears.setBounds(51, 9, 33, 20);
+		textFieldTechMyYears.setEditable(false);
+		textFieldTechMyYears.setBackground(new Color(217, 212, 161));
+		textFieldTechMyYears.setBounds(81, 8, 33, 22);
 		panelTech.add(textFieldTechMyYears);
 		textFieldTechMyYears.setColumns(10);
 		
 		textFieldTechMyMonth = new JTextField();
-		textFieldTechMyMonth.setText("0");
+		textFieldTechMyMonth.setEditable(false);
+		textFieldTechMyMonth.setBackground(new Color(217, 212, 161));
 		textFieldTechMyMonth.setColumns(10);
-		textFieldTechMyMonth.setBounds(152, 9, 33, 20);
+		textFieldTechMyMonth.setBounds(231, 8, 33, 22);
 		panelTech.add(textFieldTechMyMonth);
 		
 		JButton btnAddTechIndDom = new JButton(">>");
@@ -2699,7 +1851,7 @@ public class ProfileSkills extends JFrame {
 		btnAddTechIndDom.setForeground(new Color(128, 0, 0));
 		btnAddTechIndDom.setBackground(new Color(217, 212, 161));
 		btnAddTechIndDom.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnAddTechIndDom.setBounds(172, 108, 64, 23);
+		btnAddTechIndDom.setBounds(196, 108, 33, 23);
 		panelTech.add(btnAddTechIndDom);
 		
 		JButton btnRemoveTechIndDom = new JButton("<<");
@@ -2724,7 +1876,7 @@ public class ProfileSkills extends JFrame {
 		btnRemoveTechIndDom.setForeground(new Color(139, 0, 0));
 		btnRemoveTechIndDom.setBackground(new Color(217, 212, 161));
 		btnRemoveTechIndDom.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnRemoveTechIndDom.setBounds(172, 133, 64, 23);
+		btnRemoveTechIndDom.setBounds(197, 133, 24, 23);
 		panelTech.add(btnRemoveTechIndDom);
 		
 		JButton btnAddTechBadgeCert = new JButton(">>");
@@ -2748,7 +1900,7 @@ public class ProfileSkills extends JFrame {
 		btnAddTechBadgeCert.setForeground(new Color(139, 0, 0));
 		btnAddTechBadgeCert.setBackground(new Color(217, 212, 161));
 		btnAddTechBadgeCert.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnAddTechBadgeCert.setBounds(698, 108, 64, 23);
+		btnAddTechBadgeCert.setBounds(723, 108, 33, 23);
 		panelTech.add(btnAddTechBadgeCert);
 		
 		JButton btnRemoveTechBadgeCert = new JButton("<<");
@@ -2773,7 +1925,7 @@ public class ProfileSkills extends JFrame {
 		btnRemoveTechBadgeCert.setForeground(new Color(139, 0, 0));
 		btnRemoveTechBadgeCert.setBackground(new Color(217, 212, 161));
 		btnRemoveTechBadgeCert.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnRemoveTechBadgeCert.setBounds(698, 133, 64, 23);
+		btnRemoveTechBadgeCert.setBounds(723, 133, 29, 23);
 		panelTech.add(btnRemoveTechBadgeCert);
 		
 		JButton btnAddTechToolExp = new JButton(">>");
@@ -2871,7 +2023,7 @@ public class ProfileSkills extends JFrame {
 		btnAddTechOtherExp.setForeground(new Color(139, 0, 0));
 		btnAddTechOtherExp.setBackground(new Color(217, 212, 161));
 		btnAddTechOtherExp.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnAddTechOtherExp.setBounds(172, 286, 64, 23);
+		btnAddTechOtherExp.setBounds(197, 297, 24, 23);
 		panelTech.add(btnAddTechOtherExp);
 		
 		JButton btnRemoveTechOtherExp = new JButton("<<");
@@ -2896,7 +2048,7 @@ public class ProfileSkills extends JFrame {
 		btnRemoveTechOtherExp.setForeground(new Color(139, 0, 0));
 		btnRemoveTechOtherExp.setBackground(new Color(217, 212, 161));
 		btnRemoveTechOtherExp.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnRemoveTechOtherExp.setBounds(172, 311, 64, 23);
+		btnRemoveTechOtherExp.setBounds(197, 320, 23, 23);
 		panelTech.add(btnRemoveTechOtherExp);
 		
 		JButton btnAddTechMgmtTool = new JButton(">>");
@@ -2920,7 +2072,7 @@ public class ProfileSkills extends JFrame {
 		btnAddTechMgmtTool.setForeground(new Color(139, 0, 0));
 		btnAddTechMgmtTool.setBackground(new Color(217, 212, 161));
 		btnAddTechMgmtTool.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnAddTechMgmtTool.setBounds(698, 286, 64, 23);
+		btnAddTechMgmtTool.setBounds(723, 297, 33, 23);
 		panelTech.add(btnAddTechMgmtTool);
 		
 		JButton btnRemoveTechMgmtTool = new JButton("<<");
@@ -2945,7 +2097,7 @@ public class ProfileSkills extends JFrame {
 		btnRemoveTechMgmtTool.setForeground(new Color(139, 0, 0));
 		btnRemoveTechMgmtTool.setBackground(new Color(217, 212, 161));
 		btnRemoveTechMgmtTool.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnRemoveTechMgmtTool.setBounds(698, 311, 64, 23);
+		btnRemoveTechMgmtTool.setBounds(723, 320, 29, 23);
 		panelTech.add(btnRemoveTechMgmtTool);
 		
 		JButton btnAddTechCodeVerControl = new JButton(">>");
@@ -2969,7 +2121,7 @@ public class ProfileSkills extends JFrame {
 		btnAddTechCodeVerControl.setForeground(new Color(139, 0, 0));
 		btnAddTechCodeVerControl.setBackground(new Color(217, 212, 161));
 		btnAddTechCodeVerControl.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnAddTechCodeVerControl.setBounds(172, 471, 64, 23);
+		btnAddTechCodeVerControl.setBounds(197, 471, 24, 23);
 		panelTech.add(btnAddTechCodeVerControl);
 		
 		JButton btnRemoveTechCodeVerControl = new JButton("<<");
@@ -2994,7 +2146,7 @@ public class ProfileSkills extends JFrame {
 		btnRemoveTechCodeVerControl.setForeground(new Color(139, 0, 0));
 		btnRemoveTechCodeVerControl.setBackground(new Color(217, 212, 161));
 		btnRemoveTechCodeVerControl.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnRemoveTechCodeVerControl.setBounds(172, 496, 64, 23);
+		btnRemoveTechCodeVerControl.setBounds(197, 496, 24, 23);
 		panelTech.add(btnRemoveTechCodeVerControl);
 		
 		JButton btnAddTechDevOpsTool = new JButton(">>");
@@ -3018,7 +2170,7 @@ public class ProfileSkills extends JFrame {
 		btnAddTechDevOpsTool.setForeground(new Color(139, 0, 0));
 		btnAddTechDevOpsTool.setBackground(new Color(217, 212, 161));
 		btnAddTechDevOpsTool.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnAddTechDevOpsTool.setBounds(698, 471, 64, 23);
+		btnAddTechDevOpsTool.setBounds(723, 471, 24, 23);
 		panelTech.add(btnAddTechDevOpsTool);
 		
 		JButton btnRemoveTechDevOpsTool = new JButton("<<");
@@ -3043,7 +2195,7 @@ public class ProfileSkills extends JFrame {
 		btnRemoveTechDevOpsTool.setForeground(new Color(139, 0, 0));
 		btnRemoveTechDevOpsTool.setBackground(new Color(217, 212, 161));
 		btnRemoveTechDevOpsTool.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnRemoveTechDevOpsTool.setBounds(698, 496, 64, 23);
+		btnRemoveTechDevOpsTool.setBounds(723, 496, 24, 23);
 		panelTech.add(btnRemoveTechDevOpsTool);
 		
 		JButton btnADDSkillsTechIndDom = new JButton("+");
@@ -3327,9 +2479,10 @@ public class ProfileSkills extends JFrame {
 		JButton btnRMVSkillsTechIndDom_1 = new JButton("-");
 		btnRMVSkillsTechIndDom_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);
 				if (AdminUser.equals("Y")){
 	    			String selval = (String) listTechIndustryDomain.getSelectedValue();
-					
+	    		  if (result == JOptionPane.OK_OPTION) {
 	    			if (selval != null){
 	    				LookupSkill mytechIndDom = new LookupSkill();
 	    				int TechIndDomid =  (int) mytechIndDom.lookuplistMYTechIndDom(selval);
@@ -3344,19 +2497,13 @@ public class ProfileSkills extends JFrame {
 	    				
 	    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
 	    				
-	    			}else{
-	    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-	    				}
-	    				
-	    			//JList listTechIndustryDomain = new JList();
-	    			//scrollPane_TechIndDom.setViewportView(listTechIndustryDomain);
+	    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
 	    			
 	    			DefaultListModel listModel = (DefaultListModel) listTechIndustryDomain.getModel();
 			        listModel.removeAllElements();
 			        filllistTechIndustryDomain(listTechIndustryDomain);
-	    			
+	    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}	
 	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
-				
 			}
 		});
 		btnRMVSkillsTechIndDom_1.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -3369,9 +2516,11 @@ public class ProfileSkills extends JFrame {
 		JButton btnRMVSkillsTechOthAreaExpertise_1 = new JButton("-");
 		btnRMVSkillsTechOthAreaExpertise_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);
+	
 				if (AdminUser.equals("Y")){
 	    			String selval = (String) listTechOtherAreas.getSelectedValue();
-					
+	    		  if (result == JOptionPane.OK_OPTION) {
 	    			if (selval != null){
 	    				LookupSkill mytechOthExp = new LookupSkill();
 	    				int TechOthExpid = (int) mytechOthExp.lookuplistMYTechOthExp(selval);
@@ -3386,17 +2535,11 @@ public class ProfileSkills extends JFrame {
 	    				
 	    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
 	    				
-	    			}else{
-	    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-	    				}
-	    				
-	    			//JList listTechOtherAreas = new JList();
-	    			//scrollPane_TechOthAreaExp.setViewportView(listTechOtherAreas);
-	    			
+	    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
 	    			DefaultListModel listModel = (DefaultListModel) listTechOtherAreas.getModel();
 			        listModel.removeAllElements();
 			        filllistTechOtherAreas(listTechOtherAreas); 
-	    			
+	    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}	
 	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
 			}
 		});
@@ -3410,9 +2553,10 @@ public class ProfileSkills extends JFrame {
 		JButton btnRMVSkillsTechCodeVConTool_1 = new JButton("-");
 		btnRMVSkillsTechCodeVConTool_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);	
 				if (AdminUser.equals("Y")){
 	    			String selval = (String) listTechCodeControlTools.getSelectedValue();
-					
+	    		  if (result == JOptionPane.OK_OPTION) {
 	    			if (selval != null){
 	    				LookupSkill mytechCodeConTool = new LookupSkill();
 	    				int TechConToolid = (int) mytechCodeConTool.lookuplistMYTechCodeConTool(selval);
@@ -3427,17 +2571,11 @@ public class ProfileSkills extends JFrame {
 	    				
 	    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
 	    				
-	    			}else{
-	    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-	    				}
-	    				
-	    			//JList listTechCodeControlTools = new JList();
-	    			//scrollPane_TechCodeConTools.setViewportView(listTechCodeControlTools);
-	    			 
+	    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
 	    			DefaultListModel listModel = (DefaultListModel) listTechCodeControlTools.getModel();
 			        listModel.removeAllElements();
 			        filllistTechCodeControlTools(listTechCodeControlTools);
-	    			
+	    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}	
 	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
 			}
 		});
@@ -3451,9 +2589,10 @@ public class ProfileSkills extends JFrame {
 		JButton btnRMVSkillsTechBadge_1 = new JButton("-");
 		btnRMVSkillsTechBadge_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);	
 				if (AdminUser.equals("Y")){
 	    			String selval = (String) listTechBadgeCert.getSelectedValue();
-					
+	    		  if (result == JOptionPane.OK_OPTION) {
 	    			if (selval != null){
 	    				LookupSkill mytechBadgeCert = new LookupSkill();
 	    				int TechBadCertid = (int) mytechBadgeCert.lookuplistMYTechBadgeCert(selval);
@@ -3468,19 +2607,12 @@ public class ProfileSkills extends JFrame {
 	    				
 	    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
 	    				
-	    			}else{
-	    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-	    				}
-	    				
-	    			//JList listTechBadgeCert = new JList();
-	    			//scrollPane_TechBadge.setViewportView(listTechBadgeCert);
-	    			
+	    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
 	    			DefaultListModel listModel = (DefaultListModel) listTechBadgeCert.getModel();
 			        listModel.removeAllElements();
 			        filllistTechBadgeCert(listTechBadgeCert);
-	    			
+	    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}	
 	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
-				
 			}
 		});
 		btnRMVSkillsTechBadge_1.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -3493,9 +2625,11 @@ public class ProfileSkills extends JFrame {
 		JButton btnRMVSkillsTechTestMangTools_1 = new JButton("-");
 		btnRMVSkillsTechTestMangTools_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);
+	
 				if (AdminUser.equals("Y")){
 	    			String selval = (String) listTechTestManTools.getSelectedValue();
-					
+	    		  if (result == JOptionPane.OK_OPTION) {
 	    			if (selval != null){
 	    				LookupSkill mytechMgmtTool = new LookupSkill();
 	    				int TechMgmtToolid = (int) mytechMgmtTool.lookuplistMYTechTestManTool(selval);
@@ -3510,17 +2644,11 @@ public class ProfileSkills extends JFrame {
 	    				
 	    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
 	    				
-	    			}else{
-	    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-	    				}
-	    				
-	    			//JList listTechTestManTools = new JList();
-	    			//scrollPane_TechTestMangTools.setViewportView(listTechTestManTools);
-	    			
+	    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
 	    			DefaultListModel listModel = (DefaultListModel) listTechTestManTools.getModel();
 			        listModel.removeAllElements();
 			        filllistTechTestManTools(listTechTestManTools); 
-	    			
+	    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
 	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
 				
 			}
@@ -3535,9 +2663,10 @@ public class ProfileSkills extends JFrame {
 		JButton btnRMVSkillsTechDevOpsCDTool_1 = new JButton("-");
 		btnRMVSkillsTechDevOpsCDTool_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);
 				if (AdminUser.equals("Y")){
 	    			String selval = (String) listTechDevOpsTools.getSelectedValue();
-					
+	    		  if (result == JOptionPane.OK_OPTION) {
 	    			if (selval != null){
 	    				LookupSkill mytechDevOps = new LookupSkill();
 	    				int TechDevOpsid = (int) mytechDevOps.lookuplistMYTechDevOps(selval);
@@ -3552,16 +2681,11 @@ public class ProfileSkills extends JFrame {
 	    				
 	    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
 	    				
-	    			}else{
-	    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-	    				}
-	    				
-	    			//JList listTechDevOpsTools = new JList();
-	    			//scrollPane_TechDevOpsCDTool.setViewportView(listTechDevOpsTools);
+	    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
 	    			DefaultListModel listModel = (DefaultListModel) listTechDevOpsTools.getModel();
 			        listModel.removeAllElements();
 	    			filllistTechDevOpsTools(listTechDevOpsTools); 
-	    			
+	    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}	
 	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
 			}
 		});
@@ -3575,9 +2699,10 @@ public class ProfileSkills extends JFrame {
 		JButton btnRMVSkillsTableTechExpTools_1 = new JButton("-");
 		btnRMVSkillsTableTechExpTools_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);	
 				if (AdminUser.equals("Y")){
 					String listval = (String) cbtechtool.getSelectedItem();
-					
+				  if (result == JOptionPane.OK_OPTION) {
 					if (listval != null){
 						
 						RemoveList RMVfromEmplySkillTechExpTool = new RemoveList();
@@ -3597,11 +2722,9 @@ public class ProfileSkills extends JFrame {
 			        		model.removeAllElements();
 			        		fillcbtechtool(cbtechtool);
 					}	
-					}else{
-					JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-					}	
+					}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
+				  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
 				}else{JOptionPane.showMessageDialog(null, "admin use only");}
-				
 			}
 		});
 		btnRMVSkillsTableTechExpTools_1.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -3614,9 +2737,10 @@ public class ProfileSkills extends JFrame {
 		JButton btnRMVSkillsTableRateSkillLvl_1 = new JButton("-");
 		btnRMVSkillsTableRateSkillLvl_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);	
 				if (AdminUser.equals("Y")){
 					String listval = (String) cbrateskill.getSelectedItem();
-					
+				  if (result == JOptionPane.OK_OPTION) {
 					if (listval != null){
 						
 						RemoveList RMVfromEmplySkillRateSkill = new RemoveList();
@@ -3636,9 +2760,8 @@ public class ProfileSkills extends JFrame {
 			        		model.removeAllElements();
 			        		fillcbrateskill(cbrateskill);
 					}	
-					}else{
-					JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-					}	
+					}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
+				  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
 				}else{JOptionPane.showMessageDialog(null, "admin use only");}
 				
 			}
@@ -3653,9 +2776,10 @@ public class ProfileSkills extends JFrame {
 		JButton btnRMVSkillsTableSMETrainer_1 = new JButton("-");
 		btnRMVSkillsTableSMETrainer_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);	
 				if (AdminUser.equals("Y")){
 					String listval = (String) cbsmetrainer.getSelectedItem();
-					
+				  if (result == JOptionPane.OK_OPTION) {
 					if (listval != null){
 						
 						RemoveList RMVfromEmplySkillSMETrain = new RemoveList();
@@ -3675,9 +2799,8 @@ public class ProfileSkills extends JFrame {
 			        		model.removeAllElements();
 			        		fillcbsmetrainer(cbsmetrainer);
 					}	
-					}else{
-					JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-					}	
+					}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
+				  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
 				}else{JOptionPane.showMessageDialog(null, "admin use only");}
 				
 			}
@@ -3689,12 +2812,8 @@ public class ProfileSkills extends JFrame {
 		panelTech.add(btnRMVSkillsTableSMETrainer_1);
 		
 		JLabel lblNewLabel_4 = new JLabel("Months of Experience with  Technical Skills");
-		lblNewLabel_4.setBounds(195, 12, 233, 14);
+		lblNewLabel_4.setBounds(303, 12, 233, 14);
 		panelTech.add(lblNewLabel_4);
-		
-		JLabel lblNewLabel_5 = new JLabel("Select a new Value to update Year and Month");
-		lblNewLabel_5.setBounds(585, 12, 264, 14);
-		panelTech.add(lblNewLabel_5);
 	
 		/**********************************/
 		/**      Functional Pane         **/
@@ -3705,6 +2824,1679 @@ public class ProfileSkills extends JFrame {
 	/**********************************/
 	/**      Management Pane         **/
 	/**********************************/
+				
+						JPanel panelBus = new JPanel();
+						panelBus.setBackground(new Color(189, 205, 139));
+						tabbedpane.add("BusinessSkill",panelBus);
+						panelBus.setLayout(null);
+						
+						JComboBox cbBAYearsExp_1 = new JComboBox(BUSYrsitems);
+						cbBAYearsExp_1.setSelectedIndex(-1);
+						cbBAYearsExp_1.setBackground(new Color(255, 255, 255));
+						cbBAYearsExp_1.addActionListener(new ActionListener() {
+							String selval;
+							public void actionPerformed(ActionEvent e) {
+								
+								String selval = String.valueOf(cbBAYearsExp_1.getSelectedItem());
+								String yrs = (String) cbBAYearsExp_1.getSelectedItem();
+								String usrtxtfield=textField_1.getText();
+								
+								textFieldBAMyYears.setText(selval);
+								
+								try {
+									
+									String query = "UPDATE profiledata SET BAYearExp=? WHERE profiledata.username =?";
+									
+									PreparedStatement pst=conn.prepareStatement(query);
+									pst.setString(1, selval);
+									pst.setString(2, usrtxtfield);
+									pst.execute();
+								
+								} catch (Exception ex) {
+									
+									JOptionPane.showMessageDialog(null, " exception error Data not Saved");
+									ex.printStackTrace();
+									}
+							
+							}
+						});
+						cbBAYearsExp_1.setBounds(113, 11, 38, 22);
+						panelBus.add(cbBAYearsExp_1);
+						
+						JComboBox cbBAMonthExp_1 = new JComboBox(BUSMnthitems);
+						cbBAMonthExp_1.setSelectedIndex(-1);
+						cbBAMonthExp_1.setBackground(new Color(255, 255, 255));
+						cbBAMonthExp_1.addItemListener(new ItemListener() {
+							String selval;
+								public void itemStateChanged(ItemEvent e) {
+									
+									selval = String.valueOf(cbBAMonthExp_1.getSelectedItem());
+									String yrs = (String) cbBAMonthExp_1.getSelectedItem();
+									String usrtxtfield=textField_1.getText();
+									textFieldBAMyMonths.setText(selval);
+									
+									try {
+									
+										String query = "UPDATE profiledata SET BAMnthExp=? WHERE profiledata.username =?";
+										
+										PreparedStatement pst=conn.prepareStatement(query);
+										pst.setString(1, selval);
+										pst.setString(2, usrtxtfield);
+										pst.execute();
+									
+									} catch (Exception ex) {
+										
+										JOptionPane.showMessageDialog(null, " exception error Data not Saved");
+										ex.printStackTrace();
+										}
+							}
+						});
+						cbBAMonthExp_1.setBounds(248, 11, 38, 22);
+						cbBAMonthExp_1.setSelectedIndex(-1);
+						panelBus.add(cbBAMonthExp_1);
+						
+						JLabel lblBASkillsBadge = new JLabel("BA Skills Badge");
+						lblBASkillsBadge.setToolTipText("CertBadge");
+						lblBASkillsBadge.setFont(new Font("Tahoma", Font.PLAIN, 12));
+						lblBASkillsBadge.setBounds(10, 477, 87, 14);
+						panelBus.add(lblBASkillsBadge);
+						
+						JLabel lblBAYearsExperience = new JLabel("I have");
+						lblBAYearsExperience.setFont(new Font("Tahoma", Font.PLAIN, 12));
+						lblBAYearsExperience.setBounds(28, 14, 46, 14);
+						panelBus.add(lblBAYearsExperience);
+						
+						JLabel lblBACertAcheived = new JLabel("Certifications Acheived");
+						lblBACertAcheived.setToolTipText("CertBadge");
+						lblBACertAcheived.setFont(new Font("Tahoma", Font.PLAIN, 12));
+						lblBACertAcheived.setBounds(487, 277, 130, 14);
+						panelBus.add(lblBACertAcheived);
+						
+						JLabel lblBAToolSoftware = new JLabel("Tools/Software Worked On");
+						lblBAToolSoftware.setToolTipText("SkillTool");
+						lblBAToolSoftware.setFont(new Font("Tahoma", Font.PLAIN, 12));
+						lblBAToolSoftware.setBounds(10, 278, 182, 14);
+						panelBus.add(lblBAToolSoftware);
+						
+						JLabel lblBAIndustryDomain = new JLabel("BA Industry and Domain");
+						lblBAIndustryDomain.setToolTipText("SkillIndustry");
+						lblBAIndustryDomain.setFont(new Font("Tahoma", Font.PLAIN, 12));
+						lblBAIndustryDomain.setBounds(490, 74, 138, 14);
+						panelBus.add(lblBAIndustryDomain);
+						
+						JLabel lblBARoles = new JLabel("BA Roles");
+						lblBARoles.setToolTipText("SkillFocus");
+						lblBARoles.setFont(new Font("Tahoma", Font.PLAIN, 12));
+						lblBARoles.setBounds(10, 73, 64, 14);
+						panelBus.add(lblBARoles);
+						
+						JLabel lblMyBaRoles = new JLabel("MY BA Roles");
+						lblMyBaRoles.setFont(new Font("Tahoma", Font.PLAIN, 12));
+						lblMyBaRoles.setBounds(278, 73, 138, 14);
+						panelBus.add(lblMyBaRoles);
+						
+						JLabel lblMyBaIndustry = new JLabel("MY BA Industry and Domain");
+						lblMyBaIndustry.setFont(new Font("Tahoma", Font.PLAIN, 12));
+						lblMyBaIndustry.setBounds(766, 74, 257, 14);
+						panelBus.add(lblMyBaIndustry);
+						
+						JLabel lblMYBAToolSoftware = new JLabel("MY Tools/Software Worked On");
+						lblMYBAToolSoftware.setFont(new Font("Tahoma", Font.PLAIN, 12));
+						lblMYBAToolSoftware.setBounds(273, 277, 182, 14);
+						panelBus.add(lblMYBAToolSoftware);
+						
+						JLabel lblMyBACertificationsAcheived = new JLabel("MY Certifications Acheived");
+						lblMyBACertificationsAcheived.setFont(new Font("Tahoma", Font.PLAIN, 12));
+						lblMyBACertificationsAcheived.setBounds(767, 277, 154, 14);
+						panelBus.add(lblMyBACertificationsAcheived);
+						
+						JLabel lblMYBASkillsBadge_1 = new JLabel("MY BA Skills Badge");
+						lblMYBASkillsBadge_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+						lblMYBASkillsBadge_1.setBounds(278, 477, 116, 14);
+						panelBus.add(lblMYBASkillsBadge_1);
+						
+						JLabel lblBAMnthExperience_1 = new JLabel("Years and");
+						lblBAMnthExperience_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+						lblBAMnthExperience_1.setBounds(151, 14, 64, 14);
+						panelBus.add(lblBAMnthExperience_1);
+						
+						JScrollPane scrollPaneBARoles = new JScrollPane();
+						scrollPaneBARoles.setBounds(10, 98, 205, 145);
+						panelBus.add(scrollPaneBARoles);
+						
+						JList listBARoles = new JList();
+						scrollPaneBARoles.setViewportView(listBARoles);
+						filllistBARoles(listBARoles);
+						
+						JScrollPane scrollPaneMYBARoles = new JScrollPane();
+						scrollPaneMYBARoles.setBounds(273, 98, 173, 145);
+						panelBus.add(scrollPaneMYBARoles);
+						
+						JList listMYBARoles_1 = new JList(MYBARolls);
+						scrollPaneMYBARoles.setViewportView(listMYBARoles_1);
+						
+						JScrollPane scrollPaneBAToolsSoftware = new JScrollPane();
+						scrollPaneBAToolsSoftware.setBounds(10, 304, 205, 145);
+						panelBus.add(scrollPaneBAToolsSoftware);
+						
+						JList listBAToolsSoftware = new JList();
+						scrollPaneBAToolsSoftware.setViewportView(listBAToolsSoftware);
+						filllistBAToolsSoftware(listBAToolsSoftware);
+						
+						JScrollPane scrollPaneMYBAToolsSoftware = new JScrollPane();
+						scrollPaneMYBAToolsSoftware.setBounds(273, 304, 173, 145);
+						panelBus.add(scrollPaneMYBAToolsSoftware);
+						
+		JList listMYBAToolsSoftware_1_1 = new JList(MYBAToolSoft);
+		scrollPaneMYBAToolsSoftware.setViewportView(listMYBAToolsSoftware_1_1);
+		
+		JScrollPane scrollPaneBAIndustryDomain = new JScrollPane();
+		scrollPaneBAIndustryDomain.setBounds(490, 99, 219, 145);
+		panelBus.add(scrollPaneBAIndustryDomain);
+		
+		JList listBAIndustryDomain = new JList();
+		scrollPaneBAIndustryDomain.setViewportView(listBAIndustryDomain);
+		filllistBAIndustryDomain(listBAIndustryDomain);
+		
+		JScrollPane scrollPaneMYBAIndustryDomain = new JScrollPane();
+		scrollPaneMYBAIndustryDomain.setBounds(762, 99, 261, 145);
+		panelBus.add(scrollPaneMYBAIndustryDomain);
+		
+		JList listMYBAIndustryDomain_1 = new JList(MyBaIndDom);
+		scrollPaneMYBAIndustryDomain.setViewportView(listMYBAIndustryDomain_1);
+		
+		JScrollPane scrollPaneBACertAcheived = new JScrollPane();
+		scrollPaneBACertAcheived.setBounds(487, 302, 213, 145);
+		panelBus.add(scrollPaneBACertAcheived);
+		
+		JList listBACertAcheived = new JList();
+		scrollPaneBACertAcheived.setViewportView(listBACertAcheived);
+		filllistBACertAcheived(listBACertAcheived);
+		
+		JScrollPane scrollPaneMYBACertAcheived = new JScrollPane();
+		scrollPaneMYBACertAcheived.setBounds(767, 303, 253, 145);
+		panelBus.add(scrollPaneMYBACertAcheived);
+		
+		JList listMYBACertAcheived_1 = new JList(MYBACert);
+		scrollPaneMYBACertAcheived.setViewportView(listMYBACertAcheived_1);
+		
+		JScrollPane scrollPaneBASkillBadge = new JScrollPane();
+		scrollPaneBASkillBadge.setBounds(10, 502, 205, 92);
+		panelBus.add(scrollPaneBASkillBadge);
+		
+		JList listBASkillBadge = new JList();
+		scrollPaneBASkillBadge.setViewportView(listBASkillBadge);
+		filllistBASkillBadge(listBASkillBadge);
+		
+		JScrollPane scrollPaneMYBASkillBadge = new JScrollPane();
+		scrollPaneMYBASkillBadge.setBounds(278, 502, 199, 92);
+		panelBus.add(scrollPaneMYBASkillBadge);
+		
+		JList listMYBASkillBadge_1 = new JList(MYBASkillBad);
+		scrollPaneMYBASkillBadge.setViewportView(listMYBASkillBadge_1);
+		
+		JButton btnAddBARoll = new JButton(">>");
+		btnAddBARoll.setBorder(null);
+		btnAddBARoll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				String BARolesstr1 = (String) listBARoles.getSelectedValue();
+				if (BARolesstr1 != null) {
+					if (MYBARolls.contains(BARolesstr1)) {
+						JOptionPane.showMessageDialog(null, "Already in List");
+					}else {
+						MYBARolls.addElement(BARolesstr1);
+						String tempusrname = textField_1.getText();
+											
+						SaveList mysavelist = new SaveList();
+						mysavelist.SAVElistMYBARoles(BARolesstr1, tempusrname);
+					}
+				}else JOptionPane.showMessageDialog(null, "Please Select a value from the list");
+			}
+		});
+		btnAddBARoll.setForeground(new Color(0, 128, 0));
+		btnAddBARoll.setBackground(new Color(189, 205, 139));
+		btnAddBARoll.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnAddBARoll.setBounds(225, 108, 21, 23);
+		panelBus.add(btnAddBARoll);
+		
+		JButton btnRemoveBARoll_1 = new JButton("<<");
+		btnRemoveBARoll_1.setBorder(null);
+		btnRemoveBARoll_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+										
+				String BARolesstr1 = (String) listMYBARoles_1.getSelectedValue();
+				if (BARolesstr1 != null) {
+					int myselectedindex = listMYBARoles_1.getSelectedIndex();
+										
+					if(listMYBARoles_1.getSelectedIndex()>=0)
+											
+						MYBARolls.remove(listMYBARoles_1.getSelectedIndex());
+										
+					String tempusrname = textField_1.getText();
+										
+					RemoveList myremovelist = new RemoveList();
+					myremovelist.REMOVElistMYBARoles(BARolesstr1, tempusrname);
+				}else JOptionPane.showMessageDialog(null, "Please Select a value from the list>>>>");
+			}
+
+		});
+		btnRemoveBARoll_1.setForeground(new Color(0, 128, 0));
+		btnRemoveBARoll_1.setBackground(new Color(189, 205, 139));
+		btnRemoveBARoll_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnRemoveBARoll_1.setBounds(225, 142, 21, 23);
+		panelBus.add(btnRemoveBARoll_1);					
+		
+		JButton btnAddBAToolsSoft = new JButton(">>");
+		btnAddBAToolsSoft.setBorder(null);
+		btnAddBAToolsSoft.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String BAToolSoftstr1 = (String) listBAToolsSoftware.getSelectedValue();
+				if (BAToolSoftstr1 != null) {
+					if (MYBAToolSoft.contains(BAToolSoftstr1)) {
+						JOptionPane.showMessageDialog(null, "Already in List");
+							}else {
+						MYBAToolSoft.addElement(BAToolSoftstr1);
+											
+						String tempusrname = textField_1.getText();
+						SaveList mysavelist = new SaveList();
+						mysavelist.SAVElistMYBAToolSoft(BAToolSoftstr1, tempusrname);
+						}
+				}else JOptionPane.showMessageDialog(null, "Please Select a value from the list");
+			}
+		});
+		btnAddBAToolsSoft.setForeground(new Color(0, 128, 0));
+		btnAddBAToolsSoft.setBackground(new Color(189, 205, 139));
+		btnAddBAToolsSoft.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnAddBAToolsSoft.setBounds(225, 314, 21, 23);
+		panelBus.add(btnAddBAToolsSoft);
+		
+		JButton btnRemoveBAToolsSoft = new JButton("<<");
+		btnRemoveBAToolsSoft.setBorder(null);
+		btnRemoveBAToolsSoft.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+										
+			String BAToolSoftstr1 = (String) listMYBAToolsSoftware_1_1.getSelectedValue();
+			int myselectedindex = listMYBAToolsSoftware_1_1.getSelectedIndex();
+									
+				if (BAToolSoftstr1 != null) {
+					if(listMYBAToolsSoftware_1_1.getSelectedIndex()>=0)
+											
+						MYBAToolSoft.remove(listMYBAToolsSoftware_1_1.getSelectedIndex());
+										
+					String tempusrname = textField_1.getText();
+										
+					RemoveList myremovelist = new RemoveList();
+					myremovelist.REMOVElistRemoveBAToolsSoft(BAToolSoftstr1, tempusrname);
+				}else JOptionPane.showMessageDialog(null, "Please Select a value from the list>>>>");
+			}
+		});
+		btnRemoveBAToolsSoft.setForeground(new Color(0, 128, 0));
+		btnRemoveBAToolsSoft.setBackground(new Color(189, 205, 139));
+		btnRemoveBAToolsSoft.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnRemoveBAToolsSoft.setBounds(225, 348, 21, 23);
+		panelBus.add(btnRemoveBAToolsSoft);
+		
+		
+		JButton btnAddBAIndustryDomain = new JButton(">>");
+		btnAddBAIndustryDomain.setBorder(null);
+		btnAddBAIndustryDomain.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {				
+				String BAIndDomstr1 = (String) listBAIndustryDomain.getSelectedValue();
+				if (BAIndDomstr1 != null) {
+					if (MyBaIndDom.contains(BAIndDomstr1)) {
+						JOptionPane.showMessageDialog(null, "Already in List");
+					}else {
+						MyBaIndDom.addElement(BAIndDomstr1);
+											
+						String tempusrname = textField_1.getText();
+						SaveList mysavelist = new SaveList();
+						mysavelist.SAVElistMYBAIndustry(BAIndDomstr1, tempusrname);
+						}
+				}else JOptionPane.showMessageDialog(null, "Please Select a value from the list");
+			}
+		});
+		btnAddBAIndustryDomain.setBackground(new Color(189, 205, 139));
+		btnAddBAIndustryDomain.setForeground(new Color(0, 128, 0));
+		btnAddBAIndustryDomain.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnAddBAIndustryDomain.setBounds(720, 109, 26, 23);
+		panelBus.add(btnAddBAIndustryDomain);
+		
+		JButton btnRemoveBAIndustryDomain = new JButton("<<");
+		btnRemoveBAIndustryDomain.setBorder(null);
+		btnRemoveBAIndustryDomain.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+										
+			String BAIndDomstr1 = (String) listMYBAIndustryDomain_1.getSelectedValue();
+			int myselectedindex = listMYBAIndustryDomain_1.getSelectedIndex();
+									
+				if (BAIndDomstr1 != null) {
+					if(listMYBAIndustryDomain_1.getSelectedIndex()>=0)
+											
+						MyBaIndDom.remove(listMYBAIndustryDomain_1.getSelectedIndex());
+										
+					String tempusrname = textField_1.getText();
+										
+					RemoveList myremovelist = new RemoveList();
+					myremovelist.REMOVElistMYBAIndustry(BAIndDomstr1, tempusrname);
+				}else JOptionPane.showMessageDialog(null, "Please Select a value from the list>>>>");
+			}
+		});
+		btnRemoveBAIndustryDomain.setBackground(new Color(189, 205, 139));
+		btnRemoveBAIndustryDomain.setForeground(new Color(0, 128, 0));
+		btnRemoveBAIndustryDomain.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnRemoveBAIndustryDomain.setBounds(719, 142, 22, 23);
+		panelBus.add(btnRemoveBAIndustryDomain);
+		
+		
+		JButton btnAddBACert = new JButton(">>");
+		btnAddBACert.setBorder(null);
+		btnAddBACert.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			String MYBACertliststr1 = (String) listBACertAcheived.getSelectedValue();
+				if (MYBACertliststr1 != null) {
+					if (MYBACert.contains(MYBACertliststr1)) {
+						JOptionPane.showMessageDialog(null, "Already in List");
+					}else {
+						MYBACert.addElement(MYBACertliststr1);
+											
+						String tempusrname = textField_1.getText();
+						SaveList mysavelist = new SaveList();
+						mysavelist.SAVElistMYBACert(MYBACertliststr1, tempusrname);
+						}
+				}else JOptionPane.showMessageDialog(null, "Please Select a value from the list");	
+			}
+		});
+		btnAddBACert.setForeground(new Color(0, 128, 0));
+		btnAddBACert.setBackground(new Color(189, 205, 139));
+		btnAddBACert.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnAddBACert.setBounds(711, 313, 26, 23);
+		panelBus.add(btnAddBACert);
+		
+		JButton btnRemoveBACert = new JButton("<<");
+		btnRemoveBACert.setBorder(null);
+		btnRemoveBACert.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+										
+			String MYBACertliststr1 = (String) listMYBACertAcheived_1.getSelectedValue();
+			int myselectedindex = listMYBACertAcheived_1.getSelectedIndex();
+									
+					if (MYBACertliststr1 != null) {
+						if(listMYBACertAcheived_1.getSelectedIndex()>=0)
+											
+							MYBACert.remove(listMYBACertAcheived_1.getSelectedIndex());
+										
+						String tempusrname = textField_1.getText();
+										
+						RemoveList myremovelist = new RemoveList();
+						myremovelist.REMOVElistMYBACert(MYBACertliststr1, tempusrname);
+					}else JOptionPane.showMessageDialog(null, "Please Select a value from the list>>>>");								
+			}
+		});
+		btnRemoveBACert.setForeground(new Color(0, 128, 0));
+		btnRemoveBACert.setBackground(new Color(189, 205, 139));
+		btnRemoveBACert.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnRemoveBACert.setBounds(710, 348, 28, 23);
+		panelBus.add(btnRemoveBACert);
+		
+		JButton btnAddBASkillsBadge = new JButton(">>");
+		btnAddBASkillsBadge.setBorder(null);
+		btnAddBASkillsBadge.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+			String MYBASkillBadgestr1 = (String) listBASkillBadge.getSelectedValue();
+				if (MYBASkillBadgestr1 != null) {				
+					if (MYBASkillBad.contains(MYBASkillBadgestr1)) {
+					JOptionPane.showMessageDialog(null, "Already in List");
+					}else {
+					MYBASkillBad.addElement(MYBASkillBadgestr1);
+											
+					String tempusrname = textField_1.getText();
+					SaveList mysavelist = new SaveList();
+					mysavelist.SAVElistMYBASkillBadge(MYBASkillBadgestr1, tempusrname);
+					}
+				}else JOptionPane.showMessageDialog(null, "Please Select a value from the list");
+			}
+		});
+		btnAddBASkillsBadge.setForeground(new Color(0, 128, 0));
+		btnAddBASkillsBadge.setBackground(new Color(189, 205, 139));
+		btnAddBASkillsBadge.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnAddBASkillsBadge.setBounds(225, 512, 26, 23);
+		panelBus.add(btnAddBASkillsBadge);
+		
+		JButton btnRemoveBASkillsBadge = new JButton("<<");
+		btnRemoveBASkillsBadge.setBorder(null);
+		btnRemoveBASkillsBadge.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+										
+			String MYBASkillBadgestr1 = (String) listMYBASkillBadge_1.getSelectedValue();
+			int myselectedindex = listMYBASkillBadge_1.getSelectedIndex();
+				if (MYBASkillBadgestr1 != null) {
+					if(listMYBASkillBadge_1.getSelectedIndex()>=0)
+											
+						MYBASkillBad.remove(listMYBASkillBadge_1.getSelectedIndex());
+										
+					String tempusrname = textField_1.getText();
+										
+					RemoveList myremovelist = new RemoveList();
+					myremovelist.REMOVElistMYBASkillBadge(MYBASkillBadgestr1, tempusrname);
+				}else JOptionPane.showMessageDialog(null, "Please Select a value from the list>>>>");
+			}
+		});
+		btnRemoveBASkillsBadge.setForeground(new Color(0, 128, 0));
+		btnRemoveBASkillsBadge.setBackground(new Color(189, 205, 139));
+		btnRemoveBASkillsBadge.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnRemoveBASkillsBadge.setBounds(225, 548, 28, 23);
+		panelBus.add(btnRemoveBASkillsBadge);
+		
+		textFieldBAMyYears = new JTextField();		
+		textFieldBAMyYears.setDisabledTextColor(new Color(0, 255, 64));
+		textFieldBAMyYears.setSelectionColor(new Color(255, 0, 0));
+		textFieldBAMyYears.setSelectedTextColor(new Color(0, 0, 0));
+		textFieldBAMyYears.setEditable(false);
+		textFieldBAMyYears.setHorizontalAlignment(SwingConstants.CENTER);
+		textFieldBAMyYears.setBackground(new Color(189, 205, 139));
+		textFieldBAMyYears.setFont(new Font("Tahoma", Font.BOLD, 11));
+		textFieldBAMyYears.setBounds(70, 12, 38, 20);
+		panelBus.add(textFieldBAMyYears);
+		textFieldBAMyYears.setColumns(10);
+		
+		textFieldBAMyMonths = new JTextField();
+		textFieldBAMyMonths.setEditable(false);
+		textFieldBAMyMonths.setBackground(new Color(189, 205, 139));
+		textFieldBAMyMonths.setHorizontalAlignment(SwingConstants.CENTER);
+		textFieldBAMyMonths.setFont(new Font("Tahoma", Font.BOLD, 11));
+		textFieldBAMyMonths.setBounds(214, 12, 32, 20);
+		panelBus.add(textFieldBAMyMonths);
+		textFieldBAMyMonths.setColumns(10);
+		
+		JButton btnADDSkillBARoles = new JButton("+");
+		btnADDSkillBARoles.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (AdminUser.equals("Y")){
+					
+					AddValueToList skillbarolls = new AddValueToList();
+					try {
+						listval = skillbarolls.add_SkillBARolls();
+					} catch (SQLException e1) {
+						
+						e1.printStackTrace();
+					}
+					
+					DefaultListModel listModel = (DefaultListModel) listBARoles.getModel();
+			        listModel.removeAllElements();
+			        filllistBARoles(listBARoles);
+					
+				}	
+				else{
+					JOptionPane.showMessageDialog(null, "admin use only");
+				}	
+				
+			}
+		});
+		btnADDSkillBARoles.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnADDSkillBARoles.setVerticalAlignment(SwingConstants.BOTTOM);
+		btnADDSkillBARoles.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnADDSkillBARoles.setBorder(null);
+		btnADDSkillBARoles.setBackground(new Color(189, 205, 139));
+		btnADDSkillBARoles.setBounds(94, 243, 46, 14);
+		panelBus.add(btnADDSkillBARoles);
+		
+		JButton btnRMVSkillBARoles_1 = new JButton("-");
+		btnRMVSkillBARoles_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);
+
+				if (AdminUser.equals("Y")){
+	    			String selval = (String) listBARoles.getSelectedValue();
+	    		  if (result == JOptionPane.OK_OPTION) {
+	    			if (selval != null){
+	    				LookupSkill mybaroll = new LookupSkill();
+	    				int BARollsid = (int) mybaroll.lookuplistMYBARoles(selval);
+	    			
+	    				RemoveList RMVSkills = new RemoveList();
+	    				
+	    				try {
+	    					RMVSkills.RMVSkillIDemployeeSkills(BARollsid);
+							
+						} catch (SQLException e1) {
+							e1.printStackTrace();}
+	    				
+	    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
+	    				
+	    				DefaultListModel listModel = (DefaultListModel) listBARoles.getModel();
+				        listModel.removeAllElements();
+				        filllistBARoles(listBARoles);
+	    				
+	    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}	
+	    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
+	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
+			}
+		});
+		btnRMVSkillBARoles_1.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnRMVSkillBARoles_1.setVerticalAlignment(SwingConstants.BOTTOM);
+		btnRMVSkillBARoles_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnRMVSkillBARoles_1.setBorder(null);
+		btnRMVSkillBARoles_1.setBackground(new Color(189, 205, 139));
+		btnRMVSkillBARoles_1.setBounds(136, 243, 46, 14);
+		panelBus.add(btnRMVSkillBARoles_1);
+		
+		JButton btnADDSkillBASoftware = new JButton("+");
+		btnADDSkillBASoftware.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (AdminUser.equals("Y")){
+					
+					AddValueToList skillbamantoolsoft = new AddValueToList();
+					try {
+						listval = skillbamantoolsoft.add_SkillBAManToolSoft();
+					} catch (SQLException e1) {
+						
+						e1.printStackTrace();
+					}
+					
+					DefaultListModel listModel = (DefaultListModel) listBAToolsSoftware.getModel();
+			        listModel.removeAllElements();
+			        filllistBAToolsSoftware(listBAToolsSoftware);
+					
+				}	
+				else{
+					JOptionPane.showMessageDialog(null, "admin use only");
+				}	
+				
+			}
+		});
+		btnADDSkillBASoftware.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnADDSkillBASoftware.setVerticalAlignment(SwingConstants.BOTTOM);
+		btnADDSkillBASoftware.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnADDSkillBASoftware.setBorder(null);
+		btnADDSkillBASoftware.setBackground(new Color(189, 205, 139));
+		btnADDSkillBASoftware.setBounds(76, 452, 46, 14);
+		panelBus.add(btnADDSkillBASoftware);
+		
+		JButton btnRMVSkillBASoftware_1 = new JButton("-");
+		btnRMVSkillBASoftware_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);	
+				if (AdminUser.equals("Y")){
+	    			String selval = (String) listBAToolsSoftware.getSelectedValue();
+	    		  if (result == JOptionPane.OK_OPTION) {
+	    			if (selval != null){
+	    				LookupSkill mybaTool = new LookupSkill();
+	    				int BAToolid = (int) mybaTool.lookuplistMYBAToolSoft(selval);
+	    			
+	    				RemoveList RMVSkills = new RemoveList();
+	    				
+	    				try {
+							RMVSkills.RMVSkillIDemployeeSkills(BAToolid);
+							
+						} catch (SQLException e1) {
+							e1.printStackTrace();}
+	    				
+	    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
+	    				
+	    				DefaultListModel listModel = (DefaultListModel) listBAToolsSoftware.getModel();
+				        listModel.removeAllElements();
+				        filllistBAToolsSoftware(listBAToolsSoftware);
+	    				
+	    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
+	    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
+	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
+				
+			}
+		});
+		btnRMVSkillBASoftware_1.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnRMVSkillBASoftware_1.setVerticalAlignment(SwingConstants.BOTTOM);
+		btnRMVSkillBASoftware_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnRMVSkillBASoftware_1.setBorder(null);
+		btnRMVSkillBASoftware_1.setBackground(new Color(189, 205, 139));
+		btnRMVSkillBASoftware_1.setBounds(118, 452, 46, 14);
+		panelBus.add(btnRMVSkillBASoftware_1);
+		
+		JButton btnADDSkillBABadge = new JButton("+");
+		btnADDSkillBABadge.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (AdminUser.equals("Y")){
+					
+					AddValueToList skillbaskillbadge = new AddValueToList();
+					try {
+						listval = skillbaskillbadge.add_SkillBASkillBadge();
+					} catch (SQLException e1) {
+						
+						e1.printStackTrace();
+					}
+					
+					DefaultListModel listModel = (DefaultListModel) listBASkillBadge.getModel();
+			        listModel.removeAllElements();
+			        filllistBASkillBadge(listBASkillBadge);
+					
+				}	
+				else{
+					JOptionPane.showMessageDialog(null, "admin use only");
+				}	
+			}
+		});
+		btnADDSkillBABadge.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnADDSkillBABadge.setVerticalAlignment(SwingConstants.BOTTOM);
+		btnADDSkillBABadge.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnADDSkillBABadge.setBorder(null);
+		btnADDSkillBABadge.setBackground(new Color(189, 205, 139));
+		btnADDSkillBABadge.setBounds(76, 596, 46, 14);
+		panelBus.add(btnADDSkillBABadge);
+		
+		JButton btnRMVSkillBABadge_1 = new JButton("-");
+		btnRMVSkillBABadge_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);	
+				if (AdminUser.equals("Y")){
+	    			String selval = (String) listBASkillBadge.getSelectedValue();
+	    		  if (result == JOptionPane.OK_OPTION) {
+	    			if (selval != null){
+	    				LookupSkill mybaSkillBadge = new LookupSkill();
+	    				int BASkillBadgeid = (int) mybaSkillBadge.lookuplistMYBASkillBadge(selval);
+	    			
+	    				RemoveList RMVSkills = new RemoveList();
+	    				
+	    				try {
+							RMVSkills.RMVSkillIDemployeeSkills(BASkillBadgeid);
+							
+						} catch (SQLException e1) {
+							e1.printStackTrace();}
+	    				
+	    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
+	    				
+	    				DefaultListModel listModel = (DefaultListModel) listBASkillBadge.getModel();
+				        listModel.removeAllElements();
+				        filllistBASkillBadge(listBASkillBadge);
+	    				
+	    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
+	    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
+	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
+			}
+		});
+		btnRMVSkillBABadge_1.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnRMVSkillBABadge_1.setVerticalAlignment(SwingConstants.BOTTOM);
+		btnRMVSkillBABadge_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnRMVSkillBABadge_1.setBorder(null);
+		btnRMVSkillBABadge_1.setBackground(new Color(189, 205, 139));
+		btnRMVSkillBABadge_1.setBounds(118, 596, 46, 14);
+		panelBus.add(btnRMVSkillBABadge_1);
+		
+		JButton btnADDSkillBAIndDom = new JButton("+");
+		btnADDSkillBAIndDom.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (AdminUser.equals("Y")){
+					
+					AddValueToList skillbainddom = new AddValueToList();
+					try {
+						listval = skillbainddom.add_SkillBAIndDom();
+					} catch (SQLException e1) {
+						
+						e1.printStackTrace();
+					}
+					
+					DefaultListModel listModel = (DefaultListModel) listBAIndustryDomain.getModel();
+			        listModel.removeAllElements();
+			        filllistBAIndustryDomain(listBAIndustryDomain);
+					
+				}	
+				else{
+					JOptionPane.showMessageDialog(null, "admin use only");
+				}		
+			}
+		});
+		btnADDSkillBAIndDom.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnADDSkillBAIndDom.setVerticalAlignment(SwingConstants.BOTTOM);
+		btnADDSkillBAIndDom.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnADDSkillBAIndDom.setBorder(null);
+		btnADDSkillBAIndDom.setBackground(new Color(189, 205, 139));
+		btnADDSkillBAIndDom.setBounds(597, 243, 46, 14);
+		panelBus.add(btnADDSkillBAIndDom);
+		
+		JButton btnRMVSkillBAIndDom_1 = new JButton("-");
+		btnRMVSkillBAIndDom_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);	
+				if (AdminUser.equals("Y")){
+	    			String selval = (String) listBAIndustryDomain.getSelectedValue();
+	    		  if (result == JOptionPane.OK_OPTION) {
+	    			if (selval != null){
+	    				LookupSkill mybaind = new LookupSkill();
+	    				int BAIndustryid = (int) mybaind.lookuplistMYBAIndustry(selval);
+	    			
+	    				RemoveList RMVSkills = new RemoveList();
+	    				
+	    				try {
+	    					RMVSkills.RMVSkillIDemployeeSkills(BAIndustryid);
+							
+						} catch (SQLException e1) {
+							e1.printStackTrace();}
+	    				
+	    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
+	    				
+	    				DefaultListModel listModel = (DefaultListModel) listBAIndustryDomain.getModel();
+				        listModel.removeAllElements();
+				        filllistBAIndustryDomain(listBAIndustryDomain);
+	    				
+	    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
+	    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}	
+	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}	
+			}
+		});
+		btnRMVSkillBAIndDom_1.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnRMVSkillBAIndDom_1.setVerticalAlignment(SwingConstants.BOTTOM);
+		btnRMVSkillBAIndDom_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnRMVSkillBAIndDom_1.setBorder(null);
+		btnRMVSkillBAIndDom_1.setBackground(new Color(189, 205, 139));
+		btnRMVSkillBAIndDom_1.setBounds(639, 243, 46, 14);
+		panelBus.add(btnRMVSkillBAIndDom_1);
+		
+		JButton btnADDSkillBACert = new JButton("+");
+		btnADDSkillBACert.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (AdminUser.equals("Y")){
+					
+					AddValueToList skillbaCert = new AddValueToList();
+					try {
+						listval = skillbaCert.add_SkillBACert();
+					} catch (SQLException e1) {
+						
+						e1.printStackTrace();
+					}
+					//JList listBACertAcheived = new JList();
+					//scrollPaneBACertAcheived.setViewportView(listBACertAcheived);
+					DefaultListModel listModel = (DefaultListModel) listBACertAcheived.getModel();
+			        listModel.removeAllElements();
+			        filllistBACertAcheived(listBACertAcheived);
+					
+				}	
+				else{
+					JOptionPane.showMessageDialog(null, "admin use only");
+				}	
+				
+			}
+		});
+		btnADDSkillBACert.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnADDSkillBACert.setVerticalAlignment(SwingConstants.BOTTOM);
+		btnADDSkillBACert.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnADDSkillBACert.setBorder(null);
+		btnADDSkillBACert.setBackground(new Color(189, 205, 139));
+		btnADDSkillBACert.setBounds(597, 452, 46, 14);
+		panelBus.add(btnADDSkillBACert);
+		
+		JButton btnRMVSkillBACert_1 = new JButton("-");
+		btnRMVSkillBACert_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);
+				if (AdminUser.equals("Y")){
+	    			String selval = (String) listBACertAcheived.getSelectedValue();
+	    		  if (result == JOptionPane.OK_OPTION) {
+	    			if (selval != null){
+	    				LookupSkill mybaCert = new LookupSkill();
+	    				int BACertid = (int) mybaCert.lookuplistMYBACert(selval);
+	    			
+	    				RemoveList RMVSkills = new RemoveList();
+	    				
+	    				try {
+							RMVSkills.RMVSkillIDemployeeSkills(BACertid);
+							
+						} catch (SQLException e1) {
+							e1.printStackTrace();}
+	    				
+	    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
+	    				
+	    				DefaultListModel listModel = (DefaultListModel) listBACertAcheived.getModel();
+				        listModel.removeAllElements();
+				        filllistBACertAcheived(listBACertAcheived);
+	    				
+	    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
+	    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
+	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
+				
+			}
+		});
+		btnRMVSkillBACert_1.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnRMVSkillBACert_1.setVerticalAlignment(SwingConstants.BOTTOM);
+		btnRMVSkillBACert_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnRMVSkillBACert_1.setBorder(null);
+		btnRMVSkillBACert_1.setBackground(new Color(189, 205, 139));
+		btnRMVSkillBACert_1.setBounds(639, 452, 46, 14);
+		panelBus.add(btnRMVSkillBACert_1);
+		
+		JLabel lblBAMnthExperience_1_1 = new JLabel("Months of Experience with  Business Skills");
+		lblBAMnthExperience_1_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblBAMnthExperience_1_1.setBounds(296, 14, 262, 14);
+		panelBus.add(lblBAMnthExperience_1_1);
+		
+				JPanel panelFun = new JPanel();
+				panelFun.setForeground(new Color(255, 255, 255));
+				panelFun.setBackground(new Color(174, 174, 215));
+				
+				tabbedpane.add("FunctionalSkill",panelFun);
+				panelFun.setLayout(null);
+				
+				JComboBox cbFunYearsExp = new JComboBox(FUNYrsitems);
+				cbFunYearsExp.setEditable(true);
+				cbFunYearsExp.setSelectedIndex(-1);
+				cbFunYearsExp.setBackground(new Color(255, 255, 255));
+				cbFunYearsExp.addItemListener(new ItemListener() {
+					String selval;
+					public void itemStateChanged(ItemEvent e) {
+						
+						selval = String.valueOf(cbFunYearsExp.getSelectedItem());
+						
+						String usrtxtfield=textField_1.getText();
+						textFieldFunMyYears.setText(selval);
+						
+						try {
+						
+							String query = "UPDATE profiledata SET FUNYearExp=? WHERE profiledata.username =?";
+							
+							PreparedStatement pst=conn.prepareStatement(query);
+							pst.setString(1, selval);
+							pst.setString(2, usrtxtfield);
+							pst.execute();
+						
+						} catch (Exception ex) {
+							
+							JOptionPane.showMessageDialog(null, " exception error Data not Saved");
+							ex.printStackTrace();
+							}
+					}
+				});
+				cbFunYearsExp.setBounds(143, 11, 38, 22);
+				panelFun.add(cbFunYearsExp);
+				JComboBox cbFunMonthExp = new JComboBox(FUNMnthitems);
+				cbFunMonthExp.setEditable(true);
+				cbFunMonthExp.setSelectedIndex(-1);
+				cbFunMonthExp.setBackground(new Color(255, 255, 255));
+				cbFunMonthExp.addItemListener(new ItemListener() {
+					String selval;
+					public void itemStateChanged(ItemEvent e) {
+						
+						selval = String.valueOf(cbFunMonthExp.getSelectedItem());
+						String usrtxtfield=textField_1.getText();
+						textFieldFunMyMonths.setText(selval);
+						
+						try {
+						
+							String query = "UPDATE profiledata SET FUNMnthExp=? WHERE profiledata.username =?";
+							
+							PreparedStatement pst=conn.prepareStatement(query);
+							pst.setString(1, selval);
+							pst.setString(2, usrtxtfield);
+							pst.execute();
+						
+						
+						} catch (Exception ex) {
+							
+							JOptionPane.showMessageDialog(null, " exception error Data not Saved");
+							ex.printStackTrace();
+							}	
+						
+					}
+				});
+				cbFunMonthExp.setBounds(298, 11, 38, 22);
+				panelFun.add(cbFunMonthExp);
+				
+				JLabel lblFunIndDomain = new JLabel("Functional industry / domain");
+				lblFunIndDomain.setToolTipText("SkillIndustry");
+				lblFunIndDomain.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				lblFunIndDomain.setBounds(10, 82, 171, 14);
+				panelFun.add(lblFunIndDomain);
+				
+				JLabel lblFunCertISTQB = new JLabel("Certifications (ISTQB or Any Equivalent)");
+				lblFunCertISTQB.setToolTipText("CERTBadge");
+				lblFunCertISTQB.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				lblFunCertISTQB.setBounds(510, 83, 218, 14);
+				panelFun.add(lblFunCertISTQB);
+				
+				JLabel lblFunBadges = new JLabel("Functional Badges");
+				lblFunBadges.setToolTipText("CertBadge");
+				lblFunBadges.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				lblFunBadges.setBounds(510, 264, 119, 14);
+				panelFun.add(lblFunBadges);
+				
+				JLabel lblFunTestExp = new JLabel("Functional Testing Experience");
+				lblFunTestExp.setToolTipText("SkillFocus");
+				lblFunTestExp.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				lblFunTestExp.setBounds(10, 264, 171, 14);
+				panelFun.add(lblFunTestExp);
+				
+				JLabel lblFunTestManag = new JLabel("Test Management and Defect Tracking Tools");
+				lblFunTestManag.setToolTipText("SkillTool");
+				lblFunTestManag.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				lblFunTestManag.setBounds(10, 447, 257, 14);
+				panelFun.add(lblFunTestManag);
+				
+				JLabel lblMyFunctionalIndustry = new JLabel("MY Functional industry / domain");
+				lblMyFunctionalIndustry.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				lblMyFunctionalIndustry.setBounds(255, 83, 181, 14);
+				panelFun.add(lblMyFunctionalIndustry);
+				
+				JLabel lblMycertificationsistqbOr = new JLabel("MY Certifications (ISTQB or Any Equivalent)");
+				lblMycertificationsistqbOr.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				lblMycertificationsistqbOr.setBounds(766, 82, 239, 14);
+				panelFun.add(lblMycertificationsistqbOr);
+				
+				JLabel lblMYFunTestExp = new JLabel("MY Functional Testing Experience");
+				lblMYFunTestExp.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				lblMYFunTestExp.setBounds(258, 265, 198, 14);
+				panelFun.add(lblMYFunTestExp);
+				
+				JLabel lblTestManagementAnd = new JLabel("MY Test Management and Defect Tracking Tools");
+				lblTestManagementAnd.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				lblTestManagementAnd.setBounds(298, 447, 320, 14);
+				panelFun.add(lblTestManagementAnd);
+				
+				JLabel lblMYFunBadges = new JLabel("MY Functional Badges");
+				lblMYFunBadges.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				lblMYFunBadges.setBounds(766, 264, 127, 14);
+				panelFun.add(lblMYFunBadges);
+				
+				textFieldFunMyYears = new JTextField();
+				textFieldFunMyYears.setEditable(false);
+				textFieldFunMyYears.setFont(new Font("Tahoma", Font.BOLD, 11));
+				textFieldFunMyYears.setDisabledTextColor(new Color(64, 0, 64));
+				textFieldFunMyYears.setSelectedTextColor(new Color(0, 0, 0));
+				textFieldFunMyYears.setHorizontalAlignment(SwingConstants.CENTER);
+				textFieldFunMyYears.setEnabled(false);
+				textFieldFunMyYears.setBackground(new Color(174, 174, 215));
+				textFieldFunMyYears.setBounds(95, 11, 38, 22);
+				panelFun.add(textFieldFunMyYears);
+				textFieldFunMyYears.setColumns(10);
+				
+				textFieldFunMyMonths = new JTextField();
+				textFieldFunMyMonths.setSelectionColor(new Color(0, 0, 0));
+				textFieldFunMyMonths.setEditable(false);
+				textFieldFunMyMonths.setDisabledTextColor(new Color(64, 0, 64));
+				textFieldFunMyMonths.setSelectedTextColor(new Color(0, 0, 0));
+				textFieldFunMyMonths.setFont(new Font("Tahoma", Font.BOLD, 11));
+				textFieldFunMyMonths.setHorizontalAlignment(SwingConstants.CENTER);
+				textFieldFunMyMonths.setForeground(new Color(0, 0, 0));
+				textFieldFunMyMonths.setBackground(new Color(174, 174, 215));
+				textFieldFunMyMonths.setColumns(10);
+				textFieldFunMyMonths.setBounds(255, 11, 38, 22);
+				panelFun.add(textFieldFunMyMonths);
+				
+				JLabel lblFunMyYearsExp = new JLabel("I have ");
+				lblFunMyYearsExp.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				lblFunMyYearsExp.setBounds(47, 14, 46, 14);
+				panelFun.add(lblFunMyYearsExp);
+				
+				JScrollPane scrollPane_FunIndustryDom = new JScrollPane();
+				scrollPane_FunIndustryDom.setBounds(10, 107, 181, 130);
+				panelFun.add(scrollPane_FunIndustryDom);
+				
+				JList listFunIndustryDomain = new JList();
+				scrollPane_FunIndustryDom.setViewportView(listFunIndustryDomain);
+				filllistFunIndustryDomain(listFunIndustryDomain);
+				
+				JScrollPane scrollPane_FunTestingExp = new JScrollPane();
+				scrollPane_FunTestingExp.setBounds(10, 289, 181, 124);
+				panelFun.add(scrollPane_FunTestingExp);
+				
+				JList listFunTestingExp = new JList();
+				scrollPane_FunTestingExp.setViewportView(listFunTestingExp);
+				filllistFunTestingExp(listFunTestingExp);
+				
+				JScrollPane scrollPane_FunDefectTrack = new JScrollPane();
+				scrollPane_FunDefectTrack.setBounds(10, 472, 218, 124);
+				panelFun.add(scrollPane_FunDefectTrack);
+				
+				JList listFunTestMangement = new JList();
+				scrollPane_FunDefectTrack.setViewportView(listFunTestMangement);
+				filllistFunTestMangement(listFunTestMangement);
+				
+				JScrollPane scrollPane_FunCertification = new JScrollPane();
+				scrollPane_FunCertification.setBounds(510, 107, 188, 130);
+				panelFun.add(scrollPane_FunCertification);
+				
+				JList listFunCertifications = new JList();
+				scrollPane_FunCertification.setViewportView(listFunCertifications);
+				filllistFunCertifications(listFunCertifications);
+				
+				JScrollPane scrollPane_FunBadges = new JScrollPane();
+				scrollPane_FunBadges.setBounds(510, 289, 188, 130);
+				panelFun.add(scrollPane_FunBadges);
+				
+				JList listFunBadges = new JList();
+				scrollPane_FunBadges.setViewportView(listFunBadges);
+				filllistFunBadges(listFunBadges);
+				
+				JScrollPane scrollPane_MYFunIndustryDom = new JScrollPane();
+				scrollPane_MYFunIndustryDom.setBounds(255, 107, 201, 130);
+				panelFun.add(scrollPane_MYFunIndustryDom);
+				
+				JList listMYFunIndustryDomain_1 = new JList(MYFunIndDom);
+				scrollPane_MYFunIndustryDom.setViewportView(listMYFunIndustryDomain_1);
+				
+				JScrollPane scrollPane_MYFunTestingFun = new JScrollPane();
+				scrollPane_MYFunTestingFun.setBounds(258, 289, 198, 130);
+				panelFun.add(scrollPane_MYFunTestingFun);
+				
+				JList listMYFunTestingExp_1 = new JList(MYFunTestExp);
+				scrollPane_MYFunTestingFun.setViewportView(listMYFunTestingExp_1);
+				
+				JScrollPane scrollPane_FunMYBadges = new JScrollPane();
+				scrollPane_FunMYBadges.setBounds(766, 289, 239, 130);
+				panelFun.add(scrollPane_FunMYBadges);
+				
+				JList listMYFunBadges_1 = new JList(MYFunBadge);
+				scrollPane_FunMYBadges.setViewportView(listMYFunBadges_1);
+				
+				JScrollPane scrollPane_FunMYDefectTrack = new JScrollPane();
+				scrollPane_FunMYDefectTrack.setBounds(298, 472, 273, 130);
+				panelFun.add(scrollPane_FunMYDefectTrack);
+				
+				JList listMYFunTestMangement_1 = new JList(MYFunTestManDefect);
+				scrollPane_FunMYDefectTrack.setViewportView(listMYFunTestMangement_1);
+				
+				JScrollPane scrollPane_MYFunCertifications = new JScrollPane();
+				scrollPane_MYFunCertifications.setBounds(766, 100, 239, 137);
+				panelFun.add(scrollPane_MYFunCertifications);
+				
+				JList listMYFunCertifications_1 = new JList(MYFunCert);
+				scrollPane_MYFunCertifications.setViewportView(listMYFunCertifications_1);
+				
+				JButton btnAddFunInd = new JButton(">>");
+				btnAddFunInd.setBorder(null);
+				btnAddFunInd.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					String FunIndDomstr1 = (String) listFunIndustryDomain.getSelectedValue();
+						if (FunIndDomstr1 != null) {
+							if (MYFunIndDom.contains(FunIndDomstr1)) {
+								JOptionPane.showMessageDialog(null, "Already in List");
+							}else {
+								MYFunIndDom.addElement(FunIndDomstr1);
+							
+								String tempusrname = textField_1.getText();
+								SaveList mysavelist = new SaveList();
+								mysavelist.SAVEmylistFUNIndDom(FunIndDomstr1, tempusrname);
+								}			
+						}else JOptionPane.showMessageDialog(null, "Please Select a value from the list");
+					}
+				});
+				btnAddFunInd.setForeground(new Color(83, 83, 168));
+				btnAddFunInd.setBackground(new Color(174, 174, 215));
+				btnAddFunInd.setFont(new Font("Tahoma", Font.BOLD, 11));
+				btnAddFunInd.setBounds(201, 110, 27, 23);
+				panelFun.add(btnAddFunInd);
+				
+				JButton btnRemoveFunind = new JButton("<<");
+				btnRemoveFunind.setBorder(null);
+				btnRemoveFunind.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+					String MYTechFunindstr1 = (String) listMYFunIndustryDomain_1.getSelectedValue();
+					int myselectedindex = listMYFunIndustryDomain_1.getSelectedIndex();
+						if (MYTechFunindstr1 != null) {
+							if(listMYFunIndustryDomain_1.getSelectedIndex()>=0)
+							
+								MYFunIndDom.remove(listMYFunIndustryDomain_1.getSelectedIndex());
+						
+							String tempusrname = textField_1.getText();
+						
+							RemoveList myremovelist = new RemoveList();
+							myremovelist.REMOVElistMYFunIndDomain(MYTechFunindstr1, tempusrname);
+						
+					}else JOptionPane.showMessageDialog(null, "Please Select a value from the list>>>>");
+					}
+				});
+				btnRemoveFunind.setForeground(new Color(83, 83, 168));
+				btnRemoveFunind.setBackground(new Color(174, 174, 215));
+				btnRemoveFunind.setFont(new Font("Tahoma", Font.BOLD, 11));
+				btnRemoveFunind.setBounds(201, 135, 27, 23);
+				panelFun.add(btnRemoveFunind);
+				
+				JButton btnAddFunTestExp = new JButton(">>");
+				btnAddFunTestExp.setBorder(null);
+				btnAddFunTestExp.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					String FunTestExpstr1 = (String) listFunTestingExp.getSelectedValue();
+						if (FunTestExpstr1 != null) {
+							if (MYFunTestExp.contains(FunTestExpstr1)) {
+								JOptionPane.showMessageDialog(null, "Already in List");
+							}else {
+								MYFunTestExp.addElement(FunTestExpstr1);
+							
+								String tempusrname = textField_1.getText();
+								SaveList mysavelist = new SaveList();
+								mysavelist.SAVEmylistFunTestExp(FunTestExpstr1, tempusrname);
+								}			
+						}else JOptionPane.showMessageDialog(null, "Please Select a value from the list");
+					}
+				});
+				btnAddFunTestExp.setBackground(new Color(174, 174, 215));
+				btnAddFunTestExp.setForeground(new Color(83, 83, 168));
+				btnAddFunTestExp.setFont(new Font("Tahoma", Font.BOLD, 11));
+				btnAddFunTestExp.setBounds(201, 287, 30, 23);
+				panelFun.add(btnAddFunTestExp);
+				
+				JButton btnRemoveFunTestExp = new JButton("<<");
+				btnRemoveFunTestExp.setBorder(null);
+				btnRemoveFunTestExp.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+					String MYFunTestExpstr1 = (String) listMYFunTestingExp_1.getSelectedValue();
+					int myselectedindex = listMYFunTestingExp_1.getSelectedIndex();
+						if (MYFunTestExpstr1 != null) {
+							if(listMYFunTestingExp_1.getSelectedIndex()>=0)
+							
+								MYFunTestExp.remove(listMYFunTestingExp_1.getSelectedIndex());
+						
+							String tempusrname = textField_1.getText();
+						
+							RemoveList myremovelist = new RemoveList();
+							myremovelist.REMOVElistMYFunTestExp(MYFunTestExpstr1, tempusrname);
+							
+						}else JOptionPane.showMessageDialog(null, "Please Select a value from the list>>>>");
+				}
+				});
+				btnRemoveFunTestExp.setBackground(new Color(174, 174, 215));
+				btnRemoveFunTestExp.setForeground(new Color(83, 83, 168));
+				btnRemoveFunTestExp.setFont(new Font("Tahoma", Font.BOLD, 11));
+				btnRemoveFunTestExp.setBounds(201, 314, 28, 23);
+				panelFun.add(btnRemoveFunTestExp);
+				
+				JButton btnAddFunCert = new JButton(">>");
+				btnAddFunCert.setBorder(null);
+				btnAddFunCert.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					String FunCertstr1 = (String) listFunCertifications.getSelectedValue();
+						if (FunCertstr1 != null) {
+								if (MYFunCert.contains(FunCertstr1)) {
+							JOptionPane.showMessageDialog(null, "Already in List");
+								}else {
+									MYFunCert.addElement(FunCertstr1);
+							
+									String tempusrname = textField_1.getText();
+									SaveList mysavelist = new SaveList();
+									mysavelist.SAVEmylistFunCert(FunCertstr1, tempusrname);
+									}		
+						}else JOptionPane.showMessageDialog(null, "Please Select a value from the list");
+					}
+				});
+				btnAddFunCert.setBackground(new Color(174, 174, 215));
+				btnAddFunCert.setForeground(new Color(83, 83, 168));
+				btnAddFunCert.setFont(new Font("Tahoma", Font.BOLD, 11));
+				btnAddFunCert.setBounds(708, 108, 27, 23);
+				panelFun.add(btnAddFunCert);
+				
+				JButton btnRemoveFunCert = new JButton("<<");
+				btnRemoveFunCert.setBorder(null);
+				btnRemoveFunCert.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+					String MYTechFunCertstr1 = (String) listMYFunCertifications_1.getSelectedValue();
+					int myselectedindex = listMYFunCertifications_1.getSelectedIndex();
+					if (MYTechFunCertstr1 != null) {
+							if(listMYFunCertifications_1.getSelectedIndex()>=0)
+							
+								MYFunCert.remove(listMYFunCertifications_1.getSelectedIndex());
+						
+							String tempusrname = textField_1.getText();
+						
+							RemoveList myremovelist = new RemoveList();
+							myremovelist.REMOVElistMYFunCert(MYTechFunCertstr1, tempusrname);
+					}else JOptionPane.showMessageDialog(null, "Please Select a value from the list>>>>");	
+				}
+				});
+				btnRemoveFunCert.setBackground(new Color(174, 174, 215));
+				btnRemoveFunCert.setForeground(new Color(83, 83, 168));
+				btnRemoveFunCert.setFont(new Font("Tahoma", Font.BOLD, 11));
+				btnRemoveFunCert.setBounds(708, 135, 28, 23);
+				panelFun.add(btnRemoveFunCert);
+				
+				JButton btnAddFunBadge = new JButton(">>");
+				btnAddFunBadge.setBorder(null);
+				btnAddFunBadge.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					String FunBadgestr1 = (String) listFunBadges.getSelectedValue();
+						if (FunBadgestr1 != null) {
+							if (MYFunBadge.contains(FunBadgestr1)) {
+								JOptionPane.showMessageDialog(null, "Already in List");
+							}else {
+								MYFunBadge.addElement(FunBadgestr1);
+							
+								String tempusrname = textField_1.getText();
+								SaveList mysavelist = new SaveList();
+								mysavelist.SAVEmylistFunBadge(FunBadgestr1, tempusrname);
+								}			
+						}else JOptionPane.showMessageDialog(null, "Please Select a value from the list");
+					}
+				});
+				btnAddFunBadge.setBackground(new Color(174, 174, 215));
+				btnAddFunBadge.setForeground(new Color(83, 83, 168));
+				btnAddFunBadge.setFont(new Font("Tahoma", Font.BOLD, 11));
+				btnAddFunBadge.setBounds(708, 287, 27, 23);
+				panelFun.add(btnAddFunBadge);
+				
+				JButton btnRemoveFunBadge = new JButton("<<");
+				btnRemoveFunBadge.setBorder(null);
+				btnRemoveFunBadge.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+					String MYTechFunBadgestr1 = (String) listMYFunBadges_1.getSelectedValue();
+					int myselectedindex = listMYFunBadges_1.getSelectedIndex();
+						if (MYTechFunBadgestr1 != null) {
+							if(listMYFunBadges_1.getSelectedIndex()>=0)
+							
+								MYFunBadge.remove(listMYFunBadges_1.getSelectedIndex());
+						
+							String tempusrname = textField_1.getText();
+						
+							RemoveList myremovelist = new RemoveList();
+							myremovelist.REMOVElistMYFunBadge(MYTechFunBadgestr1, tempusrname);
+						}else JOptionPane.showMessageDialog(null, "Please Select a value from the list>>>>");
+				}
+				});
+				btnRemoveFunBadge.setBackground(new Color(174, 174, 215));
+				btnRemoveFunBadge.setForeground(new Color(83, 83, 168));
+				btnRemoveFunBadge.setFont(new Font("Tahoma", Font.BOLD, 11));
+				btnRemoveFunBadge.setBounds(708, 314, 27, 23);
+				panelFun.add(btnRemoveFunBadge);
+				
+				JButton btnAddFunDefectTrack = new JButton(">>");
+				btnAddFunDefectTrack.setBorder(null);
+				btnAddFunDefectTrack.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					String FunDefectstr1 = (String) listFunTestMangement.getSelectedValue();
+						if (FunDefectstr1 != null) {
+							if (MYFunTestManDefect.contains(FunDefectstr1)) {
+								JOptionPane.showMessageDialog(null, "Already in List");
+							}else {
+								MYFunTestManDefect.addElement(FunDefectstr1);
+							
+								String tempusrname = textField_1.getText();
+								SaveList mysavelist = new SaveList();
+								mysavelist.SAVEmylistFunTestManDefect(FunDefectstr1, tempusrname);
+								}	
+						}else JOptionPane.showMessageDialog(null, "Please Select a value from the list>>>>");	
+				}
+				});
+				btnAddFunDefectTrack.setBackground(new Color(174, 174, 215));
+				btnAddFunDefectTrack.setForeground(new Color(83, 83, 168));
+				btnAddFunDefectTrack.setFont(new Font("Tahoma", Font.BOLD, 11));
+				btnAddFunDefectTrack.setBounds(238, 470, 27, 23);
+				panelFun.add(btnAddFunDefectTrack);
+				
+				JButton btnRemoveFunDefectTrack = new JButton("<<");
+				btnRemoveFunDefectTrack.setBorder(null);
+				btnRemoveFunDefectTrack.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+					String MYFunDefectTrackstr1 = (String) listMYFunTestMangement_1.getSelectedValue();
+					int myselectedindex = listMYFunTestMangement_1.getSelectedIndex();
+						if (MYFunDefectTrackstr1 != null) {
+							if(listMYFunTestMangement_1.getSelectedIndex()>=0)
+							
+								MYFunTestManDefect.remove(listMYFunTestMangement_1.getSelectedIndex());
+						
+							String tempusrname = textField_1.getText();
+						
+							RemoveList myremovelist = new RemoveList();
+							myremovelist.REMOVElistMYFunDefectTrack(MYFunDefectTrackstr1, tempusrname);
+						}else JOptionPane.showMessageDialog(null, "Please Select a value from the list>>>>");
+					}
+				});
+				btnRemoveFunDefectTrack.setBackground(new Color(174, 174, 215));
+				btnRemoveFunDefectTrack.setForeground(new Color(83, 83, 168));
+				btnRemoveFunDefectTrack.setFont(new Font("Tahoma", Font.BOLD, 11));
+				btnRemoveFunDefectTrack.setBounds(238, 495, 27, 23);
+				panelFun.add(btnRemoveFunDefectTrack);
+				
+				JButton btnADDSkillFunIndDom = new JButton("+");
+				btnADDSkillFunIndDom.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if (AdminUser.equals("Y")){
+							
+							AddValueToList skillfunIndDom = new AddValueToList();
+							try {
+								listval = skillfunIndDom.add_SkillFUNIndDom();
+							} catch (SQLException e1) {
+								
+								e1.printStackTrace();
+							}
+							//JList listFunIndustryDomain = new JList();
+							//scrollPane_FunIndustryDom.setViewportView(listFunIndustryDomain);
+							DefaultListModel listModel = (DefaultListModel) listFunIndustryDomain.getModel();
+					        listModel.removeAllElements();
+							filllistFunIndustryDomain(listFunIndustryDomain);
+							
+						}	
+						else{
+							JOptionPane.showMessageDialog(null, "admin use only");
+						}		
+						
+					}
+				});
+				btnADDSkillFunIndDom.setVerticalTextPosition(SwingConstants.BOTTOM);
+				btnADDSkillFunIndDom.setFont(new Font("Tahoma", Font.BOLD, 12));
+				btnADDSkillFunIndDom.setBorder(null);
+				btnADDSkillFunIndDom.setBackground(new Color(174, 174, 215));
+				btnADDSkillFunIndDom.setBounds(72, 239, 46, 14);
+				panelFun.add(btnADDSkillFunIndDom);
+				
+				JButton btnRMVSkillFunIndDom_1 = new JButton("-");
+				btnRMVSkillFunIndDom_1.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);	
+						if (AdminUser.equals("Y")){
+			    			String selval = (String) listFunIndustryDomain.getSelectedValue();
+			    		  if (result == JOptionPane.OK_OPTION) {
+			    			if (selval != null){
+			    				LookupSkill myfunIndDom = new LookupSkill();
+			    				int FunIndDomid = (int) myfunIndDom.lookuplistMYFunIndDom(selval);
+			    			
+			    				RemoveList RMVSkills = new RemoveList();
+			    				
+			    				try {
+									RMVSkills.RMVSkillIDemployeeSkills(FunIndDomid);
+									
+								} catch (SQLException e1) {
+									e1.printStackTrace();}
+			    				
+			    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
+			    				DefaultListModel listModel = (DefaultListModel) listFunIndustryDomain.getModel();
+						        listModel.removeAllElements();
+								filllistFunIndustryDomain(listFunIndustryDomain);
+			    				
+			    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
+			    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}    			
+			    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
+					}
+				});
+				btnRMVSkillFunIndDom_1.setVerticalTextPosition(SwingConstants.BOTTOM);
+				btnRMVSkillFunIndDom_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+				btnRMVSkillFunIndDom_1.setBorder(null);
+				btnRMVSkillFunIndDom_1.setBackground(new Color(174, 174, 215));
+				btnRMVSkillFunIndDom_1.setBounds(116, 239, 46, 14);
+				panelFun.add(btnRMVSkillFunIndDom_1);
+				
+				JButton btnADDSkillFunTestExp = new JButton("+");
+				btnADDSkillFunTestExp.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if (AdminUser.equals("Y")){
+							
+							AddValueToList skillfuntestexp = new AddValueToList();
+							try {
+								listval = skillfuntestexp.add_SkillFUNTestingExp();
+							} catch (SQLException e1) {
+								
+								e1.printStackTrace();
+							}
+							//JList listFunTestingExp = new JList();
+							//scrollPane_FunTestingExp.setViewportView(listFunTestingExp);
+							DefaultListModel listModel = (DefaultListModel) listFunTestingExp.getModel();
+					        listModel.removeAllElements();
+							filllistFunTestingExp(listFunTestingExp);
+							
+						}	
+						else{
+							JOptionPane.showMessageDialog(null, "admin use only");
+						}	
+						
+					}
+				});
+				btnADDSkillFunTestExp.setVerticalTextPosition(SwingConstants.BOTTOM);
+				btnADDSkillFunTestExp.setFont(new Font("Tahoma", Font.BOLD, 12));
+				btnADDSkillFunTestExp.setBorder(null);
+				btnADDSkillFunTestExp.setBackground(new Color(174, 174, 215));
+				btnADDSkillFunTestExp.setBounds(72, 412, 46, 14);
+				panelFun.add(btnADDSkillFunTestExp);
+				
+				JButton btnRMVSkillFunTestExp_1 = new JButton("-");
+				btnRMVSkillFunTestExp_1.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);	
+						if (AdminUser.equals("Y")){
+			    			String selval = (String) listFunTestingExp.getSelectedValue();
+			    		  if (result == JOptionPane.OK_OPTION) {
+			    			if (selval != null){
+			    				LookupSkill myfunTestExp = new LookupSkill();
+			    				int FunTestExpid = (int) myfunTestExp.lookuplistMYFunTestExp(selval);
+			    			
+			    				RemoveList RMVSkills = new RemoveList();
+			    				
+			    				try {
+									RMVSkills.RMVSkillIDemployeeSkills(FunTestExpid);
+									
+								} catch (SQLException e1) {
+									e1.printStackTrace();}
+			    				
+			    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
+			    			
+								DefaultListModel listModel = (DefaultListModel) listFunTestingExp.getModel();
+						        listModel.removeAllElements();
+								filllistFunTestingExp(listFunTestingExp); 
+			    				
+			    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
+			    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
+			    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
+					}
+				});
+				btnRMVSkillFunTestExp_1.setVerticalTextPosition(SwingConstants.BOTTOM);
+				btnRMVSkillFunTestExp_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+				btnRMVSkillFunTestExp_1.setBorder(null);
+				btnRMVSkillFunTestExp_1.setBackground(new Color(174, 174, 215));
+				btnRMVSkillFunTestExp_1.setBounds(116, 412, 46, 14);
+				panelFun.add(btnRMVSkillFunTestExp_1);
+				
+				JButton btnADDSkillFunDefectTrack = new JButton("+");
+				btnADDSkillFunDefectTrack.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if (AdminUser.equals("Y")){
+							
+							AddValueToList skillfuntestmang = new AddValueToList();
+							try {
+								listval = skillfuntestmang.add_SkillFUNTestMang();
+							} catch (SQLException e1) {
+								
+								e1.printStackTrace();
+							}
+							//JList listFunTestMangement = new JList();
+							//scrollPane_FunDefectTrack.setViewportView(listFunTestMangement);
+							DefaultListModel listModel = (DefaultListModel) listFunTestMangement.getModel();
+					        listModel.removeAllElements();
+							filllistFunTestMangement(listFunTestMangement);
+							
+						}	
+						else{
+							JOptionPane.showMessageDialog(null, "admin use only");
+						}		
+						
+					}
+				});
+				btnADDSkillFunDefectTrack.setVerticalTextPosition(SwingConstants.BOTTOM);
+				btnADDSkillFunDefectTrack.setFont(new Font("Tahoma", Font.BOLD, 12));
+				btnADDSkillFunDefectTrack.setBorder(null);
+				btnADDSkillFunDefectTrack.setBackground(new Color(174, 174, 215));
+				btnADDSkillFunDefectTrack.setBounds(113, 594, 46, 14);
+				panelFun.add(btnADDSkillFunDefectTrack);
+				
+				JButton btnRMVSkillFunDefectTrack_1 = new JButton("-");
+				btnRMVSkillFunDefectTrack_1.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);	
+						if (AdminUser.equals("Y")){
+			    			String selval = (String) listFunTestMangement.getSelectedValue();
+			    		  if (result == JOptionPane.OK_OPTION) {
+			    			if (selval != null){
+			    				LookupSkill myfunTestManDef = new LookupSkill();
+			    				int FunTestManDefid = (int) myfunTestManDef.lookuplistMYFunTestManDef(selval);
+			    			
+			    				RemoveList RMVSkills = new RemoveList();
+			    				
+			    				try {
+									RMVSkills.RMVSkillIDemployeeSkills(FunTestManDefid);
+									
+								} catch (SQLException e1) {
+									e1.printStackTrace();}
+			    				
+			    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
+			    				
+								DefaultListModel listModel = (DefaultListModel) listFunTestMangement.getModel();
+						        listModel.removeAllElements();
+								filllistFunTestMangement(listFunTestMangement); 
+			    				
+			    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}	
+			    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
+			    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
+					}
+				});
+				btnRMVSkillFunDefectTrack_1.setVerticalTextPosition(SwingConstants.BOTTOM);
+				btnRMVSkillFunDefectTrack_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+				btnRMVSkillFunDefectTrack_1.setBorder(null);
+				btnRMVSkillFunDefectTrack_1.setBackground(new Color(174, 174, 215));
+				btnRMVSkillFunDefectTrack_1.setBounds(157, 594, 46, 14);
+				panelFun.add(btnRMVSkillFunDefectTrack_1);
+				
+				JButton btnADDSkillFunCert = new JButton("+");
+				btnADDSkillFunCert.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if (AdminUser.equals("Y")){
+							
+							AddValueToList skillfunCert = new AddValueToList();
+							try {
+								listval = skillfunCert.add_SkillFUNCert();
+							} catch (SQLException e1) {
+								
+								e1.printStackTrace();
+							}
+							//JList listFunCertifications = new JList();
+							//scrollPane_FunCertification.setViewportView(listFunCertifications);
+							DefaultListModel listModel = (DefaultListModel) listFunCertifications.getModel();
+					        listModel.removeAllElements();
+							filllistFunCertifications(listFunCertifications);
+							
+						}	
+						else{
+							JOptionPane.showMessageDialog(null, "admin use only");
+						}		
+						
+					}
+				});
+				btnADDSkillFunCert.setVerticalTextPosition(SwingConstants.BOTTOM);
+				btnADDSkillFunCert.setFont(new Font("Tahoma", Font.BOLD, 12));
+				btnADDSkillFunCert.setBorder(null);
+				btnADDSkillFunCert.setBackground(new Color(174, 174, 215));
+				btnADDSkillFunCert.setBounds(572, 239, 46, 14);
+				panelFun.add(btnADDSkillFunCert);
+				
+				JButton btnRMVSkillFunCert_1 = new JButton("-");
+				btnRMVSkillFunCert_1.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);	
+						if (AdminUser.equals("Y")){
+			    			String selval = (String) listFunCertifications.getSelectedValue();
+			    		  if (result == JOptionPane.OK_OPTION) {
+			    			if (selval != null){
+			    				LookupSkill myfunCert = new LookupSkill();
+			    				int FunCertid = (int) myfunCert.lookuplistMYFunCert(selval);
+			    			
+			    				RemoveList RMVSkills = new RemoveList();
+			    				
+			    				try {
+									RMVSkills.RMVSkillIDemployeeSkills(FunCertid);
+									
+								} catch (SQLException e1) {
+									e1.printStackTrace();}
+			    				
+			    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
+			    				
+			    				DefaultListModel listModel = (DefaultListModel) listFunCertifications.getModel();
+						        listModel.removeAllElements();
+								filllistFunCertifications(listFunCertifications); 
+			    				
+			    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
+			    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
+			    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
+					}
+				});
+				btnRMVSkillFunCert_1.setVerticalTextPosition(SwingConstants.BOTTOM);
+				btnRMVSkillFunCert_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+				btnRMVSkillFunCert_1.setBorder(null);
+				btnRMVSkillFunCert_1.setBackground(new Color(174, 174, 215));
+				btnRMVSkillFunCert_1.setBounds(616, 239, 46, 14);
+				panelFun.add(btnRMVSkillFunCert_1);
+				
+				JButton btnADDSkillFunBadge = new JButton("+");
+				btnADDSkillFunBadge.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if (AdminUser.equals("Y")){
+							
+							AddValueToList skillfunBadge = new AddValueToList();
+							try {
+								listval = skillfunBadge.add_SkillFUNBadge();
+							} catch (SQLException e1) {
+								
+								e1.printStackTrace();
+							}
+							//JList listFunBadges = new JList();
+							//scrollPane_FunBadges.setViewportView(listFunBadges);
+							DefaultListModel listModel = (DefaultListModel) listFunBadges.getModel();
+					        listModel.removeAllElements();
+							filllistFunBadges(listFunBadges);
+							
+						}	
+						else{
+							JOptionPane.showMessageDialog(null, "admin use only");
+						}			
+					}
+				});
+				btnADDSkillFunBadge.setVerticalTextPosition(SwingConstants.BOTTOM);
+				btnADDSkillFunBadge.setFont(new Font("Tahoma", Font.BOLD, 12));
+				btnADDSkillFunBadge.setBorder(null);
+				btnADDSkillFunBadge.setBackground(new Color(174, 174, 215));
+				btnADDSkillFunBadge.setBounds(572, 422, 46, 14);
+				panelFun.add(btnADDSkillFunBadge);
+				
+				JButton btnRMVSkillFunBadge_1 = new JButton("-");
+				btnRMVSkillFunBadge_1.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);
+						if (AdminUser.equals("Y")){
+			    			String selval = (String) listFunBadges.getSelectedValue();
+			    		  if (result == JOptionPane.OK_OPTION) {
+			    			if (selval != null){
+			    				LookupSkill myfunBadge = new LookupSkill();
+			    				int FunBadgeid = (int) myfunBadge.lookuplistMYFunBadge(selval);
+			    			
+			    				RemoveList RMVSkills = new RemoveList();
+			    				
+			    				try {
+									RMVSkills.RMVSkillIDemployeeSkills(FunBadgeid);
+									
+								} catch (SQLException e1) {
+									e1.printStackTrace();}
+			    				
+			    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
+			    				DefaultListModel listModel = (DefaultListModel) listFunBadges.getModel();
+						        listModel.removeAllElements();
+								filllistFunBadges(listFunBadges); 
+			    				
+			    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
+			    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
+			    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
+					}
+				});
+				btnRMVSkillFunBadge_1.setVerticalTextPosition(SwingConstants.BOTTOM);
+				btnRMVSkillFunBadge_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+				btnRMVSkillFunBadge_1.setBorder(null);
+				btnRMVSkillFunBadge_1.setBackground(new Color(174, 174, 215));
+				btnRMVSkillFunBadge_1.setBounds(616, 422, 46, 14);
+				panelFun.add(btnRMVSkillFunBadge_1);
+				
+				JLabel lblMonthOfExperience = new JLabel("Months of Experience with Functional Skills");
+				lblMonthOfExperience.setHorizontalAlignment(SwingConstants.LEFT);
+				lblMonthOfExperience.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				lblMonthOfExperience.setBounds(351, 14, 293, 14);
+				panelFun.add(lblMonthOfExperience);
+				
+				JLabel lblManMnthOfExperience_1 = new JLabel("Years and");
+				lblManMnthOfExperience_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				lblManMnthOfExperience_1.setBounds(187, 14, 58, 14);
+				panelFun.add(lblManMnthOfExperience_1);
 				
 		JPanel panelMang = new JPanel();
 		panelMang.setBackground(new Color(223, 196, 132));
@@ -3724,7 +4516,7 @@ public class ProfileSkills extends JFrame {
 		
 		JLabel lblManYearsOfExperience = new JLabel("I have");
 		lblManYearsOfExperience.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblManYearsOfExperience.setBounds(10, 11, 46, 14);
+		lblManYearsOfExperience.setBounds(52, 15, 46, 14);
 		panelMang.add(lblManYearsOfExperience);
 		
 		JLabel lblManagementTeamDemo = new JLabel("Leadership Team demography");
@@ -3782,7 +4574,7 @@ public class ProfileSkills extends JFrame {
 		
 		JLabel lblMyManagementExp = new JLabel("My Management Experience");
 		lblMyManagementExp.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblMyManagementExp.setBounds(746, 644, 180, 22);
+		lblMyManagementExp.setBounds(626, 657, 180, 22);
 		panelMang.add(lblMyManagementExp);
 		
 		JLabel lblMyManagementIndustry = new JLabel("MY Management Industry and Domain");
@@ -3823,28 +4615,28 @@ public class ProfileSkills extends JFrame {
 		
 		JLabel lblManMnthOfExperience = new JLabel("Years and");
 		lblManMnthOfExperience.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblManMnthOfExperience.setBounds(103, 11, 54, 14);
+		lblManMnthOfExperience.setBounds(191, 15, 58, 14);
 		panelMang.add(lblManMnthOfExperience);
 		
 		JLabel lblManMyYearsExp = new JLabel("Months of Experience with  Management Skills");
 		lblManMyYearsExp.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblManMyYearsExp.setBounds(215, 11, 255, 14);
+		lblManMyYearsExp.setBounds(355, 15, 306, 14);
 		panelMang.add(lblManMyYearsExp);
 		
 		textFieldManMyYears = new JTextField();
+		textFieldManMyYears.setHorizontalAlignment(SwingConstants.CENTER);
+		textFieldManMyYears.setEditable(false);
+		textFieldManMyYears.setBackground(new Color(223, 196, 132));
 		textFieldManMyYears.setColumns(10);
-		textFieldManMyYears.setBounds(54, 9, 39, 20);
+		textFieldManMyYears.setBounds(101, 8, 36, 25);
 		panelMang.add(textFieldManMyYears);
 		
-		JLabel lblManMyMnth = new JLabel("Select a new Value to update Year and Month");
-		lblManMyMnth.setHorizontalAlignment(SwingConstants.LEFT);
-		lblManMyMnth.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblManMyMnth.setBounds(575, 11, 276, 14);
-		panelMang.add(lblManMyMnth);
-		
 		textFieldManMyMonth = new JTextField();
+		textFieldManMyMonth.setHorizontalAlignment(SwingConstants.CENTER);
+		textFieldManMyMonth.setEditable(false);
+		textFieldManMyMonth.setBackground(new Color(223, 196, 132));
 		textFieldManMyMonth.setColumns(10);
-		textFieldManMyMonth.setBounds(167, 9, 39, 20);
+		textFieldManMyMonth.setBounds(259, 8, 36, 25);
 		panelMang.add(textFieldManMyMonth);
 		
 		JScrollPane scrollPane_ManExp = new JScrollPane();
@@ -3854,17 +4646,21 @@ public class ProfileSkills extends JFrame {
 		
 		String[] ManYrsitems = new String[]{"1", "2", "3", "4","5", "6", "7", "8","9", "10", "11", "12","13", "14", "15","16", "17", "18","19", "20", "+20", "+30", "+40"};
 		JComboBox cbManYearsExp = new JComboBox(ManYrsitems);
+		cbManYearsExp.setBorder(null);
+		cbManYearsExp.setSelectedIndex(-1);
+		cbManYearsExp.setBackground(new Color(255, 255, 255));
 		cbManYearsExp.addItemListener(new ItemListener() {
 			String selval;
 			public void itemStateChanged(ItemEvent e) {
-				textFieldManMyYears.setText(selval);
+				
 				selval = String.valueOf(cbManYearsExp.getSelectedItem());
 				
 				String usrtxtfield=textField_1.getText();
+				textFieldManMyYears.setText(selval);
 				
 				try {
 				
-					String query = "UPDATE profileData SET MANYearExp=? WHERE profileData.username =?";
+					String query = "UPDATE profiledata SET MANYearExp=? WHERE profiledata.username =?";
 					
 					PreparedStatement pst=conn.prepareStatement(query);
 					pst.setString(1, selval);
@@ -3878,22 +4674,26 @@ public class ProfileSkills extends JFrame {
 					}
 			}
 		});
-		cbManYearsExp.setBounds(850, 8, 54, 22);
+		cbManYearsExp.setBounds(136, 8, 39, 22);
 		panelMang.add(cbManYearsExp);
 		
 		String[] ManMnthitems = new String[]{"1", "2", "3", "4","5", "6", "7", "8","9", "10", "11", "12"};
 		JComboBox cbManMonthExp = new JComboBox(ManMnthitems);
+		cbManMonthExp.setBorder(null);
+		cbManMonthExp.setSelectedIndex(-1);
+		cbManMonthExp.setBackground(new Color(255, 255, 255));
 		cbManMonthExp.addItemListener(new ItemListener() {
 			String selval;
 			public void itemStateChanged(ItemEvent e) {
-				textFieldManMyMonth.setText(selval);
-				selval = String.valueOf(cbManMonthExp.getSelectedItem());
 				
+				selval = String.valueOf(cbManMonthExp.getSelectedItem());
+			
 				String usrtxtfield=textField_1.getText();
+				textFieldManMyMonth.setText(selval);
 				
 				try {
 				
-					String query = "UPDATE profileData SET MANMnthExp=? WHERE profileData.username =?";
+					String query = "UPDATE profiledata SET MANMnthExp=? WHERE profiledata.username =?";
 					
 					PreparedStatement pst=conn.prepareStatement(query);
 					pst.setString(1, selval);
@@ -3908,11 +4708,11 @@ public class ProfileSkills extends JFrame {
 				
 			}
 		});
-		cbManMonthExp.setBounds(914, 8, 54, 22);
+		cbManMonthExp.setBounds(298, 8, 36, 22);
 		panelMang.add(cbManMonthExp);
 		
 		JScrollPane scrollPane_ManLeadership = new JScrollPane();
-		scrollPane_ManLeadership.setBounds(10, 95, 166, 143);
+		scrollPane_ManLeadership.setBounds(10, 95, 188, 143);
 		panelMang.add(scrollPane_ManLeadership);
 		
 		JList listManLeadership = new JList();
@@ -3920,7 +4720,7 @@ public class ProfileSkills extends JFrame {
 		filllistLeadTeamDemo(listManLeadership);
 
 		JScrollPane scrollPane_ManTraining = new JScrollPane();
-		scrollPane_ManTraining.setBounds(498, 98, 152, 137);
+		scrollPane_ManTraining.setBounds(498, 98, 173, 137);
 		panelMang.add(scrollPane_ManTraining);
 		
 		JList listManTraining = new JList();
@@ -3935,7 +4735,7 @@ public class ProfileSkills extends JFrame {
 		scrollPane_MYManTraining.setViewportView(MYlistManTraining);
 		
 		JScrollPane scrollPane_ManLeadSoftPrj = new JScrollPane();
-		scrollPane_ManLeadSoftPrj.setBounds(10, 287, 166, 143);
+		scrollPane_ManLeadSoftPrj.setBounds(10, 287, 188, 143);
 		panelMang.add(scrollPane_ManLeadSoftPrj);
 		
 		JList listManLeadSoftPrj = new JList();
@@ -3950,7 +4750,7 @@ public class ProfileSkills extends JFrame {
 		scrollPane_MYLeadSoftPrj.setViewportView(MYlistManLeadSoftPrj);
 		
 		JScrollPane scrollPane_ManSDLC = new JScrollPane();
-		scrollPane_ManSDLC.setBounds(498, 287, 152, 143);
+		scrollPane_ManSDLC.setBounds(498, 287, 173, 143);
 		panelMang.add(scrollPane_ManSDLC);
 		
 		JList listManSDLC = new JList();
@@ -3965,11 +4765,11 @@ public class ProfileSkills extends JFrame {
 	    scrollPane_MYManSDLC.setViewportView(MYlistManSDLC);
 		
 		JScrollPane scrollPane_ManIndDom = new JScrollPane();
-		scrollPane_ManIndDom.setBounds(10, 503, 166, 130);
+		scrollPane_ManIndDom.setBounds(10, 503, 188, 130);
 		panelMang.add(scrollPane_ManIndDom);
 		
 		JList listManIndDom = new JList();
-		scrollPane_ManIndDom.setViewportView(listManIndDom);
+		scrollPane_ManIndDom.setColumnHeaderView(listManIndDom);
 		filllistManIndDom(listManIndDom);
 		
 		JScrollPane scrollPane_MYManIndDom = new JScrollPane();
@@ -3980,7 +4780,7 @@ public class ProfileSkills extends JFrame {
 		scrollPane_MYManIndDom.setViewportView(MYlistManIndDom);
 		
 		JScrollPane scrollPane_ManBadgeCert = new JScrollPane();
-		scrollPane_ManBadgeCert.setBounds(498, 503, 152, 130);
+		scrollPane_ManBadgeCert.setBounds(498, 503, 173, 130);
 		panelMang.add(scrollPane_ManBadgeCert);
 		
 		JList listManBadgeCert = new JList();
@@ -4068,7 +4868,7 @@ public class ProfileSkills extends JFrame {
     		btnAddManLeadTeam.setForeground(new Color(204, 64, 74));
     		btnAddManLeadTeam.setFont(new Font("Tahoma", Font.BOLD, 11));
     		btnAddManLeadTeam.setBackground(new Color(223, 196, 132));
-    		btnAddManLeadTeam.setBounds(188, 101, 58, 22);
+    		btnAddManLeadTeam.setBounds(208, 93, 31, 22);
     		panelMang.add(btnAddManLeadTeam);
     		
     	JButton btnRemoveManLeadTeam = new JButton("<<");
@@ -4096,7 +4896,7 @@ public class ProfileSkills extends JFrame {
     		btnRemoveManLeadTeam.setForeground(new Color(204, 64, 74));
     		btnRemoveManLeadTeam.setFont(new Font("Tahoma", Font.BOLD, 11));
     		btnRemoveManLeadTeam.setBackground(new Color(223, 196, 132));
-    		btnRemoveManLeadTeam.setBounds(188, 129, 58, 22);
+    		btnRemoveManLeadTeam.setBounds(208, 126, 31, 22);
     		panelMang.add(btnRemoveManLeadTeam);
 			
 		JButton btnAddManExp = new JButton(" >>");
@@ -4196,7 +4996,7 @@ public class ProfileSkills extends JFrame {
 		btnAddManTrain.setForeground(new Color(204, 64, 74));
 		btnAddManTrain.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnAddManTrain.setBackground(new Color(223, 196, 132));
-		btnAddManTrain.setBounds(660, 101, 58, 22);
+		btnAddManTrain.setBounds(681, 97, 27, 22);
 		panelMang.add(btnAddManTrain);
 		
 		JButton btnRemoveManTrain = new JButton("<<");
@@ -4223,7 +5023,7 @@ public class ProfileSkills extends JFrame {
 		btnRemoveManTrain.setForeground(new Color(204, 64, 74));
 		btnRemoveManTrain.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnRemoveManTrain.setBackground(new Color(223, 196, 132));
-		btnRemoveManTrain.setBounds(660, 129, 58, 22);
+		btnRemoveManTrain.setBounds(681, 126, 27, 22);
 		panelMang.add(btnRemoveManTrain);
 		
 		JButton btnAddManLeadership = new JButton(" >>");
@@ -4249,7 +5049,7 @@ public class ProfileSkills extends JFrame {
 		btnAddManLeadership.setForeground(new Color(204, 64, 74));
 		btnAddManLeadership.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnAddManLeadership.setBackground(new Color(223, 196, 132));
-		btnAddManLeadership.setBounds(186, 287, 58, 22);
+		btnAddManLeadership.setBounds(208, 294, 27, 22);
 		panelMang.add(btnAddManLeadership);
 		
 		JButton btnRemoveManLeadership = new JButton("<<");
@@ -4276,7 +5076,7 @@ public class ProfileSkills extends JFrame {
 		btnRemoveManLeadership.setForeground(new Color(204, 64, 74));
 		btnRemoveManLeadership.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnRemoveManLeadership.setBackground(new Color(223, 196, 132));
-		btnRemoveManLeadership.setBounds(186, 315, 58, 22);
+		btnRemoveManLeadership.setBounds(208, 322, 26, 22);
 		panelMang.add(btnRemoveManLeadership);
 		
 		JButton btnAddManIndustry = new JButton(" >>");
@@ -4302,7 +5102,7 @@ public class ProfileSkills extends JFrame {
 		btnAddManIndustry.setForeground(new Color(204, 64, 74));
 		btnAddManIndustry.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnAddManIndustry.setBackground(new Color(223, 196, 132));
-		btnAddManIndustry.setBounds(186, 510, 58, 22);
+		btnAddManIndustry.setBounds(208, 510, 31, 22);
 		panelMang.add(btnAddManIndustry);
 		
 		JButton btnRemoveManIndustry = new JButton("<<");
@@ -4329,7 +5129,7 @@ public class ProfileSkills extends JFrame {
 		btnRemoveManIndustry.setForeground(new Color(204, 64, 74));
 		btnRemoveManIndustry.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnRemoveManIndustry.setBackground(new Color(223, 196, 132));
-		btnRemoveManIndustry.setBounds(186, 543, 58, 22);
+		btnRemoveManIndustry.setBounds(208, 543, 29, 22);
 		panelMang.add(btnRemoveManIndustry);
 		
 		JButton btnAddManSDLC = new JButton(" >>");
@@ -4355,7 +5155,7 @@ public class ProfileSkills extends JFrame {
 		btnAddManSDLC.setForeground(new Color(204, 64, 74));
 		btnAddManSDLC.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnAddManSDLC.setBackground(new Color(223, 196, 132));
-		btnAddManSDLC.setBounds(660, 294, 58, 22);
+		btnAddManSDLC.setBounds(681, 294, 31, 22);
 		panelMang.add(btnAddManSDLC);
 		
 		JButton btnRemoveManSDLC = new JButton("<<");
@@ -4382,7 +5182,7 @@ public class ProfileSkills extends JFrame {
 		btnRemoveManSDLC.setForeground(new Color(204, 64, 74));
 		btnRemoveManSDLC.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnRemoveManSDLC.setBackground(new Color(223, 196, 132));
-		btnRemoveManSDLC.setBounds(660, 322, 58, 22);
+		btnRemoveManSDLC.setBounds(681, 322, 27, 22);
 		panelMang.add(btnRemoveManSDLC);
 		
 		JButton btnAddManBadgesCert = new JButton(" >>");
@@ -4408,7 +5208,7 @@ public class ProfileSkills extends JFrame {
 		btnAddManBadgesCert.setForeground(new Color(204, 64, 74));
 		btnAddManBadgesCert.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnAddManBadgesCert.setBackground(new Color(223, 196, 132));
-		btnAddManBadgesCert.setBounds(660, 515, 58, 22);
+		btnAddManBadgesCert.setBounds(681, 510, 26, 22);
 		panelMang.add(btnAddManBadgesCert);
 		
 		JButton btnRemoveManBadgesCert = new JButton("<<");
@@ -4435,7 +5235,7 @@ public class ProfileSkills extends JFrame {
 		btnRemoveManBadgesCert.setForeground(new Color(204, 64, 74));
 		btnRemoveManBadgesCert.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnRemoveManBadgesCert.setBackground(new Color(223, 196, 132));
-		btnRemoveManBadgesCert.setBounds(660, 543, 58, 22);
+		btnRemoveManBadgesCert.setBounds(681, 543, 26, 22);
 		panelMang.add(btnRemoveManBadgesCert);
 		
 		JButton btnADDSkillManTeamDem = new JButton("+");
@@ -4473,9 +5273,10 @@ public class ProfileSkills extends JFrame {
 		JButton btnRMVSkillManTeamDem_1 = new JButton("-");
 		btnRMVSkillManTeamDem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);
 				if (AdminUser.equals("Y")){
 	    			String selval = (String) listManLeadership.getSelectedValue();
-					
+	    		  if (result == JOptionPane.OK_OPTION) {
 	    			if (selval != null){
 	    				LookupSkill mymanLeaderTeam = new LookupSkill();
 	    				int ManLeadTeamsid = (int) mymanLeaderTeam.lookupManLeaderTeam(selval);
@@ -4493,10 +5294,8 @@ public class ProfileSkills extends JFrame {
 				        listModel.removeAllElements();
 				        filllistLeadTeamDemo(listManLeadership); 
 	    				
-	    			}else{
-	    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-	    				}
-	    				
+	    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
+	    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}	
 	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
 				
 			}
@@ -4543,9 +5342,10 @@ public class ProfileSkills extends JFrame {
 		JButton btnRMVSkillManSoftProj_1 = new JButton("-");
 		btnRMVSkillManSoftProj_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);
 				if (AdminUser.equals("Y")){
 	    			String selval = (String) listManLeadSoftPrj.getSelectedValue();
-					
+	    		  if (result == JOptionPane.OK_OPTION) {
 	    			if (selval != null){
 	    				LookupSkill mymanLeaderSoftPrj = new LookupSkill();
 	    				int MANLeaderSoftid = (int) mymanLeaderSoftPrj.lookuplistManLeaderSoftPrj(selval);
@@ -4564,10 +5364,8 @@ public class ProfileSkills extends JFrame {
 				        listModel.removeAllElements();
 				        filllistLeadSoftPrj(listManLeadSoftPrj);
 	    				
-	    			}else{
-	    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-	    				}
-	    			
+	    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
+	    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
 	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
 				
 			}
@@ -4614,9 +5412,10 @@ public class ProfileSkills extends JFrame {
 		JButton btnRMVSkillManIndDom_1 = new JButton("-");
 		btnRMVSkillManIndDom_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);
 				if (AdminUser.equals("Y")){
 	    			String selval = (String) listManIndDom.getSelectedValue();
-					
+	    		  if (result == JOptionPane.OK_OPTION) {
 	    			if (selval != null){
 	    				LookupSkill mymanIndustry = new LookupSkill();
 	    				int MANIndustryid = (int) mymanIndustry.lookuplistManIndustry(selval);
@@ -4634,10 +5433,8 @@ public class ProfileSkills extends JFrame {
 				        listModel.removeAllElements();
 				        filllistManIndDom(listManIndDom);
 	    				
-	    			}else{
-	    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-	    				}
-	    			
+	    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
+	    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
 	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
 				
 			}
@@ -4684,9 +5481,10 @@ public class ProfileSkills extends JFrame {
 		JButton btnRMVSkillManTraining_1 = new JButton("-");
 		btnRMVSkillManTraining_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);
 				if (AdminUser.equals("Y")){
 	    			String selval = (String) listManTraining.getSelectedValue();
-					
+	    		  if (result == JOptionPane.OK_OPTION) {
 	    			if (selval != null){
 	    				LookupSkill mymanTraining = new LookupSkill();
 	    				int MANTrainid = (int) mymanTraining.lookuplistManTraining(selval);
@@ -4704,10 +5502,8 @@ public class ProfileSkills extends JFrame {
 				        listModel.removeAllElements();
 				        filllistManTraining(listManTraining); 
 	    				
-	    			}else{
-	    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-	    				}	
-	    			
+	    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}	
+	    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
 	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
 				
 			}
@@ -4754,9 +5550,10 @@ public class ProfileSkills extends JFrame {
 		JButton btnRMVSkillManSDLCTools_1 = new JButton("-");
 		btnRMVSkillManSDLCTools_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);
 				if (AdminUser.equals("Y")){
 	    			String selval = (String) listManSDLC.getSelectedValue();
-					
+	    		  if (result == JOptionPane.OK_OPTION) {
 	    			if (selval != null){
 	    				LookupSkill mymanSDLC = new LookupSkill();
 	    				int MANSDLCid = (int) mymanSDLC.lookuplistManSDLC(selval);
@@ -4774,9 +5571,8 @@ public class ProfileSkills extends JFrame {
 				        listModel.removeAllElements();
 				        filllistManSDLC(listManSDLC); 
 				        
-	    			}else{
-	    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-	    				}			
+	    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
+	    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
 	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
 				
 			}
@@ -4823,9 +5619,10 @@ public class ProfileSkills extends JFrame {
 		JButton btnRMVSkillManBadCert_1 = new JButton("-");
 		btnRMVSkillManBadCert_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);
 				if (AdminUser.equals("Y")){
 	    			String selval = (String) listManBadgeCert.getSelectedValue();
-					
+	    		  if (result == JOptionPane.OK_OPTION) {
 	    			if (selval != null){
 	    				LookupSkill mymanBadgeCert = new LookupSkill();
 	    				int MANBadgeCertid = (int) mymanBadgeCert.lookuplistManBadgeCert(selval);
@@ -4843,10 +5640,8 @@ public class ProfileSkills extends JFrame {
 				        listModel.removeAllElements();
 				        filllistManBadgeCert(listManBadgeCert);
 	    				
-	    			}else{
-	    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-	    				}
-   			
+	    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
+	    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
 	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
 				
 			}
@@ -4889,9 +5684,10 @@ public class ProfileSkills extends JFrame {
 		JButton btnRMVSkillManExp_1 = new JButton("-");
 		btnRMVSkillManExp_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);
 				if (AdminUser.equals("Y")){
 					String listval = (String) cbManExpSkill.getSelectedItem();
-					
+				  if (result == JOptionPane.OK_OPTION) {
 					if (listval != null){
 						
 						RemoveList RMVfromEmplySkillManExpSkill = new RemoveList();
@@ -4911,9 +5707,8 @@ public class ProfileSkills extends JFrame {
 			        		model.removeAllElements();
 			        		fillcbManExpSkill(cbManExpSkill);
 					}	
-					}else{
-					JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-					}	
+					}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}	
+				  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
 				}else{JOptionPane.showMessageDialog(null, "admin use only");}
 				
 			}
@@ -4957,9 +5752,10 @@ public class ProfileSkills extends JFrame {
 		JButton btnRMVSkillManExpLvl_1 = new JButton("-");
 		btnRMVSkillManExpLvl_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM",JOptionPane.OK_CANCEL_OPTION);
 				if (AdminUser.equals("Y")){
 					String listval = (String) cbManExpLvl.getSelectedItem();
-					
+				  if (result == JOptionPane.OK_OPTION) {
 					if (listval != null){
 						
 						RemoveList RMVfromEmplySkillManExpLvl = new RemoveList();
@@ -4979,9 +5775,8 @@ public class ProfileSkills extends JFrame {
 			        		model.removeAllElements();
 			        		fillcbManExpLvl(cbManExpLvl);
 					}	
-					}else{
-					JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-					}	
+					}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}	
+				  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
 				}else{JOptionPane.showMessageDialog(null, "admin use only");}	
 				
 			}
@@ -4992,854 +5787,6 @@ public class ProfileSkills extends JFrame {
 		btnRMVSkillManExpLvl_1.setBackground(new Color(223, 196, 132));
 		btnRMVSkillManExpLvl_1.setBounds(384, 718, 46, 14);
 		panelMang.add(btnRMVSkillManExpLvl_1);
-		
-				JPanel panelFun = new JPanel();
-				panelFun.setForeground(new Color(255, 255, 255));
-				panelFun.setBackground(new Color(174, 174, 215));
-				
-				tabbedpane.add("FunctionalSkill",panelFun);
-				panelFun.setLayout(null);
-				
-				JComboBox cbFunYearsExp = new JComboBox(FUNYrsitems);
-				cbFunYearsExp.addItemListener(new ItemListener() {
-					String selval;
-					public void itemStateChanged(ItemEvent e) {
-						textFieldFunMyYears.setText(selval);
-						selval = String.valueOf(cbFunYearsExp.getSelectedItem());
-						
-						String usrtxtfield=textField_1.getText();
-						
-						try {
-						
-							String query = "UPDATE profileData SET FUNYearExp=? WHERE profileData.username =?";
-							
-							PreparedStatement pst=conn.prepareStatement(query);
-							pst.setString(1, selval);
-							pst.setString(2, usrtxtfield);
-							pst.execute();
-						
-						} catch (Exception ex) {
-							
-							JOptionPane.showMessageDialog(null, " exception error Data not Saved");
-							ex.printStackTrace();
-							}
-					}
-				});
-				cbFunYearsExp.setBounds(919, 11, 38, 22);
-				panelFun.add(cbFunYearsExp);
-				JComboBox cbFunMonthExp = new JComboBox(FUNMnthitems);
-				cbFunMonthExp.addItemListener(new ItemListener() {
-					String selval;
-					public void itemStateChanged(ItemEvent e) {
-						textFieldFunMyMonths.setText(selval);
-						selval = String.valueOf(cbFunMonthExp.getSelectedItem());
-						
-						String usrtxtfield=textField_1.getText();
-						
-						try {
-						
-							String query = "UPDATE profileData SET FUNMnthExp=? WHERE profileData.username =?";
-							
-							PreparedStatement pst=conn.prepareStatement(query);
-							pst.setString(1, selval);
-							pst.setString(2, usrtxtfield);
-							pst.execute();
-						
-						} catch (Exception ex) {
-							
-							JOptionPane.showMessageDialog(null, " exception error Data not Saved");
-							ex.printStackTrace();
-							}	
-						
-					}
-				});
-				cbFunMonthExp.setBounds(967, 11, 38, 22);
-				panelFun.add(cbFunMonthExp);
-				
-				JLabel lblFunIndDomain = new JLabel("Functional industry / domain");
-				lblFunIndDomain.setToolTipText("SkillIndustry");
-				lblFunIndDomain.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				lblFunIndDomain.setBounds(10, 82, 171, 14);
-				panelFun.add(lblFunIndDomain);
-				
-				JLabel lblFunCertISTQB = new JLabel("Certifications (ISTQB or Any Equivalent)");
-				lblFunCertISTQB.setToolTipText("CERTBadge");
-				lblFunCertISTQB.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				lblFunCertISTQB.setBounds(510, 83, 218, 14);
-				panelFun.add(lblFunCertISTQB);
-				
-				JLabel lblFunBadges = new JLabel("Functional Badges");
-				lblFunBadges.setToolTipText("CertBadge");
-				lblFunBadges.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				lblFunBadges.setBounds(510, 264, 119, 14);
-				panelFun.add(lblFunBadges);
-				
-				JLabel lblFunTestExp = new JLabel("Functional Testing Experience");
-				lblFunTestExp.setToolTipText("SkillFocus");
-				lblFunTestExp.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				lblFunTestExp.setBounds(10, 264, 171, 14);
-				panelFun.add(lblFunTestExp);
-				
-				JLabel lblFunTestManag = new JLabel("Test Management and Defect Tracking Tools");
-				lblFunTestManag.setToolTipText("SkillTool");
-				lblFunTestManag.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				lblFunTestManag.setBounds(10, 447, 257, 14);
-				panelFun.add(lblFunTestManag);
-				
-				JLabel lblMyFunctionalIndustry = new JLabel("MY Functional industry / domain");
-				lblMyFunctionalIndustry.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				lblMyFunctionalIndustry.setBounds(255, 83, 181, 14);
-				panelFun.add(lblMyFunctionalIndustry);
-				
-				JLabel lblMycertificationsistqbOr = new JLabel("MY Certifications (ISTQB or Any Equivalent)");
-				lblMycertificationsistqbOr.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				lblMycertificationsistqbOr.setBounds(766, 82, 239, 14);
-				panelFun.add(lblMycertificationsistqbOr);
-				
-				JLabel lblMYFunTestExp = new JLabel("MY Functional Testing Experience");
-				lblMYFunTestExp.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				lblMYFunTestExp.setBounds(258, 265, 198, 14);
-				panelFun.add(lblMYFunTestExp);
-				
-				JLabel lblTestManagementAnd = new JLabel("MY Test Management and Defect Tracking Tools");
-				lblTestManagementAnd.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				lblTestManagementAnd.setBounds(298, 447, 320, 14);
-				panelFun.add(lblTestManagementAnd);
-				
-				JLabel lblMYFunBadges = new JLabel("MY Functional Badges");
-				lblMYFunBadges.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				lblMYFunBadges.setBounds(766, 264, 127, 14);
-				panelFun.add(lblMYFunBadges);
-				
-				textFieldFunMyYears = new JTextField();
-				textFieldFunMyYears.setFont(new Font("Tahoma", Font.BOLD, 11));
-				textFieldFunMyYears.setDisabledTextColor(new Color(64, 0, 64));
-				textFieldFunMyYears.setBorder(null);
-				textFieldFunMyYears.setSelectedTextColor(new Color(0, 0, 0));
-				textFieldFunMyYears.setHorizontalAlignment(SwingConstants.CENTER);
-				textFieldFunMyYears.setEnabled(false);
-				textFieldFunMyYears.setBackground(new Color(174, 174, 215));
-				textFieldFunMyYears.setBounds(51, 11, 30, 22);
-				panelFun.add(textFieldFunMyYears);
-				textFieldFunMyYears.setColumns(10);
-				
-				textFieldFunMyMonths = new JTextField();
-				textFieldFunMyMonths.setDisabledTextColor(new Color(64, 0, 64));
-				textFieldFunMyMonths.setBorder(null);
-				textFieldFunMyMonths.setSelectedTextColor(new Color(0, 0, 0));
-				textFieldFunMyMonths.setEnabled(false);
-				textFieldFunMyMonths.setFont(new Font("Tahoma", Font.BOLD, 11));
-				textFieldFunMyMonths.setHorizontalAlignment(SwingConstants.CENTER);
-				textFieldFunMyMonths.setForeground(new Color(255, 255, 255));
-				textFieldFunMyMonths.setBackground(new Color(174, 174, 215));
-				textFieldFunMyMonths.setColumns(10);
-				textFieldFunMyMonths.setBounds(157, 11, 38, 22);
-				panelFun.add(textFieldFunMyMonths);
-				
-				JLabel lblFunMyYearsExp = new JLabel("I have ");
-				lblFunMyYearsExp.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				lblFunMyYearsExp.setBounds(10, 14, 37, 14);
-				panelFun.add(lblFunMyYearsExp);
-				
-				JLabel lblFunMyMnth = new JLabel("and");
-				lblFunMyMnth.setHorizontalAlignment(SwingConstants.LEFT);
-				lblFunMyMnth.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				lblFunMyMnth.setBounds(125, 12, 37, 19);
-				panelFun.add(lblFunMyMnth);
-				
-				JScrollPane scrollPane_FunIndustryDom = new JScrollPane();
-				scrollPane_FunIndustryDom.setBounds(10, 107, 152, 130);
-				panelFun.add(scrollPane_FunIndustryDom);
-				
-				JList listFunIndustryDomain = new JList();
-				scrollPane_FunIndustryDom.setViewportView(listFunIndustryDomain);
-				filllistFunIndustryDomain(listFunIndustryDomain);
-				
-				JScrollPane scrollPane_FunTestingExp = new JScrollPane();
-				scrollPane_FunTestingExp.setBounds(10, 289, 152, 124);
-				panelFun.add(scrollPane_FunTestingExp);
-				
-				JList listFunTestingExp = new JList();
-				scrollPane_FunTestingExp.setViewportView(listFunTestingExp);
-				filllistFunTestingExp(listFunTestingExp);
-				
-				JScrollPane scrollPane_FunDefectTrack = new JScrollPane();
-				scrollPane_FunDefectTrack.setBounds(10, 472, 193, 124);
-				panelFun.add(scrollPane_FunDefectTrack);
-				
-				JList listFunTestMangement = new JList();
-				scrollPane_FunDefectTrack.setViewportView(listFunTestMangement);
-				filllistFunTestMangement(listFunTestMangement);
-				
-				JScrollPane scrollPane_FunCertification = new JScrollPane();
-				scrollPane_FunCertification.setBounds(510, 107, 152, 130);
-				panelFun.add(scrollPane_FunCertification);
-				
-				JList listFunCertifications = new JList();
-				scrollPane_FunCertification.setViewportView(listFunCertifications);
-				filllistFunCertifications(listFunCertifications);
-				
-				JScrollPane scrollPane_FunBadges = new JScrollPane();
-				scrollPane_FunBadges.setBounds(510, 289, 152, 130);
-				panelFun.add(scrollPane_FunBadges);
-				
-				JList listFunBadges = new JList();
-				scrollPane_FunBadges.setViewportView(listFunBadges);
-				filllistFunBadges(listFunBadges);
-				
-				JScrollPane scrollPane_MYFunIndustryDom = new JScrollPane();
-				scrollPane_MYFunIndustryDom.setBounds(255, 107, 201, 130);
-				panelFun.add(scrollPane_MYFunIndustryDom);
-				
-				JList listMYFunIndustryDomain_1 = new JList(MYFunIndDom);
-				scrollPane_MYFunIndustryDom.setViewportView(listMYFunIndustryDomain_1);
-				
-				JScrollPane scrollPane_MYFunTestingFun = new JScrollPane();
-				scrollPane_MYFunTestingFun.setBounds(258, 289, 198, 130);
-				panelFun.add(scrollPane_MYFunTestingFun);
-				
-				JList listMYFunTestingExp_1 = new JList(MYFunTestExp);
-				scrollPane_MYFunTestingFun.setViewportView(listMYFunTestingExp_1);
-				
-				JScrollPane scrollPane_FunMYBadges = new JScrollPane();
-				scrollPane_FunMYBadges.setBounds(766, 289, 239, 130);
-				panelFun.add(scrollPane_FunMYBadges);
-				
-				JList listMYFunBadges_1 = new JList(MYFunBadge);
-				scrollPane_FunMYBadges.setViewportView(listMYFunBadges_1);
-				
-				JScrollPane scrollPane_FunMYDefectTrack = new JScrollPane();
-				scrollPane_FunMYDefectTrack.setBounds(298, 472, 273, 130);
-				panelFun.add(scrollPane_FunMYDefectTrack);
-				
-				JList listMYFunTestMangement_1 = new JList(MYFunTestManDefect);
-				scrollPane_FunMYDefectTrack.setViewportView(listMYFunTestMangement_1);
-				
-				JScrollPane scrollPane_MYFunCertifications = new JScrollPane();
-				scrollPane_MYFunCertifications.setBounds(766, 100, 239, 137);
-				panelFun.add(scrollPane_MYFunCertifications);
-				
-				JList listMYFunCertifications_1 = new JList(MYFunCert);
-				scrollPane_MYFunCertifications.setViewportView(listMYFunCertifications_1);
-				
-				JButton btnAddFunInd = new JButton(">>");
-				btnAddFunInd.setBorder(null);
-				btnAddFunInd.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-					String FunIndDomstr1 = (String) listFunIndustryDomain.getSelectedValue();
-						if (FunIndDomstr1 != null) {
-							if (MYFunIndDom.contains(FunIndDomstr1)) {
-								JOptionPane.showMessageDialog(null, "Already in List");
-							}else {
-								MYFunIndDom.addElement(FunIndDomstr1);
-							
-								String tempusrname = textField_1.getText();
-								SaveList mysavelist = new SaveList();
-								mysavelist.SAVEmylistFUNIndDom(FunIndDomstr1, tempusrname);
-								}			
-						}else JOptionPane.showMessageDialog(null, "Please Select a value from the list");
-					}
-				});
-				btnAddFunInd.setForeground(new Color(83, 83, 168));
-				btnAddFunInd.setBackground(new Color(174, 174, 215));
-				btnAddFunInd.setFont(new Font("Tahoma", Font.BOLD, 11));
-				btnAddFunInd.setBounds(172, 110, 64, 23);
-				panelFun.add(btnAddFunInd);
-				
-				JButton btnRemoveFunind = new JButton("<<");
-				btnRemoveFunind.setBorder(null);
-				btnRemoveFunind.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						
-					String MYTechFunindstr1 = (String) listMYFunIndustryDomain_1.getSelectedValue();
-					int myselectedindex = listMYFunIndustryDomain_1.getSelectedIndex();
-						if (MYTechFunindstr1 != null) {
-							if(listMYFunIndustryDomain_1.getSelectedIndex()>=0)
-							
-								MYFunIndDom.remove(listMYFunIndustryDomain_1.getSelectedIndex());
-						
-							String tempusrname = textField_1.getText();
-						
-							RemoveList myremovelist = new RemoveList();
-							myremovelist.REMOVElistMYFunIndDomain(MYTechFunindstr1, tempusrname);
-						
-					}else JOptionPane.showMessageDialog(null, "Please Select a value from the list>>>>");
-					}
-				});
-				btnRemoveFunind.setForeground(new Color(83, 83, 168));
-				btnRemoveFunind.setBackground(new Color(174, 174, 215));
-				btnRemoveFunind.setFont(new Font("Tahoma", Font.BOLD, 11));
-				btnRemoveFunind.setBounds(172, 135, 64, 23);
-				panelFun.add(btnRemoveFunind);
-				
-				JButton btnAddFunTestExp = new JButton(">>");
-				btnAddFunTestExp.setBorder(null);
-				btnAddFunTestExp.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-					String FunTestExpstr1 = (String) listFunTestingExp.getSelectedValue();
-						if (FunTestExpstr1 != null) {
-							if (MYFunTestExp.contains(FunTestExpstr1)) {
-								JOptionPane.showMessageDialog(null, "Already in List");
-							}else {
-								MYFunTestExp.addElement(FunTestExpstr1);
-							
-								String tempusrname = textField_1.getText();
-								SaveList mysavelist = new SaveList();
-								mysavelist.SAVEmylistFunTestExp(FunTestExpstr1, tempusrname);
-								}			
-						}else JOptionPane.showMessageDialog(null, "Please Select a value from the list");
-					}
-				});
-				btnAddFunTestExp.setBackground(new Color(174, 174, 215));
-				btnAddFunTestExp.setForeground(new Color(83, 83, 168));
-				btnAddFunTestExp.setFont(new Font("Tahoma", Font.BOLD, 11));
-				btnAddFunTestExp.setBounds(172, 289, 64, 23);
-				panelFun.add(btnAddFunTestExp);
-				
-				JButton btnRemoveFunTestExp = new JButton("<<");
-				btnRemoveFunTestExp.setBorder(null);
-				btnRemoveFunTestExp.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						
-					String MYFunTestExpstr1 = (String) listMYFunTestingExp_1.getSelectedValue();
-					int myselectedindex = listMYFunTestingExp_1.getSelectedIndex();
-						if (MYFunTestExpstr1 != null) {
-							if(listMYFunTestingExp_1.getSelectedIndex()>=0)
-							
-								MYFunTestExp.remove(listMYFunTestingExp_1.getSelectedIndex());
-						
-							String tempusrname = textField_1.getText();
-						
-							RemoveList myremovelist = new RemoveList();
-							myremovelist.REMOVElistMYFunTestExp(MYFunTestExpstr1, tempusrname);
-							
-						}else JOptionPane.showMessageDialog(null, "Please Select a value from the list>>>>");
-				}
-				});
-				btnRemoveFunTestExp.setBackground(new Color(174, 174, 215));
-				btnRemoveFunTestExp.setForeground(new Color(83, 83, 168));
-				btnRemoveFunTestExp.setFont(new Font("Tahoma", Font.BOLD, 11));
-				btnRemoveFunTestExp.setBounds(172, 314, 64, 23);
-				panelFun.add(btnRemoveFunTestExp);
-				
-				JButton btnAddFunCert = new JButton(">>");
-				btnAddFunCert.setBorder(null);
-				btnAddFunCert.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-					String FunCertstr1 = (String) listFunCertifications.getSelectedValue();
-						if (FunCertstr1 != null) {
-								if (MYFunCert.contains(FunCertstr1)) {
-							JOptionPane.showMessageDialog(null, "Already in List");
-								}else {
-									MYFunCert.addElement(FunCertstr1);
-							
-									String tempusrname = textField_1.getText();
-									SaveList mysavelist = new SaveList();
-									mysavelist.SAVEmylistFunCert(FunCertstr1, tempusrname);
-									}		
-						}else JOptionPane.showMessageDialog(null, "Please Select a value from the list");
-					}
-				});
-				btnAddFunCert.setBackground(new Color(174, 174, 215));
-				btnAddFunCert.setForeground(new Color(83, 83, 168));
-				btnAddFunCert.setFont(new Font("Tahoma", Font.BOLD, 11));
-				btnAddFunCert.setBounds(681, 110, 64, 23);
-				panelFun.add(btnAddFunCert);
-				
-				JButton btnRemoveFunCert = new JButton("<<");
-				btnRemoveFunCert.setBorder(null);
-				btnRemoveFunCert.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						
-					String MYTechFunCertstr1 = (String) listMYFunCertifications_1.getSelectedValue();
-					int myselectedindex = listMYFunCertifications_1.getSelectedIndex();
-					if (MYTechFunCertstr1 != null) {
-							if(listMYFunCertifications_1.getSelectedIndex()>=0)
-							
-								MYFunCert.remove(listMYFunCertifications_1.getSelectedIndex());
-						
-							String tempusrname = textField_1.getText();
-						
-							RemoveList myremovelist = new RemoveList();
-							myremovelist.REMOVElistMYFunCert(MYTechFunCertstr1, tempusrname);
-					}else JOptionPane.showMessageDialog(null, "Please Select a value from the list>>>>");	
-				}
-				});
-				btnRemoveFunCert.setBackground(new Color(174, 174, 215));
-				btnRemoveFunCert.setForeground(new Color(83, 83, 168));
-				btnRemoveFunCert.setFont(new Font("Tahoma", Font.BOLD, 11));
-				btnRemoveFunCert.setBounds(681, 135, 64, 23);
-				panelFun.add(btnRemoveFunCert);
-				
-				JButton btnAddFunBadge = new JButton(">>");
-				btnAddFunBadge.setBorder(null);
-				btnAddFunBadge.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-					String FunBadgestr1 = (String) listFunBadges.getSelectedValue();
-						if (FunBadgestr1 != null) {
-							if (MYFunBadge.contains(FunBadgestr1)) {
-								JOptionPane.showMessageDialog(null, "Already in List");
-							}else {
-								MYFunBadge.addElement(FunBadgestr1);
-							
-								String tempusrname = textField_1.getText();
-								SaveList mysavelist = new SaveList();
-								mysavelist.SAVEmylistFunBadge(FunBadgestr1, tempusrname);
-								}			
-						}else JOptionPane.showMessageDialog(null, "Please Select a value from the list");
-					}
-				});
-				btnAddFunBadge.setBackground(new Color(174, 174, 215));
-				btnAddFunBadge.setForeground(new Color(83, 83, 168));
-				btnAddFunBadge.setFont(new Font("Tahoma", Font.BOLD, 11));
-				btnAddFunBadge.setBounds(681, 289, 64, 23);
-				panelFun.add(btnAddFunBadge);
-				
-				JButton btnRemoveFunBadge = new JButton("<<");
-				btnRemoveFunBadge.setBorder(null);
-				btnRemoveFunBadge.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						
-					String MYTechFunBadgestr1 = (String) listMYFunBadges_1.getSelectedValue();
-					int myselectedindex = listMYFunBadges_1.getSelectedIndex();
-						if (MYTechFunBadgestr1 != null) {
-							if(listMYFunBadges_1.getSelectedIndex()>=0)
-							
-								MYFunBadge.remove(listMYFunBadges_1.getSelectedIndex());
-						
-							String tempusrname = textField_1.getText();
-						
-							RemoveList myremovelist = new RemoveList();
-							myremovelist.REMOVElistMYFunBadge(MYTechFunBadgestr1, tempusrname);
-						}else JOptionPane.showMessageDialog(null, "Please Select a value from the list>>>>");
-				}
-				});
-				btnRemoveFunBadge.setBackground(new Color(174, 174, 215));
-				btnRemoveFunBadge.setForeground(new Color(83, 83, 168));
-				btnRemoveFunBadge.setFont(new Font("Tahoma", Font.BOLD, 11));
-				btnRemoveFunBadge.setBounds(681, 314, 64, 23);
-				panelFun.add(btnRemoveFunBadge);
-				
-				JButton btnAddFunDefectTrack = new JButton(">>");
-				btnAddFunDefectTrack.setBorder(null);
-				btnAddFunDefectTrack.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-					String FunDefectstr1 = (String) listFunTestMangement.getSelectedValue();
-						if (FunDefectstr1 != null) {
-							if (MYFunTestManDefect.contains(FunDefectstr1)) {
-								JOptionPane.showMessageDialog(null, "Already in List");
-							}else {
-								MYFunTestManDefect.addElement(FunDefectstr1);
-							
-								String tempusrname = textField_1.getText();
-								SaveList mysavelist = new SaveList();
-								mysavelist.SAVEmylistFunTestManDefect(FunDefectstr1, tempusrname);
-								}	
-						}else JOptionPane.showMessageDialog(null, "Please Select a value from the list>>>>");	
-				}
-				});
-				btnAddFunDefectTrack.setBackground(new Color(174, 174, 215));
-				btnAddFunDefectTrack.setForeground(new Color(83, 83, 168));
-				btnAddFunDefectTrack.setFont(new Font("Tahoma", Font.BOLD, 11));
-				btnAddFunDefectTrack.setBounds(213, 472, 64, 23);
-				panelFun.add(btnAddFunDefectTrack);
-				
-				JButton btnRemoveFunDefectTrack = new JButton("<<");
-				btnRemoveFunDefectTrack.setBorder(null);
-				btnRemoveFunDefectTrack.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						
-					String MYFunDefectTrackstr1 = (String) listMYFunTestMangement_1.getSelectedValue();
-					int myselectedindex = listMYFunTestMangement_1.getSelectedIndex();
-						if (MYFunDefectTrackstr1 != null) {
-							if(listMYFunTestMangement_1.getSelectedIndex()>=0)
-							
-								MYFunTestManDefect.remove(listMYFunTestMangement_1.getSelectedIndex());
-						
-							String tempusrname = textField_1.getText();
-						
-							RemoveList myremovelist = new RemoveList();
-							myremovelist.REMOVElistMYFunDefectTrack(MYFunDefectTrackstr1, tempusrname);
-						}else JOptionPane.showMessageDialog(null, "Please Select a value from the list>>>>");
-					}
-				});
-				btnRemoveFunDefectTrack.setBackground(new Color(174, 174, 215));
-				btnRemoveFunDefectTrack.setForeground(new Color(83, 83, 168));
-				btnRemoveFunDefectTrack.setFont(new Font("Tahoma", Font.BOLD, 11));
-				btnRemoveFunDefectTrack.setBounds(213, 497, 64, 23);
-				panelFun.add(btnRemoveFunDefectTrack);
-				
-				JButton btnADDSkillFunIndDom = new JButton("+");
-				btnADDSkillFunIndDom.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if (AdminUser.equals("Y")){
-							
-							AddValueToList skillfunIndDom = new AddValueToList();
-							try {
-								listval = skillfunIndDom.add_SkillFUNIndDom();
-							} catch (SQLException e1) {
-								
-								e1.printStackTrace();
-							}
-							//JList listFunIndustryDomain = new JList();
-							//scrollPane_FunIndustryDom.setViewportView(listFunIndustryDomain);
-							DefaultListModel listModel = (DefaultListModel) listFunIndustryDomain.getModel();
-					        listModel.removeAllElements();
-							filllistFunIndustryDomain(listFunIndustryDomain);
-							
-						}	
-						else{
-							JOptionPane.showMessageDialog(null, "admin use only");
-						}		
-						
-					}
-				});
-				btnADDSkillFunIndDom.setVerticalTextPosition(SwingConstants.BOTTOM);
-				btnADDSkillFunIndDom.setFont(new Font("Tahoma", Font.BOLD, 12));
-				btnADDSkillFunIndDom.setBorder(null);
-				btnADDSkillFunIndDom.setBackground(new Color(174, 174, 215));
-				btnADDSkillFunIndDom.setBounds(72, 239, 46, 14);
-				panelFun.add(btnADDSkillFunIndDom);
-				
-				JButton btnRMVSkillFunIndDom_1 = new JButton("-");
-				btnRMVSkillFunIndDom_1.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if (AdminUser.equals("Y")){
-			    			String selval = (String) listFunIndustryDomain.getSelectedValue();
-							
-			    			if (selval != null){
-			    				LookupSkill myfunIndDom = new LookupSkill();
-			    				int FunIndDomid = (int) myfunIndDom.lookuplistMYFunIndDom(selval);
-			    			
-			    				RemoveList RMVSkills = new RemoveList();
-			    				
-			    				try {
-									RMVSkills.RMVSkillIDemployeeSkills(FunIndDomid);
-									
-								} catch (SQLException e1) {
-									e1.printStackTrace();}
-			    				
-			    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
-			    				DefaultListModel listModel = (DefaultListModel) listFunIndustryDomain.getModel();
-						        listModel.removeAllElements();
-								filllistFunIndustryDomain(listFunIndustryDomain);
-			    				
-			    			}else{
-			    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-			    				}
-			    				
-			    			//JList listFunIndustryDomain = new JList();
-							//scrollPane_FunIndustryDom.setViewportView(listFunIndustryDomain);		    			
-			    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
-					}
-				});
-				btnRMVSkillFunIndDom_1.setVerticalTextPosition(SwingConstants.BOTTOM);
-				btnRMVSkillFunIndDom_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-				btnRMVSkillFunIndDom_1.setBorder(null);
-				btnRMVSkillFunIndDom_1.setBackground(new Color(174, 174, 215));
-				btnRMVSkillFunIndDom_1.setBounds(116, 239, 46, 14);
-				panelFun.add(btnRMVSkillFunIndDom_1);
-				
-				JButton btnADDSkillFunTestExp = new JButton("+");
-				btnADDSkillFunTestExp.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if (AdminUser.equals("Y")){
-							
-							AddValueToList skillfuntestexp = new AddValueToList();
-							try {
-								listval = skillfuntestexp.add_SkillFUNTestingExp();
-							} catch (SQLException e1) {
-								
-								e1.printStackTrace();
-							}
-							//JList listFunTestingExp = new JList();
-							//scrollPane_FunTestingExp.setViewportView(listFunTestingExp);
-							DefaultListModel listModel = (DefaultListModel) listFunTestingExp.getModel();
-					        listModel.removeAllElements();
-							filllistFunTestingExp(listFunTestingExp);
-							
-						}	
-						else{
-							JOptionPane.showMessageDialog(null, "admin use only");
-						}	
-						
-					}
-				});
-				btnADDSkillFunTestExp.setVerticalTextPosition(SwingConstants.BOTTOM);
-				btnADDSkillFunTestExp.setFont(new Font("Tahoma", Font.BOLD, 12));
-				btnADDSkillFunTestExp.setBorder(null);
-				btnADDSkillFunTestExp.setBackground(new Color(174, 174, 215));
-				btnADDSkillFunTestExp.setBounds(72, 412, 46, 14);
-				panelFun.add(btnADDSkillFunTestExp);
-				
-				JButton btnRMVSkillFunTestExp_1 = new JButton("-");
-				btnRMVSkillFunTestExp_1.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if (AdminUser.equals("Y")){
-			    			String selval = (String) listFunTestingExp.getSelectedValue();
-							
-			    			if (selval != null){
-			    				LookupSkill myfunTestExp = new LookupSkill();
-			    				int FunTestExpid = (int) myfunTestExp.lookuplistMYFunTestExp(selval);
-			    			
-			    				RemoveList RMVSkills = new RemoveList();
-			    				
-			    				try {
-									RMVSkills.RMVSkillIDemployeeSkills(FunTestExpid);
-									
-								} catch (SQLException e1) {
-									e1.printStackTrace();}
-			    				
-			    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
-			    			
-								DefaultListModel listModel = (DefaultListModel) listFunTestingExp.getModel();
-						        listModel.removeAllElements();
-								filllistFunTestingExp(listFunTestingExp); 
-			    				
-			    			}else{
-			    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-			    				}
-			    			
-			    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
-					}
-				});
-				btnRMVSkillFunTestExp_1.setVerticalTextPosition(SwingConstants.BOTTOM);
-				btnRMVSkillFunTestExp_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-				btnRMVSkillFunTestExp_1.setBorder(null);
-				btnRMVSkillFunTestExp_1.setBackground(new Color(174, 174, 215));
-				btnRMVSkillFunTestExp_1.setBounds(116, 412, 46, 14);
-				panelFun.add(btnRMVSkillFunTestExp_1);
-				
-				JButton btnADDSkillFunDefectTrack = new JButton("+");
-				btnADDSkillFunDefectTrack.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if (AdminUser.equals("Y")){
-							
-							AddValueToList skillfuntestmang = new AddValueToList();
-							try {
-								listval = skillfuntestmang.add_SkillFUNTestMang();
-							} catch (SQLException e1) {
-								
-								e1.printStackTrace();
-							}
-							//JList listFunTestMangement = new JList();
-							//scrollPane_FunDefectTrack.setViewportView(listFunTestMangement);
-							DefaultListModel listModel = (DefaultListModel) listFunTestMangement.getModel();
-					        listModel.removeAllElements();
-							filllistFunTestMangement(listFunTestMangement);
-							
-						}	
-						else{
-							JOptionPane.showMessageDialog(null, "admin use only");
-						}		
-						
-					}
-				});
-				btnADDSkillFunDefectTrack.setVerticalTextPosition(SwingConstants.BOTTOM);
-				btnADDSkillFunDefectTrack.setFont(new Font("Tahoma", Font.BOLD, 12));
-				btnADDSkillFunDefectTrack.setBorder(null);
-				btnADDSkillFunDefectTrack.setBackground(new Color(174, 174, 215));
-				btnADDSkillFunDefectTrack.setBounds(113, 594, 46, 14);
-				panelFun.add(btnADDSkillFunDefectTrack);
-				
-				JButton btnRMVSkillFunDefectTrack_1 = new JButton("-");
-				btnRMVSkillFunDefectTrack_1.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if (AdminUser.equals("Y")){
-			    			String selval = (String) listFunTestMangement.getSelectedValue();
-							
-			    			if (selval != null){
-			    				LookupSkill myfunTestManDef = new LookupSkill();
-			    				int FunTestManDefid = (int) myfunTestManDef.lookuplistMYFunTestManDef(selval);
-			    			
-			    				RemoveList RMVSkills = new RemoveList();
-			    				
-			    				try {
-									RMVSkills.RMVSkillIDemployeeSkills(FunTestManDefid);
-									
-								} catch (SQLException e1) {
-									e1.printStackTrace();}
-			    				
-			    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
-			    				
-								DefaultListModel listModel = (DefaultListModel) listFunTestMangement.getModel();
-						        listModel.removeAllElements();
-								filllistFunTestMangement(listFunTestMangement); 
-			    				
-			    			}else{
-			    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-			    				}	
-			    			
-			    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
-					}
-				});
-				btnRMVSkillFunDefectTrack_1.setVerticalTextPosition(SwingConstants.BOTTOM);
-				btnRMVSkillFunDefectTrack_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-				btnRMVSkillFunDefectTrack_1.setBorder(null);
-				btnRMVSkillFunDefectTrack_1.setBackground(new Color(174, 174, 215));
-				btnRMVSkillFunDefectTrack_1.setBounds(157, 594, 46, 14);
-				panelFun.add(btnRMVSkillFunDefectTrack_1);
-				
-				JButton btnADDSkillFunCert = new JButton("+");
-				btnADDSkillFunCert.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if (AdminUser.equals("Y")){
-							
-							AddValueToList skillfunCert = new AddValueToList();
-							try {
-								listval = skillfunCert.add_SkillFUNCert();
-							} catch (SQLException e1) {
-								
-								e1.printStackTrace();
-							}
-							//JList listFunCertifications = new JList();
-							//scrollPane_FunCertification.setViewportView(listFunCertifications);
-							DefaultListModel listModel = (DefaultListModel) listFunCertifications.getModel();
-					        listModel.removeAllElements();
-							filllistFunCertifications(listFunCertifications);
-							
-						}	
-						else{
-							JOptionPane.showMessageDialog(null, "admin use only");
-						}		
-						
-					}
-				});
-				btnADDSkillFunCert.setVerticalTextPosition(SwingConstants.BOTTOM);
-				btnADDSkillFunCert.setFont(new Font("Tahoma", Font.BOLD, 12));
-				btnADDSkillFunCert.setBorder(null);
-				btnADDSkillFunCert.setBackground(new Color(174, 174, 215));
-				btnADDSkillFunCert.setBounds(572, 239, 46, 14);
-				panelFun.add(btnADDSkillFunCert);
-				
-				JButton btnRMVSkillFunCert_1 = new JButton("-");
-				btnRMVSkillFunCert_1.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if (AdminUser.equals("Y")){
-			    			String selval = (String) listFunCertifications.getSelectedValue();
-							
-			    			if (selval != null){
-			    				LookupSkill myfunCert = new LookupSkill();
-			    				int FunCertid = (int) myfunCert.lookuplistMYFunCert(selval);
-			    			
-			    				RemoveList RMVSkills = new RemoveList();
-			    				
-			    				try {
-									RMVSkills.RMVSkillIDemployeeSkills(FunCertid);
-									
-								} catch (SQLException e1) {
-									e1.printStackTrace();}
-			    				
-			    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
-			    				
-			    				DefaultListModel listModel = (DefaultListModel) listFunCertifications.getModel();
-						        listModel.removeAllElements();
-								filllistFunCertifications(listFunCertifications); 
-			    				
-			    			}else{
-			    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-			    				}
-			    				
-			    			//JList listFunCertifications = new JList();
-							//scrollPane_FunCertification.setViewportView(listFunCertifications);
-							
-			    			
-			    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
-					}
-				});
-				btnRMVSkillFunCert_1.setVerticalTextPosition(SwingConstants.BOTTOM);
-				btnRMVSkillFunCert_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-				btnRMVSkillFunCert_1.setBorder(null);
-				btnRMVSkillFunCert_1.setBackground(new Color(174, 174, 215));
-				btnRMVSkillFunCert_1.setBounds(616, 239, 46, 14);
-				panelFun.add(btnRMVSkillFunCert_1);
-				
-				JButton btnADDSkillFunBadge = new JButton("+");
-				btnADDSkillFunBadge.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if (AdminUser.equals("Y")){
-							
-							AddValueToList skillfunBadge = new AddValueToList();
-							try {
-								listval = skillfunBadge.add_SkillFUNBadge();
-							} catch (SQLException e1) {
-								
-								e1.printStackTrace();
-							}
-							//JList listFunBadges = new JList();
-							//scrollPane_FunBadges.setViewportView(listFunBadges);
-							DefaultListModel listModel = (DefaultListModel) listFunBadges.getModel();
-					        listModel.removeAllElements();
-							filllistFunBadges(listFunBadges);
-							
-						}	
-						else{
-							JOptionPane.showMessageDialog(null, "admin use only");
-						}			
-					}
-				});
-				btnADDSkillFunBadge.setVerticalTextPosition(SwingConstants.BOTTOM);
-				btnADDSkillFunBadge.setFont(new Font("Tahoma", Font.BOLD, 12));
-				btnADDSkillFunBadge.setBorder(null);
-				btnADDSkillFunBadge.setBackground(new Color(174, 174, 215));
-				btnADDSkillFunBadge.setBounds(572, 422, 46, 14);
-				panelFun.add(btnADDSkillFunBadge);
-				
-				JButton btnRMVSkillFunBadge_1 = new JButton("-");
-				btnRMVSkillFunBadge_1.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if (AdminUser.equals("Y")){
-			    			String selval = (String) listFunBadges.getSelectedValue();
-							
-			    			if (selval != null){
-			    				LookupSkill myfunBadge = new LookupSkill();
-			    				int FunBadgeid = (int) myfunBadge.lookuplistMYFunBadge(selval);
-			    			
-			    				RemoveList RMVSkills = new RemoveList();
-			    				
-			    				try {
-									RMVSkills.RMVSkillIDemployeeSkills(FunBadgeid);
-									
-								} catch (SQLException e1) {
-									e1.printStackTrace();}
-			    				
-			    				JOptionPane.showMessageDialog(null, "Skill removed from employee and Skill DB");
-			    				DefaultListModel listModel = (DefaultListModel) listFunBadges.getModel();
-						        listModel.removeAllElements();
-								filllistFunBadges(listFunBadges); 
-			    				
-			    			}else{
-			    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-			    				}
-			    				
-			    			//JList listFunBadges = new JList();
-							//scrollPane_FunBadges.setViewportView(listFunBadges);
-							
-			    			
-			    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
-					}
-				});
-				btnRMVSkillFunBadge_1.setVerticalTextPosition(SwingConstants.BOTTOM);
-				btnRMVSkillFunBadge_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-				btnRMVSkillFunBadge_1.setBorder(null);
-				btnRMVSkillFunBadge_1.setBackground(new Color(174, 174, 215));
-				btnRMVSkillFunBadge_1.setBounds(616, 422, 46, 14);
-				panelFun.add(btnRMVSkillFunBadge_1);
-				
-				JLabel lblOfExperienceAs = new JLabel("Years");
-				lblOfExperienceAs.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				lblOfExperienceAs.setBounds(91, 14, 38, 14);
-				panelFun.add(lblOfExperienceAs);
-				
-				JLabel lblMonthOfExperience = new JLabel("Months of Experience with Functional Skills");
-				lblMonthOfExperience.setHorizontalAlignment(SwingConstants.LEFT);
-				lblMonthOfExperience.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				lblMonthOfExperience.setBounds(207, 14, 293, 14);
-				panelFun.add(lblMonthOfExperience);
-				
-				JLabel lblNewLabel_3 = new JLabel("Select a new Value to update Year and Month");
-				lblNewLabel_3.setBounds(652, 15, 257, 14);
-				panelFun.add(lblNewLabel_3);
 		
 	}
 	
@@ -5853,7 +5800,7 @@ public class ProfileSkills extends JFrame {
 		
 		String query ="SELECT SkillTable.SkillLevel FROM SkillTable\r\n"
 				+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-				+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+				+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 				+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'Ignite Skills Proficiency Level'";
 		
 		try (PreparedStatement pst = conn.prepareStatement(query)) {
@@ -5891,7 +5838,7 @@ public class ProfileSkills extends JFrame {
 		
 		String query ="SELECT SkillTable.CertBadge FROM SkillTable\r\n"
 				+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-				+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+				+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 				+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'Cloud Certifications and Badges'";
 		
 		try (PreparedStatement pst = conn.prepareStatement(query)) {
@@ -5928,7 +5875,7 @@ public class ProfileSkills extends JFrame {
 		
 		String query ="SELECT SkillTable.SkillTool FROM SkillTable\r\n"
 				+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-				+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+				+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 				+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'SDLC'";
 		
 		try (PreparedStatement pst = conn.prepareStatement(query)) {
@@ -5966,7 +5913,7 @@ public class ProfileSkills extends JFrame {
 		
 		String query ="SELECT SkillTable.CertBadge FROM SkillTable\r\n"
 				+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-				+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+				+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 				+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'Mandatory Badge'";
 		
 		try (PreparedStatement pst = conn.prepareStatement(query)) {
@@ -6007,7 +5954,7 @@ public class ProfileSkills extends JFrame {
 		
 		String query ="SELECT SkillIndustry,SkillLevel FROM SkillTable\r\n"
 				+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-				+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+				+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 				+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'Industry Badges and Expertise Level'";
 		
 		
@@ -6046,7 +5993,7 @@ public class ProfileSkills extends JFrame {
 		
 		String query ="SELECT SkillZone,SkillFocus FROM SkillTable\r\n"
 				+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-				+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+				+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 				+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'Practice Giveback'";
 		
 		
@@ -6084,7 +6031,7 @@ public class ProfileSkills extends JFrame {
 		String usrtxtfield=textField_1.getText();
 		
 		try {
-			String query = "Select * FROM profileData WHERE profileData.username =?";
+			String query = "Select * FROM profiledata WHERE profiledata.username =?";
 					PreparedStatement pst=conn.prepareStatement(query);
 					pst.setString(1, usrtxtfield);
 					rs = pst.executeQuery();
@@ -6092,7 +6039,7 @@ public class ProfileSkills extends JFrame {
 			          
 				String bayx = rs.getString("BAYearExp");
 	        	textFieldBAMyYears.setText(bayx);
-					
+	        	
 			}
 		}catch(SQLException ei) {
 			    		JOptionPane.showMessageDialog(null, ei);
@@ -6105,7 +6052,7 @@ public class ProfileSkills extends JFrame {
 		String usrtxtfield=textField_1.getText();
 		
 		try {
-			String query = "Select BAMnthExp FROM profileData WHERE profileData.username =?";
+			String query = "Select BAMnthExp FROM profiledata WHERE profiledata.username =?";
 					PreparedStatement pst=conn.prepareStatement(query);
 					pst.setString(1, usrtxtfield);
 					rs = pst.executeQuery();
@@ -6137,7 +6084,7 @@ public class ProfileSkills extends JFrame {
 		
 		String query ="SELECT SkillTable.SkillFocus FROM SkillTable\r\n"
 				+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-				+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+				+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 				+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'BA Roll'";
 	
 		
@@ -6168,7 +6115,7 @@ public class ProfileSkills extends JFrame {
 			
 			String query ="SELECT SkillTable.SkillIndustry FROM SkillTable\r\n"
 					+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-					+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+					+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 					+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'BA Industry Domain'";
 		
 			
@@ -6206,7 +6153,7 @@ public class ProfileSkills extends JFrame {
 			
 			String query ="SELECT SkillTable.SkillTool FROM SkillTable\r\n"
 					+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-					+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+					+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 					+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'BA Test Management Tools'";
 		
 			
@@ -6244,7 +6191,7 @@ public class ProfileSkills extends JFrame {
 			
 			String query ="SELECT SkillTable.CertBadge FROM SkillTable\r\n"
 					+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-					+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+					+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 					+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'BA Certifications'";
 		
 			
@@ -6282,7 +6229,7 @@ public class ProfileSkills extends JFrame {
 			
 			String query ="SELECT SkillTable.CertBadge FROM SkillTable\r\n"
 					+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-					+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+					+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 					+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'BA Skill Badge'";
 		
 			
@@ -6322,7 +6269,7 @@ public class ProfileSkills extends JFrame {
 		String usrtxtfield=textField_1.getText();
 		
 		try {
-			String query = "Select * FROM profileData WHERE profileData.username =?";
+			String query = "Select * FROM profiledata WHERE profiledata.username =?";
 					PreparedStatement pst=conn.prepareStatement(query);
 					pst.setString(1, usrtxtfield);
 					rs = pst.executeQuery();
@@ -6347,7 +6294,7 @@ public class ProfileSkills extends JFrame {
 		String usrtxtfield=textField_1.getText();
 		
 		try {
-			String query = "Select * FROM profileData WHERE profileData.username =?";
+			String query = "Select * FROM profiledata WHERE profiledata.username =?";
 					PreparedStatement pst=conn.prepareStatement(query);
 					pst.setString(1, usrtxtfield);
 					rs = pst.executeQuery();
@@ -6371,7 +6318,7 @@ public class ProfileSkills extends JFrame {
 		
 		String query ="SELECT SkillTable.SkillIndustry FROM SkillTable\r\n"
 				+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-				+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+				+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 				+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'Tech Industry Domain'";
 	
 		
@@ -6409,7 +6356,7 @@ public class ProfileSkills extends JFrame {
 		
 		String query ="SELECT SkillTable.CertBadge FROM SkillTable\r\n"
 				+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-				+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+				+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 				+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'Technical Badge'";
 	
 		
@@ -6448,7 +6395,7 @@ public class ProfileSkills extends JFrame {
 		
 		String query ="SELECT SkillTable.SkillFocus FROM SkillTable\r\n"
 				+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-				+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+				+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 				+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'Tech Other Areas of Expertise'";
 	
 		
@@ -6487,7 +6434,7 @@ public class ProfileSkills extends JFrame {
 		
 		String query ="SELECT SkillTable.SkillTool FROM SkillTable\r\n"
 				+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-				+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+				+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 				+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'Tech Test Management Tools'";
 	
 		
@@ -6525,7 +6472,7 @@ public class ProfileSkills extends JFrame {
 		
 		String query ="SELECT SkillTable.SkillTool FROM SkillTable\r\n"
 				+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-				+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+				+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 				+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'Tech Code Version Control Tools'";
 	
 		
@@ -6564,7 +6511,7 @@ public class ProfileSkills extends JFrame {
 		
 		String query ="SELECT SkillTable.SkillTool FROM SkillTable\r\n"
 				+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-				+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+				+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 				+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'Tech DEVOps CI-CD Tools'";
 	
 		
@@ -6603,7 +6550,7 @@ public class ProfileSkills extends JFrame {
 		
 		String query ="SELECT SkillTool,SkillLevel,SkillFocus FROM SkillTable\r\n"
 				+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-				+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+				+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 				+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'Tech Technical Tools Experience'";
 		
 		
@@ -6643,7 +6590,7 @@ public class ProfileSkills extends JFrame {
 		String usrtxtfield=textField_1.getText();
 		
 		try {
-			String query = "Select * FROM profileData WHERE profileData.username =?";
+			String query = "Select * FROM profiledata WHERE profiledata.username =?";
 					PreparedStatement pst=conn.prepareStatement(query);
 					pst.setString(1, usrtxtfield);
 					rs = pst.executeQuery();
@@ -6669,7 +6616,7 @@ public class ProfileSkills extends JFrame {
 		String usrtxtfield=textField_1.getText();
 		
 		try {
-			String query = "Select * FROM profileData WHERE profileData.username =?";
+			String query = "Select * FROM profiledata WHERE profiledata.username =?";
 					PreparedStatement pst=conn.prepareStatement(query);
 					pst.setString(1, usrtxtfield);
 					rs = pst.executeQuery();
@@ -6692,7 +6639,7 @@ public void filterMYFunIndustryDom() {
 		
 		String query ="SELECT SkillTable.SkillIndustry FROM SkillTable\r\n"
 				+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-				+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+				+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 				+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'Functional Industry Domain'";
 	
 		
@@ -6729,7 +6676,7 @@ public void filterMYFunIndustryDom() {
 			
 			String query ="SELECT SkillTable.CertBadge FROM SkillTable\r\n"
 					+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-					+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+					+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 					+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'Functional Certifications ISTQB or Equivalent'";
 		
 			
@@ -6766,7 +6713,7 @@ public void filterMYFunIndustryDom() {
 				
 				String query ="SELECT SkillTable.SkillFocus FROM SkillTable\r\n"
 						+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-						+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+						+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 						+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'Functional Testing Experience'";
 			
 				
@@ -6803,7 +6750,7 @@ public void filterMYFunIndustryDom() {
 					
 					String query ="SELECT SkillTable.CertBadge FROM SkillTable\r\n"
 							+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-							+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+							+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 							+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'Functional Badge'";
 				
 					
@@ -6840,7 +6787,7 @@ public void filterMYFunIndustryDom() {
 						
 				String query ="SELECT SkillTable.SkillTool FROM SkillTable\r\n"
 						+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-						+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+						+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 						+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'Functional Test Management and Defect Tracking Tools'";
 					
 						
@@ -6878,7 +6825,7 @@ public void filterMYFunIndustryDom() {
 		String usrtxtfield=textField_1.getText();
 		
 		try {
-			String query = "Select * FROM profileData WHERE profileData.username =?";
+			String query = "Select * FROM profiledata WHERE profiledata.username =?";
 					PreparedStatement pst=conn.prepareStatement(query);
 					pst.setString(1, usrtxtfield);
 					rs = pst.executeQuery();
@@ -6903,7 +6850,7 @@ public void filterMYFunIndustryDom() {
 		String usrtxtfield=textField_1.getText();
 		
 		try {
-			String query = "Select * FROM profileData WHERE profileData.username =?";
+			String query = "Select * FROM profiledata WHERE profiledata.username =?";
 					PreparedStatement pst=conn.prepareStatement(query);
 					pst.setString(1, usrtxtfield);
 					rs = pst.executeQuery();
@@ -6926,7 +6873,7 @@ public void filterMYFunIndustryDom() {
 			
 			String query ="SELECT SkillTable.SkillZone FROM SkillTable\r\n"
 					+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-					+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+					+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 					+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'Manage Leadership Team demography'";
 		
 			
@@ -6963,7 +6910,7 @@ public void filterMYFunIndustryDom() {
 				
 				String query ="SELECT SkillTable.SkillTool FROM SkillTable\r\n"
 						+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-						+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+						+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 						+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'Management Training'";
 			
 				
@@ -7000,7 +6947,7 @@ public void filterMYFunIndustryDom() {
 					
 					String query ="SELECT SkillTable.SkillFocus FROM SkillTable\r\n"
 							+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-							+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+							+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 							+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'Manage Leadership Software Projects'";
 				
 					
@@ -7037,7 +6984,7 @@ public void filterMYFunIndustryDom() {
 					
 					String query ="SELECT SkillTable.CertBadge FROM SkillTable\r\n"
 							+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-							+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+							+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 							+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'Management SDLC Tools'";
 				
 					
@@ -7074,7 +7021,7 @@ public void filterMYFunIndustryDom() {
 						
 					String query ="SELECT SkillTable.SkillIndustry FROM SkillTable\r\n"
 							+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-							+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+							+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 							+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'Management Industry Domain'";
 					
 						
@@ -7111,7 +7058,7 @@ public void filterMYFunIndustryDom() {
 							
 					String query ="SELECT SkillTable.CertBadge FROM SkillTable\r\n"
 							+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-							+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+							+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 							+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'Management Badges and Certifications'";
 						
 							
@@ -7149,7 +7096,7 @@ public void filterMYFunIndustryDom() {
 					
 					String query ="SELECT SkillFocus,SkillLevel FROM SkillTable\r\n"
 							+ "INNER JOIN employeeSkills ON SkillTable.SkillID = employeeSkills.SkillID\r\n"
-							+ "INNER JOIN profileData ON employeeSkills.username = profileData.username\r\n"
+							+ "INNER JOIN profiledata ON employeeSkills.username = profiledata.username\r\n"
 							+ "WHERE employeeSkills.username =? and SkillTable.SkillTitle = 'Management Experience'";
 					
 					

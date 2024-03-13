@@ -20,6 +20,8 @@ import java.awt.DisplayMode;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.*;
+import java.util.Set;
+
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -34,6 +36,7 @@ public class IgniteForm extends JFrame {
 	Connection conn = null;
 	PreparedStatement pst = null;
 	ResultSet rs = null;
+	
 	
 	private JPanel contentPane;
 	private JTextField jtxtemployeeid;
@@ -75,6 +78,7 @@ public class IgniteForm extends JFrame {
 	private JTextField txtTech;
 	private JTextField txtFun;
 	private JTextField txtMan;
+	private JScrollPane scrollPaneTable;
 	
 	/**
 	 * Launch the application.
@@ -304,7 +308,6 @@ public class IgniteForm extends JFrame {
 		
 		JComboBox jcbcurrentbandlevel = new JComboBox();
 		fillDatajcbcurrentbandlevel(jcbcurrentbandlevel);
-		//jcbcurrentbandlevel.setModel(new DefaultComboBoxModel(new String[] {"NA", "Band 5", "Band 6G", "Band 6A", "Band 6B", "Band 6", "Band 7A", "Band 7B", "Band 7", "Band 8", "Band 9"}));
 		jcbcurrentbandlevel.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jcbcurrentbandlevel.setEditable(true);
 		jcbcurrentbandlevel.setBackground(Color.WHITE);
@@ -318,7 +321,6 @@ public class IgniteForm extends JFrame {
 	
 		JComboBox jcboverallyearsexperience = new JComboBox();
 		fillDatajcboverallyearsexperience(jcboverallyearsexperience);
-		//jcboverallyearsexperience.setModel(new DefaultComboBoxModel(new String[] {"NA", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20 plus"}));
 		jcboverallyearsexperience.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jcboverallyearsexperience.setEditable(true);
 		jcboverallyearsexperience.setBounds(891, 229, 201, 22);
@@ -331,7 +333,6 @@ public class IgniteForm extends JFrame {
 		
 		JComboBox jcboverallmonthexperience = new JComboBox();
 		fillDatajcboverallmonthexperience(jcboverallmonthexperience);
-		//jcboverallmonthexperience.setModel(new DefaultComboBoxModel(new String[] {"NA", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
 		jcboverallmonthexperience.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jcboverallmonthexperience.setEditable(true);
 		jcboverallmonthexperience.setBounds(891, 274, 201, 22);
@@ -345,7 +346,6 @@ public class IgniteForm extends JFrame {
 		JComboBox jcbadditionalexperience = new JComboBox();
 		fillDatajcbadditionalexperience(jcbadditionalexperience);
 		jcbadditionalexperience.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		//jcbadditionalexperience.setModel(new DefaultComboBoxModel(new String[] {"NA", "Development", "Tech Support", "Peoplesoft", "SAP", "Project Management", "Data Analysis"}));
 		jcbadditionalexperience.setEditable(true);
 		jcbadditionalexperience.setBounds(891, 323, 201, 22);
 		contentPane.add(jcbadditionalexperience);
@@ -358,7 +358,6 @@ public class IgniteForm extends JFrame {
 		
 		JComboBox jcbsecuritylevel = new JComboBox();
 		fillDatajcbsecuritylevel(jcbsecuritylevel);
-		//jcbsecuritylevel.setModel(new DefaultComboBoxModel(new String[] {"NA", "Reliability", "Reliability In Progress", "Secret", "Secret In Progress", "Top Secret", "Top Secret In Progress", "Not Eligible", "Enhanced Reliability", "Eligible for Realiablity not applied", "Eligible for secret not applied", "Eligible for Top Secret not applied", "Eligible for enhanced reliability not applied"}));
 		jcbsecuritylevel.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jcbsecuritylevel.setEditable(true);
 		jcbsecuritylevel.setBounds(1206, 229, 201, 22);
@@ -371,7 +370,6 @@ public class IgniteForm extends JFrame {
 		
 		jcbhiringtype_1 = new JComboBox();
 		fillDatajcbhiringtype(jcbhiringtype_1);
-		//jcbhiringtype.setModel(new DefaultComboBoxModel(new String[] {"NA", "Tech Re-Entry", "Band 5", "Neurodiversity", "Expro", "New Grad", "Co Op"}));
 		jcbhiringtype_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		jcbhiringtype_1.setEditable(true);
 		jcbhiringtype_1.setBounds(520, 345, 201, 22);
@@ -386,60 +384,12 @@ public class IgniteForm extends JFrame {
 		lblinovationGoal.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblinovationGoal.setBounds(31, 613, 94, 21);
 		contentPane.add(lblinovationGoal);
-		
-		JScrollPane scrollPaneTable = new JScrollPane();
-		scrollPaneTable.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPaneTable.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPaneTable.setBounds(31, 68, 1376, 147);
-		contentPane.add(scrollPaneTable);
-		
-		table = new JTable();
-		table.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				DefaultTableModel tmodel=(DefaultTableModel) table.getModel();
-				
-				int row=table.getSelectedRow();
-				
-				if (table.getRowSorter()!=null) {
-				    row = table.getRowSorter().convertRowIndexToModel(row);
-				}
-				
-				jtxtemployeeid.setText(tmodel.getValueAt(row, 0).toString());
-				jtxtfirstname.setText(tmodel.getValueAt(row, 1).toString());
-				jtxtlastname.setText(tmodel.getValueAt(row, 2).toString());
-				jtxtprofilemanager.setText(tmodel.getValueAt(row, 3).toString());
-				jtxtdateofjoin.setText(tmodel.getValueAt(row, 4).toString());
-				jcbhiredbandlevel.setSelectedItem(tmodel.getValueAt(row, 5).toString());
-				jcbcurrentbandlevel.setSelectedItem(tmodel.getValueAt(row, 6).toString());
-				jcboverallyearsexperience.setSelectedItem(tmodel.getValueAt(row, 7).toString());
-				jcboverallmonthexperience.setSelectedItem(tmodel.getValueAt(row, 8).toString());
-				jcbadditionalexperience.setSelectedItem(tmodel.getValueAt(row, 9).toString());
-				jcbsecuritylevel.setSelectedItem(tmodel.getValueAt(row, 10).toString());				
-				jcbhiringtype_1.setSelectedItem(tmodel.getValueAt(row, 11).toString());
-				jtxtjobroll.setText(tmodel.getValueAt(row, 12).toString());
-				jtxtlastprogression.setText(tmodel.getValueAt(row, 13).toString());
-				jtxtmentorname.setText(tmodel.getValueAt(row, 14).toString());
-				jtxtcoachname.setText(tmodel.getValueAt(row, 15).toString());
-				jtxtassetpatent.setText(tmodel.getValueAt(row, 16).toString());
-				jtxtintellectual.setText(tmodel.getValueAt(row, 17).toString());
-				jtxtshorttermgoal.setText(tmodel.getValueAt(row, 18).toString());
-				jtxtlongtermgoal.setText(tmodel.getValueAt(row, 19).toString());
-				jtxttrainingplans.setText(tmodel.getValueAt(row, 20).toString());
-				jtxtcertificationplans.setText(tmodel.getValueAt(row, 21).toString());
-				jtxtbadgeplans.setText(tmodel.getValueAt(row, 22).toString());
-				jtxtinovationgoal.setText(tmodel.getValueAt(row, 23).toString());
-				jtxtuserid.setText(tmodel.getValueAt(row, 24).toString());
-				
-			}
-		});
 		model= new DefaultTableModel();
 		Object[] column = {"employeeID","employeeFirstName","employeeLastName","profileManagerId","dateOfJoin","hiredBandLevel","currentBandLevel","overallYearsExp","overallMthExp","additionalExp","securityLevel",
 				"hiringType","jobRoll","dateOfLastProgress","mentorName","coachName","assetPatent","intellectualProperty","shortTermGoal","longTermGoal","trainingPlans","certificationPlans",
 				"badgePlans","inovationGoal","username"};
 		Object[] row = new Object[0];
 		model.setColumnIdentifiers(column);
-		scrollPaneTable.setViewportView(table);
 		
 		
 		JButton btnADDupdate_Profile = new JButton(" ADD/UPDATE PROFILE");
@@ -450,25 +400,17 @@ public class IgniteForm extends JFrame {
 				
 				try {
 					
-					//String query = "REPLACE into profileData (employeeID,employeeFirstName,employeeLastName,profileManagerId,dateOfJoin,hiredBandLevel,currentBandLevel,overallYearsExp,overallMthExp,additionalExp,securityLevel,"
-					//		+ "hiringType,jobRoll,dateOfLastProgress,mentorName,coachName,assetPatent,intellectualProperty,shortTermGoal,longTermGoal,trainingPlans,certificationPlans,badgePlans,inovationGoal,username) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-					
-					//String qry = "INSERT INTO profiledata(employeeID,employeeFirstName,employeeLastName,profileManagerId,dateOfJoin,hiredBandLevel,currentBandLevel,overallYearsExp,overallMthExp,additionalExp,securityLevel,hiringType,jobRoll,dateOfLastProgress,mentorName,coachName,assetPatent,intellectualProperty,shortTermGoal,longTermGoal,trainingPlans,certificationPlans,badgePlans,inovationGoal,username,BAYearExp,BAMnthExp,TECHYearExp,TECHMnthExp,FUNYearExp,FUNMnthExp,MANYearExp,MANMnthExp) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) "
-					//		+ "ON DUPLICATE KEY REPLACE (employeeID,employeeFirstName,employeeLastName,profileManagerId,dateOfJoin,hiredBandLevel,currentBandLevel,overallYearsExp,overallMthExp,additionalExp,securityLevel,hiringType,jobRoll,dateOfLastProgress,mentorName,coachName,assetPatent,intellectualProperty,shortTermGoal,longTermGoal,trainingPlans,certificationPlans,badgePlans,inovationGoal,username,BAYearExp,BAMnthExp,TECHYearExp,TECHMnthExp,FUNYearExp,FUNMnthExp,MANYearExp,MANMnthExp) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-					//PreparedStatement pst=conn.prepareStatement(qry);
-					
 					String usrtxtfield=jtxtuserid.getText();
 					DefaultTableModel tmodel=(DefaultTableModel) table.getModel();
 					int row=table.getSelectedRow();	
 					
 				if (usrtxtfield != null && !usrtxtfield.trim().isEmpty()&& row==-1){
 					
-					
 					String qry = "Insert INTO profiledata(employeeID,employeeFirstName,employeeLastName,profileManagerId,dateOfJoin,hiredBandLevel,currentBandLevel,overallYearsExp,"
 							+ "overallMthExp,additionalExp,securityLevel,hiringType,jobRoll,dateOfLastProgress,mentorName,coachName,assetPatent,intellectualProperty,shortTermGoal,"
 							+ "longTermGoal,trainingPlans,certificationPlans,badgePlans,inovationGoal,username,BAYearExp,BAMnthExp,TECHYearExp,TECHMnthExp,FUNYearExp,FUNMnthExp,"
 							+ "MANYearExp,MANMnthExp) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-							
+						
 					
 					PreparedStatement pst=conn.prepareStatement(qry);
 					
@@ -497,30 +439,57 @@ public class IgniteForm extends JFrame {
 					pst.setString(23, jtxtbadgeplans.getText());
 					pst.setString(24, jtxtinovationgoal.getText());
 					pst.setString(25, jtxtuserid.getText());
-					pst.setString(26,textField_BAY.getText());
-					pst.setString(27,textField_BAM.getText());
-					pst.setString(28,textField_TechY.getText());
-					pst.setString(29,textField_TechM.getText());
-					pst.setString(30,textField_FunY.getText());
-					pst.setString(31,textField_FunM.getText());
-					pst.setString(32,textField_ManY.getText());
-					pst.setString(33,textField_ManM.getText());
+					pst.setString(26, textField_BAY.getText());
+					pst.setString(27, textField_BAM.getText());
+					pst.setString(28, textField_TechY.getText());
+					pst.setString(29, textField_TechM.getText());
+					pst.setString(30, textField_FunY.getText());
+					pst.setString(31, textField_FunM.getText());
+					pst.setString(32, textField_ManY.getText());
+					pst.setString(33, textField_ManM.getText());
 					
 					pst.execute();
+					
 					JOptionPane.showMessageDialog(null, "Your Data has been Saved");
 					pst.close();
 					filter();
 					
 				}else {
+					System.out.println("you are updating a record");
 					
-					String qry = "Replace INTO profiledata(employeeID,employeeFirstName,employeeLastName,profileManagerId,dateOfJoin,hiredBandLevel,currentBandLevel,overallYearsExp,"
-							+ "overallMthExp,additionalExp,securityLevel,hiringType,jobRoll,dateOfLastProgress,mentorName,coachName,assetPatent,intellectualProperty,shortTermGoal,"
-							+ "longTermGoal,trainingPlans,certificationPlans,badgePlans,inovationGoal,username,BAYearExp,BAMnthExp,TECHYearExp,TECHMnthExp,FUNYearExp,FUNMnthExp,"
-							+ "MANYearExp,MANMnthExp) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+					String query = "Select * FROM profiledata WHERE profiledata.username =?";
+					
+					PreparedStatement pt=conn.prepareStatement(query);
+					pt.setString(1, usrtxtfield);
+					rs = pt.executeQuery();
+						while(rs.next()){
 							
+							String BAY = rs.getString("BAYearExp");
+							textField_BAY.setText(BAY);
+							String BAM = rs.getString("BAMnthExp");
+							textField_BAM.setText(BAM);
+							String TEY = rs.getString("TECHYearExp");
+							textField_TechY.setText(TEY);
+							String TEM = rs.getString("TECHMnthExp");
+							textField_TechM.setText(TEM);
+							String FUY = rs.getString("FUNYearExp");
+							textField_FunY.setText(FUY);
+							String FUM = rs.getString("FUNMnthExp");
+							textField_FunM.setText(FUM);
+							String MAY = rs.getString("MANYearExp");
+							textField_ManY.setText(MAY);
+							String MAM = rs.getString("MANMnthExp");
+							textField_ManM.setText(MAM);
+							
+						}
+					
+				
+					String qry = "Replace INTO profiledata(employeeID,employeeFirstName,employeeLastName,profileManagerId,dateOfJoin,hiredBandLevel,currentBandLevel,overallYearsExp,"
+						+ "overallMthExp,additionalExp,securityLevel,hiringType,jobRoll,dateOfLastProgress,mentorName,coachName,assetPatent,intellectualProperty,shortTermGoal,"
+						+ "longTermGoal,trainingPlans,certificationPlans,badgePlans,inovationGoal,username,BAYearExp,BAMnthExp,TECHYearExp,TECHMnthExp,FUNYearExp,FUNMnthExp,"
+						+ "MANYearExp,MANMnthExp) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 					
 					PreparedStatement pst=conn.prepareStatement(qry);
-					
 					pst.setString(1,jtxtemployeeid.getText());
 					pst.setString(2,jtxtfirstname.getText());
 					pst.setString(3,jtxtlastname.getText());
@@ -546,25 +515,26 @@ public class IgniteForm extends JFrame {
 					pst.setString(23, jtxtbadgeplans.getText());
 					pst.setString(24, jtxtinovationgoal.getText());
 					pst.setString(25, jtxtuserid.getText());
-					pst.setString(26,textField_BAY.getText());
-					pst.setString(27,textField_BAM.getText());
-					pst.setString(28,textField_TechY.getText());
-					pst.setString(29,textField_TechM.getText());
-					pst.setString(30,textField_FunY.getText());
-					pst.setString(31,textField_FunM.getText());
-					pst.setString(32,textField_ManY.getText());
-					pst.setString(33,textField_ManM.getText());
+					pst.setString(26, textField_BAY.getText());
+					pst.setString(27, textField_BAM.getText());
+					pst.setString(28, textField_TechY.getText());
+					pst.setString(29, textField_TechM.getText());
+					pst.setString(30, textField_FunY.getText());
+					pst.setString(31, textField_FunM.getText());
+					pst.setString(32, textField_ManY.getText());
+					pst.setString(33, textField_ManM.getText());
 					
 					pst.execute();
 					JOptionPane.showMessageDialog(null, "Your Data has been Saved");
 					pst.close();
+					pt.close();
 					filter();
 					
 					
 				}
 					} catch (Exception ex) {
 					
-					JOptionPane.showMessageDialog(null, " exception error Data not Saved");
+					JOptionPane.showMessageDialog(null, " exception error Data not Saved" + " " + "Please be sure your record is highlighted in the table!");
 					ex.printStackTrace();
 				}
 				
@@ -574,7 +544,7 @@ public class IgniteForm extends JFrame {
 		btnADDupdate_Profile.setEnabled(true);
 		btnADDupdate_Profile.setForeground(new Color(0, 0, 255));
 		btnADDupdate_Profile.setBackground(new Color(128, 255, 255));
-		btnADDupdate_Profile.setBounds(758, 568, 271, 50);
+		btnADDupdate_Profile.setBounds(758, 568, 271, 42);
 		contentPane.add(btnADDupdate_Profile);
 		
 		JButton btnDelete = new JButton("DELETE Profile RECORDS");
@@ -613,7 +583,7 @@ public class IgniteForm extends JFrame {
 		});
 		btnDelete.setBackground(new Color(128, 255, 255));
 		btnDelete.setForeground(new Color(255, 0, 0));
-		btnDelete.setBounds(91, 782, 386, 23);
+		btnDelete.setBounds(31, 751, 284, 23);
 		contentPane.add(btnDelete);
 		
 		JButton btnAddUser = new JButton("ADD USER");
@@ -660,17 +630,17 @@ public class IgniteForm extends JFrame {
 				
 			}
 		});
-		btnAddUser.setBounds(480, 782, 240, 23);
+		btnAddUser.setBounds(325, 751, 201, 23);
 		contentPane.add(btnAddUser);
 		
 		JLabel lbluserid = new JLabel("User ID");
-		lbluserid.setBounds(697, 43, 43, 14);
+		lbluserid.setBounds(171, 16, 43, 14);
 		contentPane.add(lbluserid);
 		lbluserid.setVisible(false);
 		
 		jtxtuserid = new JTextField();
 		jtxtuserid.setEditable(false);
-		jtxtuserid.setBounds(741, 37, 201, 20);
+		jtxtuserid.setBounds(210, 13, 201, 20);
 		contentPane.add(jtxtuserid);
 		jtxtuserid.setColumns(10);
 		jtxtuserid.setVisible(true);
@@ -681,39 +651,57 @@ public class IgniteForm extends JFrame {
 		lblNewLabel_1.setBounds(10, 0, 165, 42);
 		contentPane.add(lblNewLabel_1);
 		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(31, 414, 370, 78);
+		contentPane.add(scrollPane_1);
+		
 		jtxtshorttermgoal = new JTextArea();
+		scrollPane_1.setViewportView(jtxtshorttermgoal);
 		jtxtshorttermgoal.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		jtxtshorttermgoal.setBounds(31, 414, 370, 78);
-		contentPane.add(jtxtshorttermgoal);
+		
+		JScrollPane scrollPane_3 = new JScrollPane();
+		scrollPane_3.setBounds(31, 521, 370, 79);
+		contentPane.add(scrollPane_3);
 		
 		jtxtlongtermgoal = new JTextArea();
-		jtxtlongtermgoal.setBounds(31, 521, 370, 79);
-		contentPane.add(jtxtlongtermgoal);
+		scrollPane_3.setViewportView(jtxtlongtermgoal);
 		jtxtlongtermgoal.setColumns(10);
 		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(434, 413, 296, 79);
+		contentPane.add(scrollPane_2);
+		
 		jtxttrainingplans = new JTextArea();
-		jtxttrainingplans.setBounds(434, 413, 296, 79);
-		contentPane.add(jtxttrainingplans);
+		scrollPane_2.setViewportView(jtxttrainingplans);
 		jtxttrainingplans.setColumns(10);
 		
+		JScrollPane scrollPane_4 = new JScrollPane();
+		scrollPane_4.setBounds(434, 521, 296, 81);
+		contentPane.add(scrollPane_4);
+		
 		jtxtcertificationplans = new JTextArea();
-		jtxtcertificationplans.setBounds(434, 521, 296, 81);
-		contentPane.add(jtxtcertificationplans);
+		scrollPane_4.setViewportView(jtxtcertificationplans);
 		jtxtcertificationplans.setColumns(10);
 		
+		JScrollPane scrollPane_6 = new JScrollPane();
+		scrollPane_6.setBounds(434, 631, 296, 79);
+		contentPane.add(scrollPane_6);
+		
 		jtxtbadgeplans = new JTextArea();
-		jtxtbadgeplans.setBounds(434, 631, 296, 79);
-		contentPane.add(jtxtbadgeplans);
+		scrollPane_6.setViewportView(jtxtbadgeplans);
 		jtxtbadgeplans.setColumns(10);
 		
+		JScrollPane scrollPane_5 = new JScrollPane();
+		scrollPane_5.setBounds(31, 631, 370, 79);
+		contentPane.add(scrollPane_5);
+		
 		jtxtinovationgoal = new JTextArea();
-		jtxtinovationgoal.setBounds(31, 631, 370, 79);
-		contentPane.add(jtxtinovationgoal);
+		scrollPane_5.setViewportView(jtxtinovationgoal);
 		jtxtinovationgoal.setColumns(10);
 		
 		JLabel lblAdminUseOnly = new JLabel("         >>>ADMIN USE ONLY<<<");
 		lblAdminUseOnly.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblAdminUseOnly.setBounds(480, 746, 237, 31);
+		lblAdminUseOnly.setBounds(295, 709, 237, 31);
 		contentPane.add(lblAdminUseOnly);
 		
 		JButton btnADDUpdateSkills = new JButton("ADD/UPDATE SKILLS>>>");
@@ -730,16 +718,8 @@ public class IgniteForm extends JFrame {
 		});
 		btnADDUpdateSkills.setBackground(new Color(128, 255, 255));
 		btnADDUpdateSkills.setForeground(new Color(0, 0, 255));
-		btnADDUpdateSkills.setBounds(758, 629, 274, 50);
+		btnADDUpdateSkills.setBounds(758, 613, 274, 42);
 		contentPane.add(btnADDUpdateSkills);
-		
-		JLabel lblViewRecord_Infosave = new JLabel("Dont forget to SAVE after your changes are made.");
-		lblViewRecord_Infosave.setHorizontalAlignment(SwingConstants.LEFT);
-		lblViewRecord_Infosave.setVerticalAlignment(SwingConstants.TOP);
-		lblViewRecord_Infosave.setForeground(new Color(138, 0, 69));
-		lblViewRecord_Infosave.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblViewRecord_Infosave.setBounds(758, 392, 628, 42);
-		contentPane.add(lblViewRecord_Infosave);
 		
 		JButton btnResetPassword = new JButton("Reset Password");
 		btnResetPassword.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -783,15 +763,15 @@ public class IgniteForm extends JFrame {
 				}
 			}
 		});
-		btnResetPassword.setBounds(730, 782, 240, 23);
+		btnResetPassword.setBounds(546, 751, 221, 23);
 		contentPane.add(btnResetPassword);
 		
-		JLabel lblViewRecord_Info = new JLabel("To View you RECORD DETAILS please click on the record below");
+		JLabel lblViewRecord_Info = new JLabel("To View you RECORD DETAILS please click on the record below,  to SAVE your Profile Changes make sure your record in the Table is highlighted");
 		lblViewRecord_Info.setVerticalAlignment(SwingConstants.TOP);
 		lblViewRecord_Info.setHorizontalAlignment(SwingConstants.LEFT);
 		lblViewRecord_Info.setForeground(new Color(128, 0, 0));
 		lblViewRecord_Info.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
-		lblViewRecord_Info.setBounds(182, 45, 448, 21);
+		lblViewRecord_Info.setBounds(31, 45, 1014, 21);
 		contentPane.add(lblViewRecord_Info);
 		
 		JButton btnaddHiretypetolist = new JButton("+");
@@ -828,7 +808,7 @@ public class IgniteForm extends JFrame {
 		lblStepsForUser_newuser.setHorizontalAlignment(SwingConstants.LEFT);
 		lblStepsForUser_newuser.setForeground(new Color(0, 0, 255));
 		lblStepsForUser_newuser.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
-		lblStepsForUser_newuser.setBounds(758, 469, 173, 23);
+		lblStepsForUser_newuser.setBounds(758, 367, 173, 23);
 		contentPane.add(lblStepsForUser_newuser);
 		
 		JLabel lblViewRecord_header = new JLabel("RECORD DETAILS");
@@ -836,7 +816,7 @@ public class IgniteForm extends JFrame {
 		lblViewRecord_header.setHorizontalAlignment(SwingConstants.LEFT);
 		lblViewRecord_header.setForeground(new Color(128, 0, 255));
 		lblViewRecord_header.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
-		lblViewRecord_header.setBounds(31, 45, 148, 21);
+		lblViewRecord_header.setBounds(10, 201, 148, 21);
 		contentPane.add(lblViewRecord_header);
 		
 		JLabel lblStepsForUser_newuser_1 = new JLabel("1.  Enter your Profile information");
@@ -844,32 +824,33 @@ public class IgniteForm extends JFrame {
 		lblStepsForUser_newuser_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblStepsForUser_newuser_1.setForeground(new Color(0, 0, 255));
 		lblStepsForUser_newuser_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
-		lblStepsForUser_newuser_1.setBounds(787, 490, 296, 21);
+		lblStepsForUser_newuser_1.setBounds(787, 388, 296, 21);
 		contentPane.add(lblStepsForUser_newuser_1);
 		
-		JLabel lblStepsForUser_newuser_2 = new JLabel("2.  After saving your profile selected your Record Details above");
+		JLabel lblStepsForUser_newuser_2 = new JLabel("2.  After saving your profile <click on ADD/UPDATE PROFILE> to SAVE");
 		lblStepsForUser_newuser_2.setVerticalAlignment(SwingConstants.TOP);
 		lblStepsForUser_newuser_2.setHorizontalAlignment(SwingConstants.LEFT);
 		lblStepsForUser_newuser_2.setForeground(new Color(0, 0, 255));
 		lblStepsForUser_newuser_2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
-		lblStepsForUser_newuser_2.setBounds(785, 511, 559, 21);
+		lblStepsForUser_newuser_2.setBounds(787, 412, 622, 21);
 		contentPane.add(lblStepsForUser_newuser_2);
 		
-		JLabel lblStepsForUser_newuser_3 = new JLabel("3.  Now you are Ready to add Skills select Add/UPDATE SKILLS");
+		JLabel lblStepsForUser_newuser_3 = new JLabel("4.  Now you are Ready to add Skills select Add/UPDATE SKILLS");
 		lblStepsForUser_newuser_3.setVerticalAlignment(SwingConstants.TOP);
 		lblStepsForUser_newuser_3.setHorizontalAlignment(SwingConstants.LEFT);
 		lblStepsForUser_newuser_3.setForeground(new Color(0, 0, 255));
 		lblStepsForUser_newuser_3.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
-		lblStepsForUser_newuser_3.setBounds(787, 536, 599, 21);
+		lblStepsForUser_newuser_3.setBounds(787, 456, 599, 21);
 		contentPane.add(lblStepsForUser_newuser_3);
 		
 		JButton btnremoveHiretypetolist = new JButton("-");
 		btnremoveHiretypetolist.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM", JOptionPane.OK_CANCEL_OPTION);
 				
 				if (jtxtuserid.getText().trim().contentEquals("admin") || jtxtuserid.getText().trim().contentEquals("admin3") || jtxtuserid.getText().trim().contentEquals("E101")){
 	    			String listval = (String) jcbhiringtype_1.getSelectedItem();
-					
+	    		  if (result == JOptionPane.OK_OPTION) { 
 	    			if (listval != null){
 	    				String titleProfInfo = "HiringType";
 	    				
@@ -878,24 +859,25 @@ public class IgniteForm extends JFrame {
 	    	        		
 	    	        		} catch (SQLException e2) {
 	    	        			e2.printStackTrace();}
+	    	        		
 	    	        		JOptionPane.showMessageDialog(null, "Skill removed from profileData DB");
 	    			
 	    	        		RemoveList RMVProfileInformation = new RemoveList();
+	    	        		
 	    	        		try {RMVProfileInformation.RMVprofileinfo(listval,titleProfInfo);
 	    	        			
 	    	        		DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) jcbhiringtype_1.getModel();
 	    	        		model.removeAllElements();
+	    	        		
 	    	        		fillDatajcbhiringtype(jcbhiringtype_1);	
 					        
 	    	        		} catch (SQLException e2) {
 	    	        			e2.printStackTrace();}
 	    						
-	    	        JOptionPane.showMessageDialog(null, "Skill removed from profileInfoSelections DB");
+	    	        		JOptionPane.showMessageDialog(null, "Skill removed from profileInfoSelections DB");
 	    	        
-	    	        
-	    			}else{
-	    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-	    				}
+	    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
+	    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
 	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
 			}
 		});
@@ -942,10 +924,10 @@ public class IgniteForm extends JFrame {
 		btnRemoveCurBandLvltolist.addActionListener(new ActionListener() {
 		
 			public void actionPerformed(ActionEvent e) {
-				if (jtxtuserid.getText().trim().contentEquals("admin") || jtxtuserid.getText().trim().contentEquals("admin3") || jtxtuserid.getText().trim().contentEquals("E101"))
-				{
+			  int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM", JOptionPane.OK_CANCEL_OPTION);
+				if (jtxtuserid.getText().trim().contentEquals("admin") || jtxtuserid.getText().trim().contentEquals("admin3") || jtxtuserid.getText().trim().contentEquals("E101")){
 	    			String listval = (String) jcbcurrentbandlevel.getSelectedItem();
-					
+	    		  if (result == JOptionPane.OK_OPTION) { 	
 	    			if (listval != null){
 	    				String titleProfInfo = "CurrentBandLevel";
 	    				
@@ -961,7 +943,7 @@ public class IgniteForm extends JFrame {
 	    	        			
 	    	        		DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) jcbcurrentbandlevel.getModel();
 	    	        		model.removeAllElements();
-	    	        		fillDatajcbhiringtype(jcbcurrentbandlevel);	
+	    	        		fillDatajcbcurrentbandlevel(jcbcurrentbandlevel);
 					        
 	    	        		} catch (SQLException e2) {
 	    	        			e2.printStackTrace();}
@@ -969,10 +951,10 @@ public class IgniteForm extends JFrame {
 	    	        JOptionPane.showMessageDialog(null, "Skill removed from profileInfoSelections DB");
 	    	        
 	    	        
-	    			}else{
-	    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-	    				}
-	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
+	    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
+	    		
+	    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
+			  }else{JOptionPane.showMessageDialog(null, "admin use only");}
 			}
 		});
 		btnRemoveCurBandLvltolist.setToolTipText("Admin only");
@@ -1020,10 +1002,12 @@ public class IgniteForm extends JFrame {
 		btnRemoveHiredBandlvltolist.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
+			  int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM", JOptionPane.OK_CANCEL_OPTION);
+			  
 				if (jtxtuserid.getText().trim().contentEquals("admin") || jtxtuserid.getText().trim().contentEquals("admin3") || jtxtuserid.getText().trim().contentEquals("E101"))
 				{
 	    			String listval = (String) jcbhiredbandlevel.getSelectedItem();
-					
+	    		  if (result == JOptionPane.OK_OPTION) { 
 	    			if (listval != null){
 	    				String titleProfInfo = "HiredBandLevel";
 	    				
@@ -1040,17 +1024,15 @@ public class IgniteForm extends JFrame {
 							
 	    	        		DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) jcbhiredbandlevel.getModel();
 	    	        		model.removeAllElements();
-	    	        		fillDatajcbhiringtype(jcbhiredbandlevel);	
+	    	        		fillDatajcbhiredbandlevel(jcbhiredbandlevel);	
 					        
 	    	        		} catch (SQLException e2) {
 	    	        			e2.printStackTrace();}
 	    						
 	    	        JOptionPane.showMessageDialog(null, "Skill removed from profileInfoSelections DB");
 	    	        
-	    	        
-	    			}else{
-	    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-	    				}
+	    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
+	    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
 	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
 			}
 		});
@@ -1096,9 +1078,11 @@ public class IgniteForm extends JFrame {
 		btnRemoveSecurityLvltolist.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
+			  int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM", JOptionPane.OK_CANCEL_OPTION);
+			  
 				if (jtxtuserid.getText().trim().contentEquals("admin") || jtxtuserid.getText().trim().contentEquals("admin3") || jtxtuserid.getText().trim().contentEquals("E101")){
 	    			String listval = (String) jcbsecuritylevel.getSelectedItem();
-					
+	    		  if (result == JOptionPane.OK_OPTION) { 
 	    			if (listval != null){
 	    				String titleProfInfo = "SecurityLevel";
 	    				
@@ -1115,7 +1099,7 @@ public class IgniteForm extends JFrame {
 							
 	    	        		DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) jcbsecuritylevel.getModel();
 	    	        		model.removeAllElements();
-	    	        		fillDatajcbhiringtype(jcbsecuritylevel);	
+	    	        		fillDatajcbsecuritylevel(jcbsecuritylevel);	
 					        
 	    	        		} catch (SQLException e2) {
 	    	        			e2.printStackTrace();}
@@ -1123,9 +1107,8 @@ public class IgniteForm extends JFrame {
 	    	        JOptionPane.showMessageDialog(null, "Skill removed from profileInfoSelections DB");
 	    	        
 	    	        
-	    			}else{
-	    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-	    				}
+	    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
+	    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
 	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
 			}
 		});
@@ -1171,10 +1154,10 @@ public class IgniteForm extends JFrame {
 		btnRemoveAdditionalExptolist.addActionListener(new ActionListener() {
 		
 			public void actionPerformed(ActionEvent e) {
-				if ((jtxtuserid.getText().trim().contentEquals("admin") || jtxtuserid.getText().trim().contentEquals("admin3") || jtxtuserid.getText().trim().contentEquals("E101")))
-				{
+			  int result = JOptionPane.showConfirmDialog(null, "Do you wish to remove value from list?", "CONFIRM", JOptionPane.OK_CANCEL_OPTION);
+				if ((jtxtuserid.getText().trim().contentEquals("admin") || jtxtuserid.getText().trim().contentEquals("admin3") || jtxtuserid.getText().trim().contentEquals("E101"))){
 	    			String listval = (String) jcbadditionalexperience.getSelectedItem();
-					
+	    		  if (result == JOptionPane.OK_OPTION) {	
 	    			if (listval != null){
 	    				String titleProfInfo = "AdditionalExperience";
 	    				
@@ -1190,17 +1173,15 @@ public class IgniteForm extends JFrame {
 	    	        			
 	    	        		DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) jcbadditionalexperience.getModel();
 	    	        		model.removeAllElements();
-	    	        		fillDatajcbhiringtype(jcbadditionalexperience);	
+	    	        		fillDatajcbadditionalexperience(jcbadditionalexperience);
 					        
 	    	        		} catch (SQLException e2) {
 	    	        			e2.printStackTrace();}
 	    						
 	    	        JOptionPane.showMessageDialog(null, "Skill removed from profileInfoSelections DB");
 	    	        
-	    	        
-	    			}else{
-	    				JOptionPane.showMessageDialog(null, "Please select a value from the list.");
-	    				}
+	    			}else{JOptionPane.showMessageDialog(null, "Please select a value from the list.");}
+	    		  }else{JOptionPane.showMessageDialog(null, "CANCELLED");}
 	    		}else{JOptionPane.showMessageDialog(null, "admin use only");}
 			}
 		});
@@ -1217,16 +1198,8 @@ public class IgniteForm extends JFrame {
 				adminData();
 			}
 		});
-		btnRefreshButton.setBounds(1259, 34, 148, 23);
+		btnRefreshButton.setBounds(1206, 44, 148, 23);
 		contentPane.add(btnRefreshButton);
-		
-		JLabel lblViewRecord_Infosave_1 = new JLabel("<click on ADD/UPDATE PROFILE>");
-		lblViewRecord_Infosave_1.setVerticalAlignment(SwingConstants.TOP);
-		lblViewRecord_Infosave_1.setHorizontalAlignment(SwingConstants.LEFT);
-		lblViewRecord_Infosave_1.setForeground(new Color(138, 0, 69));
-		lblViewRecord_Infosave_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblViewRecord_Infosave_1.setBounds(758, 432, 628, 21);
-		contentPane.add(lblViewRecord_Infosave_1);
 		
 		JButton btnViewCareerPath = new JButton("View Career Path>>>");
 		btnViewCareerPath.addActionListener(new ActionListener() {
@@ -1245,70 +1218,59 @@ public class IgniteForm extends JFrame {
 		btnViewCareerPath.setForeground(Color.BLUE);
 		btnViewCareerPath.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		btnViewCareerPath.setBackground(new Color(128, 255, 255));
-		btnViewCareerPath.setBounds(758, 690, 274, 50);
+		btnViewCareerPath.setBounds(758, 663, 274, 36);
 		contentPane.add(btnViewCareerPath);
 		
 		textField_BAY = new JTextField();
 		textField_BAY.setVisible(false);
-		textField_BAY.setEnabled(false);
 		textField_BAY.setBounds(1258, 585, 51, 20);
-		contentPane.add(textField_BAY);
 		textField_BAY.setColumns(10);
+		contentPane.add(textField_BAY);
 		
 		textField_BAM = new JTextField();
 		textField_BAM.setVisible(false);
-		textField_BAM.setEnabled(false);
-		textField_BAM.setEditable(false);
 		textField_BAM.setColumns(10);
 		textField_BAM.setBounds(1322, 585, 51, 20);
 		contentPane.add(textField_BAM);
 		
 		textField_TechY = new JTextField();
 		textField_TechY.setVisible(false);
-		textField_TechY.setEnabled(false);
 		textField_TechY.setColumns(10);
 		textField_TechY.setBounds(1259, 613, 51, 20);
 		contentPane.add(textField_TechY);
 		
 		textField_TechM = new JTextField();
 		textField_TechM.setVisible(false);
-		textField_TechM.setEnabled(false);
 		textField_TechM.setColumns(10);
 		textField_TechM.setBounds(1323, 613, 51, 20);
 		contentPane.add(textField_TechM);
 		
 		textField_FunY = new JTextField();
 		textField_FunY.setVisible(false);
-		textField_FunY.setEnabled(false);
 		textField_FunY.setColumns(10);
 		textField_FunY.setBounds(1259, 644, 51, 20);
 		contentPane.add(textField_FunY);
 		
 		textField_FunM = new JTextField();
 		textField_FunM.setVisible(false);
-		textField_FunM.setEnabled(false);
 		textField_FunM.setColumns(10);
 		textField_FunM.setBounds(1323, 644, 51, 20);
 		contentPane.add(textField_FunM);
 		
 		textField_ManY = new JTextField();
 		textField_ManY.setVisible(false);
-		textField_ManY.setEnabled(false);
 		textField_ManY.setColumns(10);
 		textField_ManY.setBounds(1259, 673, 51, 20);
 		contentPane.add(textField_ManY);
 		
 		textField_ManM = new JTextField();
 		textField_ManM.setVisible(false);
-		textField_ManM.setEnabled(false);
 		textField_ManM.setColumns(10);
 		textField_ManM.setBounds(1323, 673, 51, 20);
 		contentPane.add(textField_ManM);
 		
 		txtBa = new JTextField();
 		txtBa.setVisible(false);
-		txtBa.setEnabled(false);
-		txtBa.setEditable(false);
 		txtBa.setText("BA");
 		txtBa.setBounds(1206, 585, 42, 20);
 		contentPane.add(txtBa);
@@ -1316,8 +1278,6 @@ public class IgniteForm extends JFrame {
 		
 		txtTech = new JTextField();
 		txtTech.setVisible(false);
-		txtTech.setEditable(false);
-		txtTech.setEnabled(false);
 		txtTech.setText("Tech");
 		txtTech.setColumns(10);
 		txtTech.setBounds(1206, 614, 43, 20);
@@ -1325,8 +1285,6 @@ public class IgniteForm extends JFrame {
 		
 		txtFun = new JTextField();
 		txtFun.setVisible(false);
-		txtFun.setEditable(false);
-		txtFun.setEnabled(false);
 		txtFun.setText("Fun");
 		txtFun.setColumns(10);
 		txtFun.setBounds(1206, 646, 43, 20);
@@ -1334,12 +1292,76 @@ public class IgniteForm extends JFrame {
 		
 		txtMan = new JTextField();
 		txtMan.setVisible(false);
-		txtMan.setEnabled(false);
-		txtMan.setEditable(false);
 		txtMan.setText("Man");
 		txtMan.setColumns(10);
 		txtMan.setBounds(1206, 673, 43, 20);
 		contentPane.add(txtMan);
+		
+		JLabel lblStepsForUser_newuser_2_1 = new JLabel("3.  Select your Record Details above <highlight>");
+		lblStepsForUser_newuser_2_1.setVerticalAlignment(SwingConstants.TOP);
+		lblStepsForUser_newuser_2_1.setHorizontalAlignment(SwingConstants.LEFT);
+		lblStepsForUser_newuser_2_1.setForeground(Color.BLUE);
+		lblStepsForUser_newuser_2_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
+		lblStepsForUser_newuser_2_1.setBounds(787, 434, 431, 21);
+		contentPane.add(lblStepsForUser_newuser_2_1);
+		
+		JLabel lblViewRecord_Infosave_1_1 = new JLabel("Note:  Career Path is optional");
+		lblViewRecord_Infosave_1_1.setVerticalAlignment(SwingConstants.TOP);
+		lblViewRecord_Infosave_1_1.setHorizontalAlignment(SwingConstants.LEFT);
+		lblViewRecord_Infosave_1_1.setForeground(new Color(0, 128, 255));
+		lblViewRecord_Infosave_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblViewRecord_Infosave_1_1.setBounds(758, 491, 237, 21);
+		contentPane.add(lblViewRecord_Infosave_1_1);
+		
+		scrollPaneTable = new JScrollPane();
+		scrollPaneTable.setBounds(31, 77, 1320, 113);
+		contentPane.add(scrollPaneTable);
+		scrollPaneTable.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPaneTable.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		
+		table = new JTable();
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				DefaultTableModel tmodel=(DefaultTableModel) table.getModel();
+				
+				int row=table.getSelectedRow();
+				
+				if (table.getRowSorter()!=null) {
+				    row = table.getRowSorter().convertRowIndexToModel(row);
+				}
+				
+				jtxtemployeeid.setText(tmodel.getValueAt(row, 0).toString());
+				jtxtfirstname.setText(tmodel.getValueAt(row, 1).toString());
+				jtxtlastname.setText(tmodel.getValueAt(row, 2).toString());
+				jtxtprofilemanager.setText(tmodel.getValueAt(row, 3).toString());
+				jtxtdateofjoin.setText(tmodel.getValueAt(row, 4).toString());
+				jcbhiredbandlevel.setSelectedItem(tmodel.getValueAt(row, 5).toString());
+				jcbcurrentbandlevel.setSelectedItem(tmodel.getValueAt(row, 6).toString());
+				jcboverallyearsexperience.setSelectedItem(tmodel.getValueAt(row, 7).toString());
+				jcboverallmonthexperience.setSelectedItem(tmodel.getValueAt(row, 8).toString());
+				jcbadditionalexperience.setSelectedItem(tmodel.getValueAt(row, 9).toString());
+				jcbsecuritylevel.setSelectedItem(tmodel.getValueAt(row, 10).toString());				
+				jcbhiringtype_1.setSelectedItem(tmodel.getValueAt(row, 11).toString());
+				jtxtjobroll.setText(tmodel.getValueAt(row, 12).toString());
+				jtxtlastprogression.setText(tmodel.getValueAt(row, 13).toString());
+				jtxtmentorname.setText(tmodel.getValueAt(row, 14).toString());
+				jtxtcoachname.setText(tmodel.getValueAt(row, 15).toString());
+				jtxtassetpatent.setText(tmodel.getValueAt(row, 16).toString());
+				jtxtintellectual.setText(tmodel.getValueAt(row, 17).toString());
+				jtxtshorttermgoal.setText(tmodel.getValueAt(row, 18).toString());
+				jtxtlongtermgoal.setText(tmodel.getValueAt(row, 19).toString());
+				jtxttrainingplans.setText(tmodel.getValueAt(row, 20).toString());
+				jtxtcertificationplans.setText(tmodel.getValueAt(row, 21).toString());
+				jtxtbadgeplans.setText(tmodel.getValueAt(row, 22).toString());
+				jtxtinovationgoal.setText(tmodel.getValueAt(row, 23).toString());
+				jtxtuserid.setText(tmodel.getValueAt(row, 24).toString());
+				
+				
+			}
+		});
+		scrollPaneTable.setViewportView(table);
 
 	}
 	
@@ -1446,7 +1468,7 @@ public class IgniteForm extends JFrame {
 			
 		}
 		
-		String qrry="DELETE from CareerPath where emplyoyeeID=?";
+		String qrry="DELETE from CareerPath where employeeid=?";
 		PreparedStatement pss=conn.prepareStatement(qrry);
 		try {
 			
@@ -1615,6 +1637,7 @@ public void fillDatajcbadditionalexperience(JComboBox jcbadditionalexperience){
 		while (rs.next()) {
             	
 			jcbadditionalexperience.addItem(rs.getString("selectionName"));
+			jcbadditionalexperience.setSelectedIndex(-1);
             
             }
 
@@ -1641,6 +1664,7 @@ public void fillDatajcbsecuritylevel(JComboBox jcbsecuritylevel){
 		while (rs.next()) { 
             	
 			jcbsecuritylevel.addItem(rs.getString("selectionName"));
+			jcbsecuritylevel.setSelectedIndex(-1);
             
             }
 
@@ -1667,6 +1691,7 @@ public void fillDatajcbhiringtype(JComboBox jcbhiringtype){
 		while (rs.next()) {
             	
 			jcbhiringtype.addItem(rs.getString("selectionName"));
+			jcbhiringtype.setSelectedIndex(-1);
             
             }
 
@@ -1693,6 +1718,7 @@ public void fillDatajcbcurrentbandlevel(JComboBox jcbcurrentbandlevel){
 		while (rs.next()) {
             	
 			jcbcurrentbandlevel.addItem(rs.getString("selectionName"));
+			jcbcurrentbandlevel.setSelectedIndex(-1);
             
             }
 

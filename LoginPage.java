@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,6 +21,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import java.awt.Color;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 
 @SuppressWarnings({ "serial", "unused" })
 public class LoginPage extends JFrame {
@@ -30,10 +32,6 @@ public class LoginPage extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	
-	
-	
-	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -42,6 +40,7 @@ public class LoginPage extends JFrame {
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
+					
 				}
 			}
 		});
@@ -55,11 +54,10 @@ public class LoginPage extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
 	public LoginPage() {
 		setForeground(new Color(250, 235, 215));
 		setBackground(new Color(250, 235, 215));
-		conn = dbConnection.ConnectDB();
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 688, 488);
 		contentPane = new JPanel();
@@ -68,7 +66,7 @@ public class LoginPage extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+	
 		txtUserName = new JTextField();
 		txtUserName.setSelectedTextColor(new Color(0, 0, 255));
 		txtUserName.setForeground(new Color(235, 248, 248));
@@ -90,6 +88,8 @@ public class LoginPage extends JFrame {
 		lblPassword.setFont(new Font("Tahoma", Font.ITALIC, 18));
 		lblPassword.setBounds(115, 195, 92, 25);
 		contentPane.add(lblPassword);
+		
+		conn = dbConnection.ConnectDB();
 		
 		JButton btnlogin = new JButton("Login");
 		btnlogin.setForeground(new Color(0, 0, 255));
@@ -131,13 +131,12 @@ public class LoginPage extends JFrame {
 						
 						JOptionPane.showMessageDialog(null,"Login UnSuccessful Username or Password incorrect..");
 					}
-					
-					
 					pst.close();
 					rs.close();
 					
 				}catch (Exception u) {
-						u.printStackTrace();		
+						u.printStackTrace();
+						
 				}
 			}
 		});
@@ -149,9 +148,7 @@ public class LoginPage extends JFrame {
 		btnExit.setBackground(new Color(142, 194, 255));
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				dispose();
-				
 			}
 		});
 		btnExit.setBounds(211, 286, 89, 23);

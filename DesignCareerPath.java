@@ -17,6 +17,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.lang.module.ModuleDescriptor.Requires;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,9 +28,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
+import java.awt.Rectangle;
+import javax.swing.ScrollPaneConstants;
+import java.awt.Dimension;
+import java.awt.Component;
 
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "unused" })
 public class DesignCareerPath extends JFrame{
 	
 	Connection conn = null;
@@ -38,19 +44,24 @@ public class DesignCareerPath extends JFrame{
 	
 
 	private JTextField jtxtuserid;
+	private JTextField textField_Requirement ;
+	private JTextField textField_Mentors;
+	private JTextField textField_Description;
+	private JTextField textField_Notes;
+	
+	
 	public String AdminUser;
 	private JTextField textField_EmployeeID;
 	private JTextField textFieldTitle;
 	private JTextField textField_StartDate;
 	private JTextField textField_EndDate;
-	private JTextField textField_Mentor;
 	private JTextField textField_Status;
 	private JTable table;
 	public String cid = "0";
 	
 	DefaultTableModel model;
 	
-	private JScrollPane scrollPane;
+	private JScrollPane scrollPaneTable;
 	private JLabel lblNewLabel_4;
 	private JLabel lblNewLabel_5;
 	private JLabel lblNewLabel_6;
@@ -60,13 +71,14 @@ public class DesignCareerPath extends JFrame{
 	private JButton btnDELETEButton;
 	private JButton btnSAVEButton;
 	private JTextField textField_careerid;
-	private JScrollPane scrollPane_1;
-	private JScrollPane scrollPane_2;
-	private JScrollPane scrollPane_3;
-	private JScrollPane scrollPane_4;
+	private JScrollPane scrollPane_Requirement;
+	private JScrollPane scrollPane_Description;
+	private JScrollPane scrollPane_Mentors;
+	private JScrollPane scrollPane_Notes;
 	
 	@SuppressWarnings("deprecation")
 	public DesignCareerPath() {
+		getContentPane().setBackground(new Color(208, 252, 255));
 		getContentPane().setForeground(new Color(223, 244, 244));
 		
 
@@ -86,7 +98,7 @@ public class DesignCareerPath extends JFrame{
 					
 					else {
 						
-						System.out.println(userstr);
+						//System.out.println(userstr);
 						filter();
 						
 					}
@@ -102,120 +114,128 @@ public class DesignCareerPath extends JFrame{
 		setBounds(100, 100, 1438, 869);		
 		
 		JLabel lblNewLabel = new JLabel("Design your own Career Path");
-		lblNewLabel.setBounds(38, 42, 225, 32);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel.setBounds(38, 42, 409, 32);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 24));
 		getContentPane().add(lblNewLabel);
 		
 		JLabel lblWelcome = new JLabel("Welcome!");
+		lblWelcome.setVerticalTextPosition(SwingConstants.BOTTOM);
 		lblWelcome.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblWelcome.setBounds(38, 85, 89, 32);
+		lblWelcome.setBounds(45, 99, 84, 22);
 		getContentPane().add(lblWelcome);
 		
 		jtxtuserid = new JTextField();
-		jtxtuserid.setBounds(116, 90, 129, 22);
+		jtxtuserid.setBackground(new Color(208, 252, 255));
+		jtxtuserid.setBounds(126, 101, 129, 22);
 		getContentPane().add(jtxtuserid);
 		jtxtuserid.setColumns(1);
 		
 		textField_EmployeeID = new JTextField();
-		textField_EmployeeID.setBounds(146, 427, 154, 20);
+		textField_EmployeeID.setBounds(361, 116, 154, 20);
 		getContentPane().add(textField_EmployeeID);
 		textField_EmployeeID.setColumns(10);
 		textField_EmployeeID.enable(false);
 		
 		textFieldTitle = new JTextField();
-		textFieldTitle.setBounds(395, 427, 736, 32);
+		textFieldTitle.setBounds(69, 399, 736, 32);
 		getContentPane().add(textFieldTitle);
 		textFieldTitle.setColumns(10);
 		
 		textField_StartDate = new JTextField();
-		textField_StartDate.setBounds(395, 504, 96, 20);
+		textField_StartDate.setBounds(879, 405, 96, 20);
 		getContentPane().add(textField_StartDate);
 		textField_StartDate.setColumns(10);
 		
 		textField_EndDate = new JTextField();
-		textField_EndDate.setBounds(537, 504, 96, 20);
+		textField_EndDate.setBounds(1033, 405, 96, 20);
 		getContentPane().add(textField_EndDate);
 		textField_EndDate.setColumns(10);
 		
-		scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(38, 520, 309, 74);
-		getContentPane().add(scrollPane_2);
-		
-		JTextArea Requirement = new JTextArea();
-		scrollPane_2.setViewportView(Requirement);
-		
-		scrollPane_3 = new JScrollPane();
-		scrollPane_3.setBounds(38, 636, 557, 141);
-		getContentPane().add(scrollPane_3);
-		
-		JTextArea Description = new JTextArea();
-		scrollPane_3.setViewportView(Description);
-		
-		scrollPane_4 = new JScrollPane();
-		scrollPane_4.setBounds(656, 636, 668, 141);
-		getContentPane().add(scrollPane_4);
-		
-		JTextArea Notes = new JTextArea();
-		scrollPane_4.setViewportView(Notes);
-		
 		textField_careerid = new JTextField();
-		textField_careerid.setBounds(146, 459, 96, 20);
+		textField_careerid.setBounds(583, 116, 96, 20);
 		getContentPane().add(textField_careerid);
 		textField_careerid.setColumns(10);
 		textField_careerid.enable(false);
 		
 		JLabel lblNewLabel_1 = new JLabel("Title:");
-		lblNewLabel_1.setBounds(310, 430, 75, 14);
+		lblNewLabel_1.setBounds(38, 408, 40, 14);
 		getContentPane().add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Requirement");
-		lblNewLabel_1_1.setBounds(38, 495, 78, 14);
+		lblNewLabel_1_1.setBounds(38, 442, 78, 14);
 		getContentPane().add(lblNewLabel_1_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Employeeid");
-		lblNewLabel_2.setBounds(38, 430, 64, 14);
+		lblNewLabel_2.setBounds(298, 119, 78, 14);
 		getContentPane().add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("Careerid");
-		lblNewLabel_3.setBounds(38, 462, 49, 14);
+		lblNewLabel_3.setBounds(525, 119, 84, 14);
 		getContentPane().add(lblNewLabel_3);
 		
-		textField_Mentor = new JTextField();
-		textField_Mentor.setBounds(126, 804, 295, 20);
-		getContentPane().add(textField_Mentor);
-		textField_Mentor.setColumns(10);
-		
 		textField_Status = new JTextField();
-		textField_Status.setBounds(688, 504, 171, 20);
+		textField_Status.setBounds(1186, 405, 171, 20);
 		getContentPane().add(textField_Status);
 		textField_Status.setColumns(10);
 		
 		lblNewLabel_4 = new JLabel("Mentors");
-		lblNewLabel_4.setBounds(57, 807, 59, 14);
+		lblNewLabel_4.setBounds(38, 627, 59, 14);
 		getContentPane().add(lblNewLabel_4);
 		
 		lblNewLabel_5 = new JLabel("Start Date");
-		lblNewLabel_5.setBounds(405, 479, 78, 14);
+		lblNewLabel_5.setBounds(815, 408, 78, 14);
 		getContentPane().add(lblNewLabel_5);
 		
 		lblNewLabel_6 = new JLabel("End Date");
-		lblNewLabel_6.setBounds(551, 479, 82, 14);
+		lblNewLabel_6.setBounds(985, 408, 82, 14);
 		getContentPane().add(lblNewLabel_6);
 		
 		lblNewLabel_7 = new JLabel("Status");
-		lblNewLabel_7.setBounds(699, 479, 129, 14);
+		lblNewLabel_7.setBounds(1139, 408, 129, 14);
 		getContentPane().add(lblNewLabel_7);
 		
 		lblNewLabel_8 = new JLabel("Description");
-		lblNewLabel_8.setBounds(38, 611, 154, 14);
+		lblNewLabel_8.setBounds(701, 442, 143, 14);
 		getContentPane().add(lblNewLabel_8);
 		
 		lblNewLabel_9 = new JLabel("Notes");
-		lblNewLabel_9.setBounds(656, 611, 89, 14);
+		lblNewLabel_9.setBounds(701, 627, 49, 14);
 		getContentPane().add(lblNewLabel_9);
 		
+		scrollPane_Requirement = new JScrollPane();
+		scrollPane_Requirement.setBounds(38, 467, 627, 138);
+		getContentPane().add(scrollPane_Requirement);
+		
+		JTextArea textField_Requirement = new JTextArea();
+		scrollPane_Requirement.setViewportView(textField_Requirement);
+		textField_Requirement.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		
+		scrollPane_Description = new JScrollPane();
+		scrollPane_Description.setBounds(701, 464, 614, 141);
+		getContentPane().add(scrollPane_Description);
+		
+		JTextArea textField_Description = new JTextArea();
+		scrollPane_Description.setViewportView(textField_Description);
+		textField_Description.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		
+		scrollPane_Mentors = new JScrollPane();
+		scrollPane_Mentors.setBounds(38, 641, 627, 105);
+		getContentPane().add(scrollPane_Mentors);
+		
+		JTextArea textField_Mentors = new JTextArea();
+		scrollPane_Mentors.setViewportView(textField_Mentors);
+		textField_Mentors.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		
+		scrollPane_Notes = new JScrollPane();
+		scrollPane_Notes.setBounds(701, 645, 627, 101);
+		getContentPane().add(scrollPane_Notes);
+		
+		JTextArea textField_Notes = new JTextArea();
+		scrollPane_Notes.setViewportView(textField_Notes);
+		textField_Notes.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		
 		JButton btnADDButton = new JButton("ADD a New Record");
-		btnADDButton.setBounds(924, 65, 188, 23);
+		btnADDButton.setBounds(911, 115, 188, 23);
 		btnADDButton.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
@@ -226,13 +246,14 @@ public class DesignCareerPath extends JFrame{
 				
 				pst.setString(1,jtxtuserid.getText());
 				pst.setString(2,textFieldTitle.getText());
-				pst.setString(3,Requirement.getText());
+				
+				pst.setString(3,textField_Requirement.getText());
 				pst.setString(4,textField_StartDate.getText());					
 				pst.setString(5,textField_EndDate.getText());    					
-			    pst.setString(6,textField_Mentor.getText());
+			    pst.setString(6,textField_Mentors.getText());
 			   	pst.setString(7,textField_Status.getText());
-		  		pst.setString(8,Description.getText());
-		  		pst.setString(9,Notes.getText());
+		  		pst.setString(8,textField_Description.getText());
+		  		pst.setString(9,textField_Notes.getText());
 				
 				
 				pst.execute();
@@ -248,40 +269,6 @@ public class DesignCareerPath extends JFrame{
 			}
 		});
 		getContentPane().add(btnADDButton);
-		
-		scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(48, 144, 1247, 240);
-		getContentPane().add(scrollPane_1);
-		
-		scrollPane = new JScrollPane();
-		scrollPane_1.setViewportView(scrollPane);
-		
-		table= new JTable();
-		table.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				DefaultTableModel tmodel=(DefaultTableModel) table.getModel();
-				
-				int row=table.getSelectedRow();
-				
-				if (table.getRowSorter()!=null) {
-				    row = table.getRowSorter().convertRowIndexToModel(row);
-				}
-				
-				textField_EmployeeID.setText(tmodel.getValueAt(row, 0).toString());
-				textField_careerid.setText(tmodel.getValueAt(row, 1).toString());
-				textFieldTitle.setText(tmodel.getValueAt(row, 2).toString());
-				Requirement.setText(tmodel.getValueAt(row, 3).toString());
-				textField_StartDate.setText(tmodel.getValueAt(row, 4).toString());
-				textField_EndDate.setText(tmodel.getValueAt(row, 5).toString());
-				textField_Mentor.setText(tmodel.getValueAt(row, 6).toString());
-				textField_Status.setText(tmodel.getValueAt(row, 7).toString());
-				Description.setText(tmodel.getValueAt(row, 8).toString());
-				Notes.setText(tmodel.getValueAt(row, 9).toString());
-				
-			}
-		});
-		scrollPane.setViewportView(table);	
 		model= new DefaultTableModel();
 		Object[] column = {"employeeID","CareerID","Title","Requirements","StartDate","EndDate","Mentors","Status","Description" ,"Notes"};
 		@SuppressWarnings("unused")
@@ -322,7 +309,7 @@ public class DesignCareerPath extends JFrame{
 			}
 						
 		});
-		btnDELETEButton.setBounds(1147, 65, 89, 23);
+		btnDELETEButton.setBounds(1251, 115, 89, 23);
 		getContentPane().add(btnDELETEButton);
 		
 		btnSAVEButton = new JButton("Update/Save");
@@ -336,20 +323,23 @@ public class DesignCareerPath extends JFrame{
 					
 				if (jtxtuserid != null){
 					String carid = textField_careerid.getText();
+					//Requirement = new JTextArea(10, 10);
+					
+					//JTextArea text=new JTextArea();
+					//String contents = textArea.getText();
 					
 					pst.setString(1,jtxtuserid.getText());
 					pst.setInt(2, Integer.parseInt(carid));
 					
 					pst.setString(3,textFieldTitle.getText());
-					pst.setString(4,Requirement.getText());
+					pst.setString(4,textField_Requirement.getText());
 					pst.setString(5,textField_StartDate.getText());					
 					pst.setString(6,textField_EndDate.getText());    					
-				    pst.setString(7,textField_Mentor.getText());
+				    pst.setString(7,textField_Mentors.getText());
 				   	pst.setString(8,textField_Status.getText());
-			  		pst.setString(9,Description.getText());
-			  		pst.setString(10,Notes.getText());
-					
-					
+			  		pst.setString(9,textField_Description.getText());
+			  		pst.setString(10,textField_Notes.getText());
+
 					pst.execute();
 					JOptionPane.showMessageDialog(null, "Your Data has been Saved");
 					pst.close();
@@ -367,8 +357,45 @@ public class DesignCareerPath extends JFrame{
 			}
 		});
 		
-		btnSAVEButton.setBounds(1261, 65, 129, 23);
+		btnSAVEButton.setBounds(1112, 115, 129, 23);
 		getContentPane().add(btnSAVEButton);
+		
+		scrollPaneTable = new JScrollPane();
+		getContentPane().add(scrollPaneTable);
+		scrollPaneTable.setAlignmentY(Component.TOP_ALIGNMENT);
+		scrollPaneTable.setAlignmentX(Component.LEFT_ALIGNMENT);
+		scrollPaneTable.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPaneTable.setMaximumSize(new Dimension(1000, 1000));
+		scrollPaneTable.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPaneTable.setBounds(new Rectangle(58, 146, 1281, 171));
+		
+		table= new JTable();
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				DefaultTableModel tmodel=(DefaultTableModel) table.getModel();
+				
+				int row=table.getSelectedRow();
+				
+				if (table.getRowSorter()!=null) {
+				    row = table.getRowSorter().convertRowIndexToModel(row);
+				}
+				
+				textField_EmployeeID.setText(tmodel.getValueAt(row, 0).toString());
+				textField_careerid.setText(tmodel.getValueAt(row, 1).toString());
+				textFieldTitle.setText(tmodel.getValueAt(row, 2).toString());
+				textField_Requirement.setText(tmodel.getValueAt(row, 3).toString());
+				textField_StartDate.setText(tmodel.getValueAt(row, 4).toString());
+				textField_EndDate.setText(tmodel.getValueAt(row, 5).toString());
+				textField_Mentors.setText(tmodel.getValueAt(row, 6).toString());
+				textField_Status.setText(tmodel.getValueAt(row, 7).toString());
+				textField_Description.setText(tmodel.getValueAt(row, 8).toString());
+				textField_Notes.setText(tmodel.getValueAt(row, 9).toString());
+	
+			}
+		});
+		scrollPaneTable.setViewportView(table);	
 		
 	}
 
@@ -425,8 +452,8 @@ public void adminData() {
 		jtxtuserid.setText(str);
 		jtxtuserid.setBorder(null);
 		jtxtuserid.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		jtxtuserid.setBounds(193, 90, 154, 22);
-		jtxtuserid.setBackground(new Color(128, 255, 255));
+		jtxtuserid.setBounds(126, 101, 129, 22);
+		jtxtuserid.setBackground(new Color(208, 252, 255));
 		getContentPane().add(jtxtuserid);
 		jtxtuserid.setColumns(1);
 		
